@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <style>
+    body { margin: 0; background: #1A1216; }
+    a { color: #A83456; text-decoration: underline; }
+    a:hover { color: #7E2440; }
+  </style>
+</helmet>
+<div style="background: #1A1216; color: var(--fg-1); font-family: var(--font-body); padding: 64px; display: flex; flex-direction: column; gap: 96px; width: max-content;">
+
+  <section style="display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h1 style="margin: 0; font: 900 64px/.9 var(--font-display); text-transform: uppercase;">Correos</h1>
+      <p style="margin: 0; font-size: 18px; color: var(--fg-2); max-width: 760px;">600 px de ancho, fondo claro para que se lean igual en Gmail, Outlook y el móvil. Si el cliente no carga las fuentes, pasan a Arial Black y Arial.</p>
+    </div>
+    <div style="display: flex; gap: 48px; align-items: flex-start;">
+
+      <div id="E1" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">E1</span><span style="font-weight: 700;">Entradas · tipo «entradas»</span></div>
+        <div style="font-size: 14px; color: var(--fg-2);">Asunto: <strong style="color: var(--fg-1);">Tus entradas para Fuego Latino · sáb 21 nov</strong></div>
+        <div style="width: 600px; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; font-size: 16px; line-height: 1.55;">
+          <div style="background: #0B0709; padding: 28px 40px; display: flex; justify-content: center;"><img src="assets/logo-white.png" alt="Magenta" style="height: 72px; display: block;"></div>
+          <div style="padding: 40px 40px 8px; display: flex; flex-direction: column; gap: 18px;">
+            <span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #A83456;">Compra confirmada</span>
+            <h2 style="margin: 0; color: #1A1216; font: 900 44px/.92 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Ya tienes tus entradas, Lucía</h2>
+            <p style="margin: 0;">Van en el PDF adjunto: una entrada por persona, cada una con su QR. Enséñalo en la puerta desde el móvil o impreso, junto con tu DNI.</p>
+          </div>
+          <div style="margin: 20px 40px; padding: 16px 18px; border: 1px solid #E4DCDF; display: flex; gap: 14px; align-items: center;">
+            <span style="width: 40px; height: 48px; flex: none; background: #A83456; color: #FFFFFF; font: 700 11px/48px 'JetBrains Mono', monospace; text-align: center;">PDF</span>
+            <span style="display: flex; flex-direction: column;"><strong>entradas-K7Q2D9XAM.pdf</strong><span style="font-size: 14px; color: #5E5358;">3 entradas · 212 KB</span></span>
+          </div>
+          <div style="padding: 8px 40px 28px; display: flex; flex-direction: column;">
+            <div style="padding: 14px 0; border-bottom: 1px solid #E4DCDF; display: flex; flex-direction: column; gap: 2px;">
+              <strong style="font: 900 26px/1 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Fuego Latino</strong>
+              <span>Sábado 21 de noviembre · puertas 23:30</span>
+              <span style="color: #5E5358;">Carrer dels Llauradors, 44 · Almussafes</span>
+            </div>
+            <div style="padding: 12px 0; border-bottom: 1px solid #E4DCDF; display: flex; justify-content: space-between;"><span>Anticipada × 2</span><span style="font-family: 'JetBrains Mono', monospace;">24,00 €</span></div>
+            <div style="padding: 12px 0; border-bottom: 1px solid #E4DCDF; display: flex; justify-content: space-between;"><span>Anticipada + copa × 1</span><span style="font-family: 'JetBrains Mono', monospace;">20,00 €</span></div>
+            <div style="padding: 12px 0; border-bottom: 1px solid #E4DCDF; display: flex; justify-content: space-between; color: #5E5358;"><span>Gastos de gestión</span><span style="font-family: 'JetBrains Mono', monospace;">3,00 €</span></div>
+            <div style="padding: 14px 0; display: flex; justify-content: space-between; align-items: baseline;"><strong style="font: 900 22px/1 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Total pagado</strong><strong style="font: 700 20px/1 'JetBrains Mono', monospace;">47,00 €</strong></div>
+            <span style="font-size: 14px; color: #5E5358;">Código de compra <strong style="font-family: 'JetBrains Mono', monospace; color: #1A1216;">K7Q-2D9-XAM</strong> · Tarjeta ···· 4242</span>
+          </div>
+          <div style="margin: 0 40px 36px; padding: 18px 20px; background: #F6F1F3; font-size: 15px; display: flex; flex-direction: column; gap: 6px;">
+            <strong>Antes de venir</strong>
+            <span>+18 con DNI o pasaporte original. Cada QR vale para una sola entrada. No hay devoluciones.</span>
+          </div>
+          <div style="padding: 24px 40px; border-top: 1px solid #E4DCDF; font-size: 13px; color: #5E5358; display: flex; flex-direction: column; gap: 4px;">
+            <span>Magenta · Carrer dels Llauradors, 44 · 46440 Almussafes</span>
+            <span>Te escribimos porque has comprado entradas en magenta.es. <a href="Textos legales.dc.html">Privacidad</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="E2" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">E2</span><span style="font-weight: 700;">Reserva aceptada · «reserva_aceptada»</span></div>
+        <div style="font-size: 14px; color: var(--fg-2);">Asunto: <strong style="color: var(--fg-1);">Tu mesa en la terraza: viernes 20 nov, 21:30</strong></div>
+        <div style="width: 600px; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; font-size: 16px; line-height: 1.55;">
+          <div style="background: #0B0709; padding: 28px 40px; display: flex; justify-content: center;"><img src="assets/logo-white.png" alt="Magenta" style="height: 72px; display: block;"></div>
+          <img src="assets/terraza.png" alt="La terraza de Magenta de noche" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+          <div style="padding: 36px 40px 8px; display: flex; flex-direction: column; gap: 18px;">
+            <span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #A83456;">Reserva aceptada</span>
+            <h2 style="margin: 0; color: #1A1216; font: 900 44px/.92 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Tu mesa está guardada, Carla</h2>
+          </div>
+          <div style="margin: 20px 40px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #E4DCDF;">
+            <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Día</span><strong>Vie 20 nov</strong></div>
+            <div style="padding: 16px 18px; border-left: 1px solid #E4DCDF; display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Hora</span><strong style="font-family: 'JetBrains Mono', monospace;">21:30</strong></div>
+            <div style="padding: 16px 18px; border-left: 1px solid #E4DCDF; display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Personas</span><strong>5 · Terraza</strong></div>
+          </div>
+          <div style="padding: 8px 40px 32px; display: flex; flex-direction: column; gap: 14px;">
+            <p style="margin: 0;">Di tu nombre al llegar. Te guardamos la mesa 15 minutos; si vais a tardar más, llámanos al 961 78 42 10.</p>
+            <a href="https://maps.google.com/?q=Carrer+dels+Llauradors+44+Almussafes" style="align-self: flex-start; padding: 14px 24px; background: #A83456; color: #FFFFFF; text-decoration: none; border-radius: 999px; font: 700 14px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;">Cómo llegar</a>
+          </div>
+          <div style="padding: 24px 40px; border-top: 1px solid #E4DCDF; font-size: 13px; color: #5E5358; display: flex; flex-direction: column; gap: 4px;">
+            <span>Magenta · Carrer dels Llauradors, 44 · 46440 Almussafes</span>
+            <span>Te escribimos porque has pedido mesa en magenta.es. <a href="Textos legales.dc.html">Privacidad</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="E3" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">E3</span><span style="font-weight: 700;">Reserva rechazada · «reserva_rechazada»</span></div>
+        <div style="font-size: 14px; color: var(--fg-2);">Asunto: <strong style="color: var(--fg-1);">Sobre tu reserva del sábado 21 nov</strong></div>
+        <div style="width: 600px; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; font-size: 16px; line-height: 1.55;">
+          <div style="background: #0B0709; padding: 28px 40px; display: flex; justify-content: center;"><img src="assets/logo-white.png" alt="Magenta" style="height: 72px; display: block;"></div>
+          <div style="padding: 40px 40px 8px; display: flex; flex-direction: column; gap: 18px;">
+            <span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #A83456;">Reserva no disponible</span>
+            <h2 style="margin: 0; color: #1A1216; font: 900 44px/.92 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Esa noche no podemos guardarte mesa</h2>
+            <p style="margin: 0;">Hola Sara, sentimos no poder aceptar tu reserva para 4 personas el sábado 21 de noviembre a las 20:00.</p>
+          </div>
+          <div style="margin: 20px 40px; padding: 16px 18px; background: #F6F1F3; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Motivo</span>
+            <strong>Terraza completa esa noche</strong>
+          </div>
+          <div style="padding: 8px 40px 32px; display: flex; flex-direction: column; gap: 14px;">
+            <p style="margin: 0;">Puedes pedir mesa para otro día o venir sin reserva: dentro siempre hay sitio en la barra.</p>
+            <a href="Magenta Web v2.dc.html#terraza" style="align-self: flex-start; padding: 14px 24px; background: #A83456; color: #FFFFFF; text-decoration: none; border-radius: 999px; font: 700 14px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;">Elegir otro día</a>
+          </div>
+          <div style="padding: 24px 40px; border-top: 1px solid #E4DCDF; font-size: 13px; color: #5E5358; display: flex; flex-direction: column; gap: 4px;">
+            <span>Magenta · Carrer dels Llauradors, 44 · 46440 Almussafes</span>
+            <span>Te escribimos porque has pedido mesa en magenta.es. <a href="Textos legales.dc.html">Privacidad</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="E4" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">E4</span><span style="font-weight: 700;">Nuevo evento · «nuevo_evento»</span></div>
+        <div style="font-size: 14px; color: var(--fg-2);">Asunto: <strong style="color: var(--fg-1);">Nueva fecha: Noche Remember, sáb 28 nov</strong></div>
+        <div style="width: 600px; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; font-size: 16px; line-height: 1.55;">
+          <div style="background: #0B0709; padding: 28px 40px; display: flex; justify-content: center;"><img src="assets/logo-white.png" alt="Magenta" style="height: 72px; display: block;"></div>
+          <div style="position: relative; height: 360px; background: #0B0709; overflow: hidden;">
+            <img src="assets/hero-2.png" alt="Gente bailando bajo luces rosas" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; inset: auto 0 0 0; padding: 80px 40px 28px; background: linear-gradient(0deg, #0B0709 0%, rgba(11,7,9,0) 100%); color: #FFFFFF; display: flex; flex-direction: column; gap: 6px;">
+              <span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #F2A3BC;">Sábado 28 de noviembre</span>
+              <strong style="font: 900 64px/.86 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Noche Remember</strong>
+            </div>
+          </div>
+          <div style="padding: 32px 40px; display: flex; flex-direction: column; gap: 16px;">
+            <p style="margin: 0;">Los temas de los 90 y los 2000 que no has dejado de cantar. Con DJ Vicent Gil y DJ Moll a los platos.</p>
+            <span style="font-size: 15px;">Puertas 23:30 · desde <strong style="font-family: 'JetBrains Mono', monospace;">12,00 €</strong> · +18</span>
+            <a href="Entradas v2.dc.html" style="align-self: flex-start; padding: 14px 24px; background: #A83456; color: #FFFFFF; text-decoration: none; border-radius: 999px; font: 700 14px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;">Comprar entradas</a>
+          </div>
+          <div style="padding: 24px 40px; border-top: 1px solid #E4DCDF; font-size: 13px; color: #5E5358; display: flex; flex-direction: column; gap: 4px;">
+            <span>Magenta · Carrer dels Llauradors, 44 · 46440 Almussafes</span>
+            <span>Te llega porque te apuntaste a la newsletter. <a href="Baja newsletter.dc.html">Darme de baja</a> · <a href="Textos legales.dc.html">Privacidad</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h1 style="margin: 0; font: 900 64px/.9 var(--font-display); text-transform: uppercase;">PDF</h1>
+      <p style="margin: 0; font-size: 18px; color: var(--fg-2); max-width: 760px;">A4, fondo blanco y QR negro para que se escanee bien en pantalla y se pueda imprimir sin gastar tinta.</p>
+    </div>
+    <div style="display: flex; gap: 48px; align-items: flex-start;">
+
+      <div id="P1" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">P1</span><span style="font-weight: 700;">Entrada · una página por entrada (1 de 3)</span></div>
+        <div style="width: 794px; height: 1123px; box-sizing: border-box; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; display: flex; flex-direction: column;">
+          <div style="background: #0B0709; padding: 36px 56px; display: flex; justify-content: space-between; align-items: center;">
+            <img src="assets/logo-white.png" alt="Magenta" style="height: 84px; display: block;">
+            <span style="color: #FFFFFF; font: 700 13px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase;">Entrada 1 de 3</span>
+          </div>
+          <div style="padding: 52px 56px 0; display: flex; flex-direction: column; gap: 10px;">
+            <span style="font: 700 14px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #A83456;">Sábado 21 de noviembre · puertas 23:30</span>
+            <strong style="font: 900 104px/.84 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Fuego Latino</strong>
+            <span style="font-size: 20px;">DJ Ramírez · Sala Tropical b2b</span>
+          </div>
+          <div style="margin: 44px 56px 0; border: 2px solid #1A1216; display: grid; grid-template-columns: 340px 1fr;">
+            <div style="padding: 28px; border-right: 2px dashed #1A1216; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+              <div style="width: 284px; height: 284px;">{{ qr1 }}</div>
+              <span style="font: 700 22px/1 'JetBrains Mono', monospace; letter-spacing: .04em;">7K2Q-D9XA-M3PF</span>
+            </div>
+            <div style="padding: 28px 32px; display: flex; flex-direction: column; gap: 22px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Tipo</span><strong style="font: 900 34px/.95 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Anticipada</strong><span style="font-size: 15px;">Acceso hasta la 01:30</span></div>
+              <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">A nombre de</span><strong style="font-size: 20px;">Lucía Ferrer</strong><span style="font-size: 15px;">Compra K7Q-2D9-XAM · 12,00 €</span></div>
+              <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5E5358;">Dónde</span><span style="font-size: 16px;">Carrer dels Llauradors, 44<br>46440 Almussafes</span></div>
+            </div>
+          </div>
+          <div style="margin: 36px 56px 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 15px; line-height: 1.45;">
+            <div style="display: flex; flex-direction: column; gap: 4px;"><strong>Una entrada, una persona</strong><span>El QR se invalida en cuanto lo escaneamos. No compartas capturas.</span></div>
+            <div style="display: flex; flex-direction: column; gap: 4px;"><strong>+18 con DNI</strong><span>O pasaporte original. Sin documento no podemos dejarte pasar.</span></div>
+            <div style="display: flex; flex-direction: column; gap: 4px;"><strong>Sin devoluciones</strong><span>Si el evento se cancela, te escribimos al email de la compra.</span></div>
+          </div>
+          <div style="margin-top: auto; padding: 22px 56px; border-top: 1px solid #E4DCDF; display: flex; justify-content: space-between; font-size: 13px; color: #5E5358;">
+            <span>magenta.es · 961 78 42 10</span>
+            <span>Generado el 12 nov 2026, 18:42</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="P2" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;"><span style="padding: 4px 10px; background: var(--magenta-500); font: 700 14px/1 var(--font-mono);">P2</span><span style="font-weight: 700;">Lista del plan B · para el portero</span></div>
+        <div style="width: 794px; height: 1123px; box-sizing: border-box; padding: 48px 48px 32px; background: #FFFFFF; color: #1A1216; font-family: 'Hanken Grotesk', Arial, sans-serif; display: flex; flex-direction: column; gap: 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 18px; border-bottom: 2px solid #1A1216;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <span style="font: 700 12px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #A83456;">Lista de puerta · plan B</span>
+              <strong style="font: 900 52px/.88 'Big Shoulders Display', 'Arial Black', sans-serif; text-transform: uppercase;">Fuego Latino</strong>
+              <span style="font-size: 15px;">Sábado 21 nov · 132 entradas vendidas en 58 compras</span>
+            </div>
+            <img src="assets/logo-black.png" alt="Magenta" style="height: 64px; display: block;">
+          </div>
+          <p style="margin: 0; font-size: 13px; line-height: 1.45; color: #3A3034;">Úsala solo si el lector no funciona. Busca por apellido, pide el DNI y comprueba los 4 últimos caracteres del código. Marca la casilla al entrar. Al acabar, se destruye o se entrega a dirección: contiene datos personales.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1.25fr 1fr 32px; gap: 0; font-size: 13px;">
+            <span style="padding: 8px 6px; border-bottom: 1px solid #1A1216; font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase;">Nombre</span>
+            <span style="padding: 8px 6px; border-bottom: 1px solid #1A1216; font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase;">Entrada</span>
+            <span style="padding: 8px 6px; border-bottom: 1px solid #1A1216; font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase;">Código</span>
+            <span style="padding: 8px 6px; border-bottom: 1px solid #1A1216; font: 700 11px/1 'Hanken Grotesk', Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; text-align: center;">OK</span>
+            <sc-for list="{{ listRows }}" as="r" hint-placeholder-count="20">
+              <span style="padding: 7px 6px; border-bottom: 1px solid #E4DCDF; background: {{ r.bg }}; font-weight: {{ r.nameWeight }};">{{ r.name }}</span>
+              <span style="padding: 7px 6px; border-bottom: 1px solid #E4DCDF; background: {{ r.bg }};">{{ r.tier }}</span>
+              <span style="padding: 7px 6px; border-bottom: 1px solid #E4DCDF; background: {{ r.bg }}; font-family: 'JetBrains Mono', monospace;">{{ r.code }}</span>
+              <span style="padding: 5px 6px; border-bottom: 1px solid #E4DCDF; background: {{ r.bg }}; display: flex; justify-content: center; align-items: center;"><span style="width: 14px; height: 14px; border: 1.5px solid #1A1216; display: block;"></span></span>
+            </sc-for>
+          </div>
+          <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #E4DCDF; display: flex; justify-content: space-between; font-size: 12px; color: #5E5358;">
+            <span>Descargada por Dani Sanchis · 21 nov, 23:05</span>
+            <span>Página 1 de 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PEOPLE = [
+  ['Alcover Pla, Iván', 'Anticipada', 'Q4TM', 1], ['', 'Anticipada', 'H7XD', 0], ['Bellver Roca, Ana', 'Anticipada + copa', 'P2KF', 1],
+  ['Climent Soler, Pau', 'Anticipada', 'W9RA', 1], ['', 'Anticipada', 'Z3NB', 0], ['', 'Anticipada', 'C6LE', 0],
+  ['Domènech Gil, Marta', 'Early bird', 'M8JV', 1], ['Escrivà Mas, Joan', 'Anticipada + copa', 'T5GQ', 1], ['', 'Anticipada + copa', 'Y1PU', 0],
+  ['Ferrer Vidal, Lucía', 'Anticipada', 'M3PF', 1], ['', 'Anticipada', 'R7DK', 0], ['', 'Anticipada + copa', 'B4WS', 0],
+  ['García Navarro, Leo', 'Early bird', 'K2HN', 1], ['Ibáñez Martí, Marcos', 'Anticipada', 'F6ZT', 1], ['', 'Anticipada', 'J9CX', 0],
+  ['Llopis Grau, Sara', 'Anticipada', 'V3QL', 1], ['Martí Ortega, Nerea', 'Anticipada + copa', 'D8MR', 1], ['', 'Anticipada + copa', 'G5YA', 0],
+  ['', 'Anticipada', 'N2EW', 0], ['Moll Sanchis, Carla', 'Anticipada', 'U7KB', 1], ['Navarro Peris, Hugo', 'Early bird', 'S4FH', 1],
+  ['Ortega Bas, Javier', 'Anticipada', 'X1TD', 1], ['', 'Anticipada', 'L6PM', 0], ['Peris Roig, Álex', 'Anticipada + copa', 'E9VC', 1],
+  ['Roig Ferri, Elena', 'Anticipada', 'A3RN', 1], ['', 'Anticipada', 'H8QS', 0],
+];
+class Component extends DCLogic {
+  componentDidMount() {
+    if (window.qrcode) return;
+    this.poll = setInterval(() => { if (window.qrcode) { clearInterval(this.poll); this.forceUpdate(); } }, 150);
+  }
+  componentWillUnmount() { clearInterval(this.poll); }
+  qr(text) {
+    if (!window.qrcode) return React.createElement('div', { style: { width: '100%', height: '100%', background: 'repeating-linear-gradient(135deg,#E4DCDF 0 10px,#F6F1F3 10px 20px)' } });
+    const q = window.qrcode(0, 'M'); q.addData(text); q.make();
+    const svg = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    return React.createElement('div', { role: 'img', 'aria-label': 'Código QR de la entrada', style: { width: '100%', height: '100%' }, dangerouslySetInnerHTML: { __html: svg.replace('<svg ', '<svg width="100%" height="100%" ') } });
+  }
+  renderVals() {
+    let shade = false;
+    return {
+      qr1: this.qr('7K2QD9XAM3PF'),
+      listRows: PEOPLE.map(([name, tier, code, first]) => { if (first) shade = !shade; return { name: name || '↳ misma compra', nameWeight: name ? 600 : 400, tier, code: '····-····-' + code, bg: shade ? '#F6F1F3' : '#FFFFFF' }; }),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/circle-check.svg"] { -webkit-mask-image: url(assets/icons/circle-check.svg) !important; mask-image: url(assets/icons/circle-check.svg) !important; }
+    span[style*="icons/x.svg"] { -webkit-mask-image: url(assets/icons/x.svg) !important; mask-image: url(assets/icons/x.svg) !important; }
+    span[style*="icons/clock.svg"] { -webkit-mask-image: url(assets/icons/clock.svg) !important; mask-image: url(assets/icons/clock.svg) !important; }
+    span[style*="icons/mail.svg"] { -webkit-mask-image: url(assets/icons/mail.svg) !important; mask-image: url(assets/icons/mail.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 18px; line-height: 1.55; min-height: 100vh; display: flex; flex-direction: column;">
+
+  <header style="height: {{ headerH }}; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gutter); border-bottom: 1px solid var(--border-subtle);">
+    <a href="Magenta Web v2.dc.html#agenda" style="display: flex; align-items: center; gap: 10px; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 20 }}" hint-size="20px,20px"></x-import>
+      <span>{{ backLabel }}</span>
+    </a>
+    <a href="Magenta Web v2.dc.html" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <span style="justify-self: end; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; color: var(--fg-2);">ES / EN</span>
+  </header>
+
+  <main data-screen-label="Vuelta del pago" style="flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: clamp(48px, 8vw, 112px) var(--gutter) clamp(64px, 9vw, 128px); box-sizing: border-box; display: flex; flex-direction: column; gap: 32px;">
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <sc-if value="{{ isPending }}" hint-placeholder-val="{{ false }}">
+        <div aria-hidden="true" style="width: 56px; height: 56px; position: relative;">
+          <div id="spinner" style="position: absolute; inset: 0; border-radius: 50%; border: 4px solid var(--ink-800); border-top-color: var(--magenta-400);"></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasIcon }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ icon }}" size="{{ 56 }}" color="{{ iconColor }}" hint-size="56px,56px"></x-import>
+      </sc-if>
+      <h1 role="status" aria-live="polite" style="margin: 0; font: 900 clamp(48px, 8vw, 104px)/.88 var(--font-display); text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance;">{{ title }}</h1>
+      <p style="margin: 0; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: var(--fg-1); max-width: 600px; text-wrap: pretty;">{{ lead }}</p>
+    </div>
+
+    <section aria-label="Resumen de la compra" style="background: var(--ink-900); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px;">
+        <span style="font: 900 clamp(30px, 3.4vw, 44px)/.95 var(--font-display); text-transform: uppercase;">{{ evTitle }}</span>
+        <span style="font: 600 16px/1.3 var(--font-mono); color: var(--magenta-300);">{{ evDate }}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; border-top: 1px solid var(--border-subtle);">
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+          <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border-subtle);">
+            <span>{{ l.label }}</span>
+            <span style="font-family: var(--font-mono); font-variant-numeric: tabular-nums;">{{ l.amount }}</span>
+          </div>
+        </sc-for>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0 0;">
+          <span style="font: 800 24px/1 var(--font-display); text-transform: uppercase;">{{ totalLabel }}</span>
+          <span style="font: 600 22px/1 var(--font-mono); color: {{ totalColor }};">{{ total }}</span>
+        </div>
+      </div>
+      <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; font: 500 15px/1.4 var(--font-mono); color: var(--fg-2);">
+          <span>Pedido {{ code }}</span>
+          <span>Puertas {{ evDoors }}</span>
+        </div>
+      </sc-if>
+    </section>
+
+    <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: 16px; align-items: flex-start; padding: 20px 24px; border: 1px solid var(--border-default);">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="mail" size="{{ 24 }}" color="var(--magenta-300)" hint-size="24px,24px"></x-import>
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 16px; line-height: 1.5;">
+          <strong>¿No te ha llegado?</strong>
+          <span style="color: var(--fg-2);">Mira en la carpeta de spam o promociones. El PDF lleva un QR por entrada; en la puerta, enséñalo desde el móvil junto con tu DNI o pasaporte.</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+      <sc-if value="{{ hasPrimary }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ primary }}" hint-size="230px,52px">{{ primaryLabel }}</x-import>
+      </sc-if>
+      <sc-if value="{{ hasSecondary }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" on-click="{{ secondary }}" hint-size="200px,52px">{{ secondaryLabel }}</x-import>
+      </sc-if>
+    </div>
+  </main>
+
+  <footer style="padding: 28px var(--gutter); border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 15px; color: var(--fg-2);">
+    <span>© 2026 Magenta · Almussafes · +18</span>
+    <span>Pago gestionado por Stripe · Cookies · Privacidad · Aviso legal</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pagada&quot;,&quot;pendiente&quot;,&quot;cancelada&quot;,&quot;caducada&quot;],&quot;default&quot;:&quot;pagada&quot;,&quot;tsType&quot;:&quot;'pagada'|'pendiente'|'cancelada'|'caducada'&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const FEE = 1;
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const eur = n => (Number(n) || 0).toFixed(2).replace('.', ',') + ' €';
+const STATES = ['pagada', 'pendiente', 'cancelada', 'caducada'];
+
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search);
+    return { mobile: window.matchMedia('(max-width: 760px)').matches, urlEstado: STATES.includes(q.get('estado')) ? q.get('estado') : null, eventId: q.get('e'), confirmed: false };
+  })();
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 760px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+    this.syncPending();
+  }
+  componentDidUpdate() { this.syncPending(); }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.poll); if (this.spin) this.spin.cancel(); }
+  estado() { const e = this.state.urlEstado || this.props.estado || 'pagada'; return e === 'pendiente' && this.state.confirmed ? 'pagada' : e; }
+  syncPending() {
+    if (this.estado() !== 'pendiente') { clearTimeout(this.poll); this.poll = null; return; }
+    const el = document.getElementById('spinner');
+    if (el && !this.spin && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.spin = el.animate([{ transform:'rotate(0)' }, { transform:'rotate(360deg)' }], { duration: 900, iterations: Infinity });
+    if (!this.poll) this.poll = setTimeout(() => { this.spin && this.spin.cancel(); this.spin = null; this.setState({ confirmed: true }); }, 4000);
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile, est = this.estado();
+    const all = window.MAGENTA_EVENTS || [];
+    const now = new Date();
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dateOf = e => new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date);
+    const upcoming = all.filter(e => e.status !== 'soldout' && dateOf(e) >= today0);
+    const ev = all.find(e => e.id === s.eventId) || upcoming[0] || { id:'', title:'', day:'', date:'1', month:'ENE', doors:'', base:0 };
+    const when = dateOf(ev);
+    const qty = 2, price = ev.base || 0, sub = qty * price, fee = qty * FEE, tot = sub + fee;
+    const email = 'l***@gmail.com';
+    const paid = est === 'pagada';
+    const C = {
+      pagada: { icon:'circle-check', iconColor:'var(--neon-400)', title:'Ya tienes tus entradas', lead:`Te las hemos enviado en PDF a ${email}. Llegan en un par de minutos.`, totalLabel:'Pagado', p:['Volver a la web', () => { location.href = 'Magenta Web v2.dc.html'; }], s:['Ver más fechas', () => { location.href = 'Magenta Web v2.dc.html#agenda'; }] },
+      pendiente: { title:'Confirmando el pago', lead:'Stripe nos está avisando de tu pago. Suele tardar unos segundos; no cierres esta página.', totalLabel:'Total', p:null, s:null },
+      cancelada: { icon:'x', iconColor:'var(--fg-1)', title:'Pago cancelado', lead:'No se ha cobrado nada. Las entradas que habías elegido vuelven a estar a la venta.', totalLabel:'No cobrado', p:['Volver a intentarlo', () => { location.href = 'Entradas v2.dc.html?e=' + ev.id; }], s:['Volver a la agenda', () => { location.href = 'Magenta Web v2.dc.html#agenda'; }] },
+      caducada: { icon:'clock', iconColor:'var(--fg-1)', title:'Se acabó el tiempo', lead:'Tenías 10 minutos para pagar y las entradas se han liberado. No se ha cobrado nada.', totalLabel:'No cobrado', p:['Elegir entradas otra vez', () => { location.href = 'Entradas v2.dc.html?e=' + ev.id; }], s:['Volver a la agenda', () => { location.href = 'Magenta Web v2.dc.html#agenda'; }] },
+    }[est];
+    return {
+      headerH: m ? '80px' : '120px', logoH: m ? '56px' : '100px', navSize: m ? '13px' : '16px', backLabel: m ? 'Web' : 'Volver a la web',
+      isPending: est === 'pendiente', hasIcon: !!C.icon, icon: C.icon || 'clock', iconColor: C.iconColor || 'var(--fg-1)',
+      title: C.title, lead: C.lead,
+      evTitle: ev.title, evDate: `${DAYS[when.getDay()]} ${when.getDate()} de ${MONTHS[when.getMonth()]}`, evDoors: ev.doors,
+      lines: [{ label: `Anticipada × ${qty}`, amount: eur(sub) }, { label: 'Gastos de gestión', amount: eur(fee) }],
+      totalLabel: C.totalLabel, total: eur(tot), totalColor: paid ? 'var(--magenta-300)' : 'var(--fg-2)',
+      isPaid: paid, code: 'MAG-7K2QD',
+      hasPrimary: !!C.p, primaryLabel: C.p ? C.p[0] : '', primary: C.p ? C.p[1] : () => {},
+      hasSecondary: !!C.s, secondaryLabel: C.s ? C.s[0] : '', secondary: C.s ? C.s[1] : () => {},
+    };
+  }
+}
+</script>
+</body>
+</html>

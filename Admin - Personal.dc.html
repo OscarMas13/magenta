@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/plus.svg"] { -webkit-mask-image: url(assets/icons/plus.svg) !important; mask-image: url(assets/icons/plus.svg) !important; }
+    span[style*="icons/key-round.svg"] { -webkit-mask-image: url(assets/icons/key-round.svg) !important; mask-image: url(assets/icons/key-round.svg) !important; }
+    span[style*="icons/mail.svg"] { -webkit-mask-image: url(assets/icons/mail.svg) !important; mask-image: url(assets/icons/mail.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: sticky; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main data-screen-label="Admin · Personal" style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 80px; display: flex; flex-direction: column; gap: 28px; max-width: 1080px; box-sizing: border-box; width: 100%;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Personal</h1>
+        <p style="margin: 0; font-size: 15px; color: var(--fg-2); max-width: 600px;">Porteros: lector de QR y reservas del día. Admins: todo el panel. Las cuentas no se borran, se desactivan, para que quede registro de quién validó cada entrada.</p>
+      </div>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="plus" on-click="{{ openAdd }}" hint-size="190px,52px">Añadir persona</x-import>
+    </div>
+
+    <div role="tablist" aria-label="Filtrar personal" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+        <button type="button" role="tab" aria-selected="{{ t.selected }}" onClick="{{ t.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ t.border }}; border-radius: 999px; background: {{ t.bg }}; color: {{ t.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="5">
+        <article style="display: grid; grid-template-columns: {{ rowCols }}; align-items: center; gap: 14px 24px; padding: 18px 22px; background: var(--ink-900); opacity: {{ p.opacity }};">
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+            <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;">
+              <span style="font: 800 22px/1.1 var(--font-display); text-transform: uppercase;">{{ p.name }}</span>
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ p.roleTone }}" hint-size="80px,22px">{{ p.roleLabel }}</x-import>
+              <sc-if value="{{ p.isMe }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 14px; color: var(--fg-2);">Tú</span>
+              </sc-if>
+              <sc-if value="{{ p.invited }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="paper" hint-size="110px,22px">Invitación enviada</x-import>
+              </sc-if>
+            </span>
+            <span style="display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; color: var(--fg-2);">
+              <span style="overflow-wrap: anywhere;">{{ p.email }}</span>
+              <span>{{ p.lastLabel }}</span>
+            </span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; justify-content: {{ actJustify }};">
+            <sc-if value="{{ p.canReset }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="ghost" icon="{{ p.resetIcon }}" on-click="{{ p.reset }}" hint-size="170px,44px">{{ p.resetLabel }}</x-import>
+            </sc-if>
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" on-click="{{ p.edit }}" hint-size="100px,44px">Editar</x-import>
+            <sc-if value="{{ p.canToggle }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Switch" checked="{{ p.active }}" on-change="{{ p.toggle }}" label="{{ p.activeLabel }}" hint-size="110px,24px"></x-import>
+            </sc-if>
+            <sc-if value="{{ p.lockNote }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size: 14px; color: var(--fg-2);">{{ p.lockText }}</span>
+            </sc-if>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </main>
+
+  <div style="--radius-sm: 20px;"><x-import component-from-global-scope="MagentaDesignSystem_d2684b.Dialog" open="{{ formOpen }}" on-close="{{ closeForm }}" title="{{ formTitle }}" hint-size="0px,0px">
+    <form onSubmit="{{ save }}" novalidate="" style="display: flex; flex-direction: column; gap: 18px; min-width: min(440px, 76vw);">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Nombre" placeholder="Nombre y apellido" value="{{ fName }}" on-change="{{ setName }}" error="{{ errName }}" hint-size="100%,84px"></x-import>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Email" type="email" placeholder="nombre@magenta.es" value="{{ fEmail }}" on-change="{{ setEmail }}" error="{{ errEmail }}" hint="{{ emailHint }}" hint-size="100%,84px"></x-import>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Rol" value="{{ fRole }}" on-change="{{ setRole }}" options="{{ roles }}" disabled="{{ roleLocked }}" hint-size="100%,84px"></x-import>
+      <sc-if value="{{ roleLocked }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size: 14px; color: var(--fg-2);">{{ roleLockText }}</span>
+      </sc-if>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" on-click="{{ save }}" hint-size="170px,44px">{{ saveLabel }}</x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" on-click="{{ closeForm }}" hint-size="120px,44px">Cancelar</x-import>
+      </div>
+    </form>
+  </x-import></div>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 24px; z-index: 50; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ME = 1;
+const U = (id, name, email, role, active, last, invited) => ({ id, name, email, role, active, last, invited: !!invited });
+const SEED = [
+  U(1, 'Laura Peris', 'laura@magenta.es', 'admin', true, 'Ahora'),
+  U(2, 'Toni Grau', 'toni@magenta.es', 'admin', true, 'Ayer, 23:14'),
+  U(3, 'Dani Sanchis', 'dani@magenta.es', 'portero', true, 'Sáb, 02:41'),
+  U(4, 'Rubén Moll', 'ruben@magenta.es', 'portero', true, 'Sáb, 01:58'),
+  U(5, 'Marta Casany', 'marta@magenta.es', 'portero', true, '', true),
+  U(6, 'Hugo Ferri', 'hugo@magenta.es', 'portero', false, '14 sep'),
+];
+const ROLES = [{ value: 'portero', label: 'Portero' }, { value: 'admin', label: 'Admin' }];
+let uid = 50;
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 960px)').matches, tab: 'activas', list: SEED, form: null, tried: false, toast: null };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  toast(title, msg) { clearTimeout(this.toastT); this.setState({ toast: { title, msg } }); this.toastT = setTimeout(() => this.setState({ toast: null }), 3200); }
+  patch(id, p) { this.setState(s => ({ list: s.list.map(u => u.id === id ? { ...u, ...p } : u) })); }
+  renderVals() {
+    const s = this.state, m = s.mobile, f = s.form;
+    const activeAdmins = s.list.filter(u => u.role === 'admin' && u.active).length;
+    const match = { activas: u => u.active, inactivas: u => !u.active, todas: () => true }[s.tab];
+    const people = s.list.filter(match).sort((a, b) => (a.role === b.role ? 0 : a.role === 'admin' ? -1 : 1));
+    const navItems = [
+      ['Inicio', 'layout-dashboard', 'Admin - Inicio.dc.html'], ['Eventos', 'calendar', 'Admin - Eventos.dc.html'], ['Carta', 'utensils', 'Admin - Carta.dc.html'],
+      ['Reservas', 'calendar-clock', 'Admin - Reservas.dc.html', false, 3], ['Imágenes', 'image', 'Admin - Imagenes.dc.html'], ['Personal', 'users', '#', true],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    const email = f ? f.email.trim().toLowerCase() : '';
+    const dup = f && s.list.some(u => u.email === email && u.id !== f.id);
+    const errName = s.tried && f && f.name.trim().length < 2 ? 'Escribe el nombre.' : '';
+    const errEmail = s.tried && f ? (!/.+@.+\..+/.test(email) ? 'Revisa el email.' : dup ? 'Ya hay una cuenta con este email.' : '') : '';
+    const editing = f && f.id ? s.list.find(u => u.id === f.id) : null;
+    const lastAdmin = !!(editing && editing.role === 'admin' && editing.active && activeAdmins <= 1);
+    const roleLocked = !!(editing && (editing.id === ME || lastAdmin));
+    const count = k => s.list.filter({ activas: u => u.active, inactivas: u => !u.active, todas: () => true }[k]).length;
+    return {
+      isDesktop: !m, shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px', asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, c]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!c, count: c || 0, bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      tabs: [['activas', 'Activas'], ['inactivas', 'Desactivadas'], ['todas', 'Todas']].map(([k, l]) => { const on = s.tab === k; return { label: `${l} · ${count(k)}`, selected: on ? 'true' : 'false',
+        pick: () => this.setState({ tab: k }), bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' }; }),
+      rowCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 1fr) auto', actJustify: m ? 'flex-start' : 'flex-end',
+      people: people.map(u => {
+        const isMe = u.id === ME, onlyAdmin = u.role === 'admin' && u.active && activeAdmins <= 1;
+        return { ...u, isMe, opacity: u.active ? 1 : .6,
+          roleLabel: u.role === 'admin' ? 'Admin' : 'Portero', roleTone: u.role === 'admin' ? 'brand' : 'paper',
+          lastLabel: u.invited ? 'Aún no ha entrado' : u.active ? 'Último acceso: ' + u.last : 'Desactivada · último acceso ' + u.last,
+          canReset: u.active && !isMe, resetIcon: u.invited ? 'mail' : 'key-round', resetLabel: u.invited ? 'Reenviar invitación' : 'Restablecer contraseña',
+          reset: () => this.toast(u.invited ? 'Invitación reenviada' : 'Enlace enviado', `${u.email} recibirá un enlace para crear su contraseña. Caduca en 24 h.`),
+          edit: () => this.setState({ form: { id: u.id, name: u.name, email: u.email, role: u.role }, tried: false }),
+          canToggle: !isMe && !onlyAdmin, lockNote: isMe || onlyAdmin, lockText: isMe ? 'No puedes desactivar tu propia cuenta' : 'Tiene que quedar al menos un admin',
+          active: u.active, activeLabel: u.active ? 'Activa' : 'Desactivada',
+          toggle: v => { this.patch(u.id, { active: !!v }); this.toast(v ? 'Cuenta activada' : 'Cuenta desactivada', v ? `${u.name} ya puede volver a entrar.` : `${u.name} no podrá entrar. Su historial se conserva.`); } };
+      }),
+      openAdd: () => this.setState({ form: { id: null, name: '', email: '', role: 'portero' }, tried: false }),
+      formOpen: !!f, formTitle: f && f.id ? 'Editar a ' + (editing ? editing.name : '') : 'Añadir persona',
+      fName: f ? f.name : '', fEmail: f ? f.email : '', fRole: f ? f.role : 'portero', roles: ROLES,
+      setName: v => this.setState(st => ({ form: { ...st.form, name: v } })), setEmail: v => this.setState(st => ({ form: { ...st.form, email: v } })),
+      setRole: v => this.setState(st => ({ form: { ...st.form, role: v && v.target ? v.target.value : v } })),
+      errName, errEmail, emailHint: f && !f.id ? 'Le llega un enlace para crear su contraseña.' : '',
+      roleLocked, roleLockText: editing && editing.id === ME ? 'No puedes cambiar tu propio rol.' : 'Es el único admin activo: no puede pasar a portero.',
+      saveLabel: f && f.id ? 'Guardar' : 'Enviar invitación',
+      closeForm: () => this.setState({ form: null, tried: false }),
+      save: e => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (f.name.trim().length < 2 || !/.+@.+\..+/.test(email) || dup) return this.setState({ tried: true });
+        if (f.id) { this.patch(f.id, { name: f.name.trim(), email, role: f.role }); this.setState({ form: null, tried: false }); this.toast('Cambios guardados', f.name.trim()); }
+        else { this.setState(st => ({ list: [...st.list, U(uid++, f.name.trim(), email, f.role, true, '', true)], form: null, tried: false, tab: 'activas' })); this.toast('Invitación enviada', `${email} recibirá un enlace para crear su contraseña.`); }
+      },
+      hasToast: !!s.toast, toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '', closeToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

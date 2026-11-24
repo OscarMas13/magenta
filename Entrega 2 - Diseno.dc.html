@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="./doc-page.js"></script>
+  <style>
+    doc-page:not(:defined) { visibility: hidden; }
+    a { color: #A83456; }
+    a:hover { color: #7d2541; }
+  </style>
+</helmet>
+<doc-page size="a4" orientation="landscape" margin="0.55in">
+<div lang="es" style="font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: #1a1216;">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; padding-bottom: 20px; border-bottom: 2px solid #1a1216;">
+    <div>
+      <div style="font: 700 13px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: #A83456; margin-bottom: 14px;">Entrega 2 · Diseño · 2.º DAW · Curso 2026–2027</div>
+      <h1 style="margin: 0; font: 900 64px/.88 var(--font-display); text-transform: uppercase;">Magenta: diseño del sistema</h1>
+    </div>
+    <img src="assets/logo-magenta.png" alt="Magenta" style="height: 92px; display: block;">
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 16px 0 8px; font-size: 15px;">
+    <div><div style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158; margin-bottom: 6px;">Autor</div>Óscar Mas Palomino</div>
+    <div><div style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158; margin-bottom: 6px;">Tutor</div>Jose Sebastia Ortega</div>
+    <div><div style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158; margin-bottom: 6px;">Centro</div>IES San Vicent Ferrer</div>
+    <div><div style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158; margin-bottom: 6px;">Fecha</div>27 de noviembre de 2026</div>
+  </div>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline;"><span style="color: #A83456;">1</span>Condiciones de la Propuesta</h2>
+  <p style="margin: 0 0 10px;">La Propuesta se aprobó <strong>sin condiciones ni correcciones</strong>. El alcance que se evalúa es el aprobado.</p>
+  <p style="margin: 0 0 8px;">Al diseñar se han concretado cuatro puntos. Ninguno amplía el alcance:</p>
+  <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px;">
+    <li><strong>Entradas solo por correo.</strong> La Propuesta decía «por correo y en un enlace único». Se quita el enlace: las entradas llegan en un PDF con un QR por entrada y no se pueden consultar en la web. Hay menos superficie para filtrar datos.</li>
+    <li><strong>Código de 12 caracteres.</strong> Cada entrada lleva bajo el QR un código como 7K2Q-D9XA-M3PF, para que el portero pueda escribirlo si falla la cámara.</li>
+    <li><strong>Inglés solo en la interfaz.</strong> Se traducen los textos fijos de la web pública; los eventos y la carta se escriben una vez, en español. La traducción pasa de la entrega 5 a la 4, que pide la interfaz acabada.</li>
+    <li><strong>Plan B en PDF.</strong> La lista de entradas de la noche se descarga en PDF antes de abrir, como prevé el apartado «Qué pasa si falla».</li>
+  </ul>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">2</span>Modelo de datos</h2>
+  <p style="margin: 0 0 12px;">13 tablas en MySQL 8, en notación pata de gallo. Todas usan <code>id</code> INT autoincremental. PK clave primaria · FK clave ajena · UQ valor único · NULL el campo puede quedar vacío. Cabecera magenta: agenda y entradas; granate: reservas y carta; negra: personal y sistema.</p>
+  <img src="assets/doc/er.png" alt="Diagrama entidad-relación con las 13 tablas y sus relaciones" style="display: block; width: auto; max-width: 100%; max-height: 560px; margin: 0 auto; border: 1px solid #d9cfd4; break-inside: avoid;">
+
+  <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 24px 0 10px; break-before: page;">Por qué está organizado así</h3>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 40px; font-size: 15.5px;">
+    <p style="margin: 0;"><strong>Sin tabla de clientes.</strong> El público no tiene cuenta: los datos de quien compra se guardan en <code>compras</code>. Se guarda lo mínimo, sin DNI, y se puede borrar compra a compra (RGPD).</p>
+    <p style="margin: 0;"><strong>Una fila por entrada.</strong> Cada persona tiene su propio <code>codigo_qr</code>, que el portero valida una sola vez. Las entradas no son nominativas.</p>
+    <p style="margin: 0;"><strong>Compra, línea y entrada.</strong> Una compra puede mezclar tipos. <code>lineas_compra</code> copia el <code>precio_unidad</code>, así las compras antiguas no cambian si sube el precio.</p>
+    <p style="margin: 0;"><strong>Stock sin duplicar.</strong> <code>tipos_entrada.stock</code> es el total; las disponibles se calculan restando las vendidas, dentro de una transacción, para no superar el aforo.</p>
+    <p style="margin: 0;"><strong>Estados en lugar de borrar.</strong> Eventos, compras, entradas y reservas cambian de estado. No se pierden datos para estadísticas ni contabilidad.</p>
+    <p style="margin: 0;"><strong>Solo el personal en usuarios.</strong> Dos roles. <code>validada_por</code> guarda qué portero escaneó cada entrada y <code>gestionada_por</code> quién aceptó cada reserva.</p>
+    <p style="margin: 0;"><strong>Aviso a suscriptores una vez.</strong> <code>eventos.avisado_en</code> guarda cuándo se avisó; con fecha, el botón ya no aparece.</p>
+    <p style="margin: 0;"><strong>Correos registrados.</strong> <code>notificaciones</code> apunta a una compra, a una reserva o a ninguna (newsletter), con estado e intentos.</p>
+    <p style="margin: 0;"><strong>Imágenes en una tabla.</strong> Carteles y fotos de la carta apuntan a <code>imagenes</code>. Los tres tamaños comparten nombre con sufijo.</p>
+    <p style="margin: 0;"><strong>Fuera de la base de datos.</strong> El horario va fijo en la configuración y el inglés solo traduce la interfaz: no hay tabla de horarios ni campos <code>_en</code>. Las estadísticas se calculan con consultas.</p>
+  </div>
+  <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 22px 0 10px;">Valores ENUM</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+    <tbody>
+      <sc-for list="{{ enums }}" as="e" hint-placeholder-count="8">
+        <tr style="border-bottom: 1px solid #e3dade;">
+          <td style="padding: 6px 16px 6px 0; width: 260px; font-family: var(--font-mono); font-size: 14px;">{{ e.f }}</td>
+          <td style="padding: 6px 0;">{{ e.v }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">3</span>Arquitectura</h2>
+  <p style="margin: 0 0 12px;">Laravel 11 pinta las páginas y sirve la API en el mismo servidor. El navegador pide los datos con fetch. Todo corre en un VPS Hetzner CX23 con Ubuntu 24.04.</p>
+  <img src="assets/doc/arquitectura.png" alt="Diagrama de arquitectura: cliente, Nginx, Laravel, MySQL, cola, cron y servicios externos" style="display: block; width: auto; max-width: 100%; max-height: 560px; margin: 0 auto; border: 1px solid #d9cfd4; break-inside: avoid;">
+
+  <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 24px 0 10px; break-before: page;">Tecnología por capa y por qué</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #1a1216; text-align: left;">
+        <th style="padding: 6px 16px 6px 0; width: 150px;">Capa</th>
+        <th style="padding: 6px 16px 6px 0; width: 250px;">Tecnología</th>
+        <th style="padding: 6px 0;">Por qué</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ tech }}" as="t" hint-placeholder-count="9">
+        <tr style="border-bottom: 1px solid #e3dade; vertical-align: top; break-inside: avoid;">
+          <td style="padding: 7px 16px 7px 0; font-weight: 700;">{{ t.layer }}</td>
+          <td style="padding: 7px 16px 7px 0;">{{ t.tech }}</td>
+          <td style="padding: 7px 0;">{{ t.why }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 18px; font-size: 15.5px;">
+    <div>
+      <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 0 0 8px;">Despliegue</h3>
+      <p style="margin: 0;">Hetzner CX23 (2 vCPU, 4 GB, unos 6 € al mes, centro de datos en la UE). Nginx, PHP-FPM, MySQL, Supervisor para la cola y cron en la misma máquina. HTTPS con Let's Encrypt. Un script <code>deploy.sh</code> hace git pull, composer install, migraciones, cachés y reinicia la cola. Copia diaria de la base de datos fuera del servidor, 7 días.</p>
+    </div>
+    <div>
+      <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 0 0 8px;">Entornos de desarrollo</h3>
+      <p style="margin: 0;">Docker con Laravel Sail en casa (Windows con WSL2) y en clase (Linux), con las mismas versiones que producción. El código se sincroniza con GitHub; los datos no se copian, se crean con migraciones y seeders ficticios. El <code>.env</code> no se sube: cada entorno tiene el suyo a partir de <code>.env.example</code>.</p>
+    </div>
+  </div>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">4</span>Roles y permisos</h2>
+  <p style="margin: 0 0 12px;">Tres perfiles; solo dos inician sesión. Los permisos se comprueban en el servidor con middleware de rol y políticas de Laravel; sin permiso, la API responde 401 o 403.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #1a1216; text-align: left;">
+        <th style="padding: 6px 16px 6px 0;">Acción</th>
+        <th style="padding: 6px 8px; width: 110px; text-align: center;">Visitante</th>
+        <th style="padding: 6px 8px; width: 110px; text-align: center;">Portero</th>
+        <th style="padding: 6px 8px; width: 110px; text-align: center;">Admin</th>
+        <th style="padding: 6px 0 6px 16px; width: 300px;">Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ roles }}" as="r" hint-placeholder-count="19">
+        <tr style="border-bottom: 1px solid #e3dade; background: {{ r.bg }};">
+          <td style="padding: 5px 16px 5px 0; font-weight: {{ r.weight }};">{{ r.label }}</td>
+          <td style="padding: 5px 8px; text-align: center; font-weight: 700; color: {{ r.vc }};">{{ r.v }}</td>
+          <td style="padding: 5px 8px; text-align: center; font-weight: 700; color: {{ r.pc }};">{{ r.p }}</td>
+          <td style="padding: 5px 8px; text-align: center; font-weight: 700; color: {{ r.ac }};">{{ r.a }}</td>
+          <td style="padding: 5px 0 5px 16px; color: #5e5158;">{{ r.note }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <p style="margin: 14px 0 0; font-size: 15.5px;"><strong>Por qué no sobra ninguno.</strong> El visitante compra y reserva sin cuenta. El portero solo entra a la zona de puerta: si alguien le quita el móvil, no puede tocar eventos, carta, reservas ni personal. El admin gestiona el negocio y también puede validar si falta el portero. El admin no puede desactivarse a sí mismo, así siempre queda al menos uno.</p>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">5</span>La API</h2>
+  <p style="margin: 0 0 12px;">REST en JSON con prefijo <code>/api/v1</code>, documentada con Scribe. Sesión con Sanctum por cookie y CSRF, porque web y API están en el mismo dominio. Límite de 10 peticiones por minuto en compras, reservas, newsletter, inicio de sesión y validación de QR. Las rutas de portero y admin responden 401 sin sesión y 403 con un rol sin permiso; no se repite en la tabla.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 14.5px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #1a1216; text-align: left;">
+        <th style="padding: 6px 12px 6px 0; width: 120px;">Método</th>
+        <th style="padding: 6px 12px 6px 0; width: 290px;">Ruta</th>
+        <th style="padding: 6px 12px 6px 0;">Qué hace</th>
+        <th style="padding: 6px 12px 6px 0; width: 130px;">Rol</th>
+        <th style="padding: 6px 0; width: 150px;">Respuestas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ api }}" as="r" hint-placeholder-count="20">
+        <tr style="border-bottom: 1px solid #e3dade; vertical-align: top; background: {{ r.bg }}; break-inside: avoid;">
+          <td style="padding: 5px 12px 5px 0; font-family: var(--font-mono); font-size: 13.5px; font-weight: 700; color: #A83456;">{{ r.m }}</td>
+          <td style="padding: 5px 12px 5px 0; font-family: var(--font-mono); font-size: 13.5px; font-weight: {{ r.weight }}; color: #1a1216;">{{ r.path }}</td>
+          <td style="padding: 5px 12px 5px 0;">{{ r.what }}</td>
+          <td style="padding: 5px 12px 5px 0;">{{ r.role }}</td>
+          <td style="padding: 5px 0; font-family: var(--font-mono); font-size: 13.5px;">{{ r.codes }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <p style="margin: 12px 0 0; font-size: 15px;"><strong>Códigos.</strong> 200 correcto · 201 creado · 202 aceptado, se procesa en la cola · 204 sin contenido · 400 firma de Stripe incorrecta · 401 sin sesión · 403 rol sin permiso · 404 no existe · 409 conflicto (sin stock, entrada ya usada, evento ya avisado, imagen en uso) · 422 datos no válidos, con el error de cada campo · 429 demasiadas peticiones.</p>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">6</span>Prototipos de pantalla</h2>
+  <p style="margin: 0 0 12px;">Todas las pantallas están hechas en HTML, CSS y JavaScript con el sistema de diseño propio de Magenta, y se pueden abrir en el repositorio. Cada una se muestra en escritorio (1280 px) y en móvil (390 px). Los datos son ficticios.</p>
+  <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 18px 0 10px;">Criterios de accesibilidad (WCAG 2.2 AA)</h3>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 40px; font-size: 15.5px;">
+    <sc-for list="{{ a11y }}" as="x" hint-placeholder-count="10">
+      <p style="margin: 0;"><strong>{{ x.t }}</strong> {{ x.d }}</p>
+    </sc-for>
+  </div>
+
+  <sc-for list="{{ screens }}" as="s" hint-placeholder-count="4">
+    <div style="break-before: page; break-inside: avoid; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid #1a1216; padding-bottom: 8px;">
+        <h3 style="margin: 0; font: 900 26px/1 var(--font-display); text-transform: uppercase;"><span style="color: #A83456; font-family: var(--font-mono); font-size: 16px; font-weight: 700; margin-right: 12px;">{{ s.n }}</span>{{ s.title }}</h3>
+        <span style="font: 500 13px/1 var(--font-mono); color: #5e5158;">{{ s.file }}</span>
+      </div>
+      <div style="display: flex; gap: 28px; align-items: flex-start;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="width: {{ s.dw }}px; height: {{ s.dh }}px; overflow: hidden; border: 1px solid #1a1216; background: #0B0709;">
+            <iframe src="{{ s.src }}" data-anchor="{{ s.anchor }}" title="{{ s.title }} en escritorio" style="width: {{ s.fw }}px; height: {{ s.fh }}px; border: 0; transform: scale({{ s.ds }}); transform-origin: 0 0; display: block;"></iframe>
+          </div>
+          <span style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158;">Escritorio · {{ s.fw }} px</span>
+        </div>
+        <sc-if value="{{ s.hasMobile }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="width: 207px; height: 447px; overflow: hidden; border: 1px solid #1a1216; background: #0B0709;">
+              <iframe src="{{ s.src }}" data-anchor="{{ s.anchor }}" title="{{ s.title }} en móvil" style="width: 390px; height: 844px; border: 0; transform: scale(.53); transform-origin: 0 0; display: block;"></iframe>
+            </div>
+            <span style="font: 700 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #5e5158;">Móvil · 390 px</span>
+          </div>
+        </sc-if>
+      </div>
+      <p style="margin: 0; font-size: 15.5px; max-width: 960px;">{{ s.desc }}</p>
+    </div>
+  </sc-for>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">7</span>Las tres piezas de ampliación</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #1a1216; text-align: left;">
+        <th style="padding: 6px 16px 6px 0; width: 170px;">Pieza</th>
+        <th style="padding: 6px 16px 6px 0;">Modelo de datos</th>
+        <th style="padding: 6px 16px 6px 0;">API</th>
+        <th style="padding: 6px 0;">Pantallas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ amp }}" as="a" hint-placeholder-count="3">
+        <tr style="border-bottom: 1px solid #e3dade; vertical-align: top; break-inside: avoid;">
+          <td style="padding: 9px 16px 9px 0;"><strong>{{ a.name }}</strong><br><span style="color: #5e5158;">{{ a.why }}</span></td>
+          <td style="padding: 9px 16px 9px 0;">{{ a.db }}</td>
+          <td style="padding: 9px 16px 9px 0;">{{ a.api }}</td>
+          <td style="padding: 9px 0;">{{ a.ui }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">8</span>Calendario</h2>
+  <p style="margin: 0 0 12px;">Unas 10 horas por semana, 24 semanas: unas 240 horas hasta el 14 de mayo. Las semanas de vacaciones llevan menos carga y sirven de margen para retrasos.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 14.5px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #1a1216; text-align: left;">
+        <th style="padding: 5px 12px 5px 0; width: 60px;">Sem.</th>
+        <th style="padding: 5px 12px 5px 0; width: 130px;">Lunes</th>
+        <th style="padding: 5px 0;">Qué tendré hecho</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ cal }}" as="c" hint-placeholder-count="24">
+        <tr style="border-bottom: 1px solid #e3dade; vertical-align: top; background: {{ c.bg }}; color: {{ c.fg }}; break-inside: avoid;">
+          <td style="padding: 4px 12px 4px 0; font-family: var(--font-mono); font-size: 13.5px;">{{ c.n }}</td>
+          <td style="padding: 4px 12px 4px 0; font-family: var(--font-mono); font-size: 13.5px;">{{ c.d }}</td>
+          <td style="padding: 4px 0; font-weight: {{ c.w }};">{{ c.t }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <h3 style="font: 900 22px/1 var(--font-display); text-transform: uppercase; margin: 22px 0 10px;">Qué tendré en cada entrega</h3>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; font-size: 15px;">
+    <div style="border-top: 3px solid #A83456; padding-top: 10px;"><strong>3 · Prototipo funcional · 22 ene</strong><br>Base de datos con datos ficticios, inicio de sesión con roles, API pública de agenda y carta, y altas, bajas y modificaciones de eventos, tipos de entrada, carta y personal en el panel.</div>
+    <div style="border-top: 3px solid #A83456; padding-top: 10px;"><strong>4 · Aplicación completa · 12 mar</strong><br>Compra con Stripe en pruebas, entradas en PDF con QR por correo, lector de QR, reservas, lista del plan B, newsletter, textos legales, inglés e interfaz acabada y adaptada a móvil.</div>
+    <div style="border-top: 3px solid #A83456; padding-top: 10px;"><strong>5 · Despliegue y pruebas · 14 may</strong><br>Las tres ampliaciones terminadas, la web en el VPS con HTTPS, copias de seguridad probadas y el plan de pruebas ejecutado con su registro de correcciones.</div>
+  </div>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline; break-before: page;"><span style="color: #A83456;">9</span>El repositorio</h2>
+  <p style="margin: 0 0 8px; font-size: 20px;"><a href="https://github.com/OscarMas13/magenta">github.com/OscarMas13/magenta</a></p>
+  <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px;">
+    <li><strong>Contenido subido:</strong> los prototipos de todas las pantallas, el sistema de diseño, los diagramas, la Propuesta, este documento y el CHANGELOG con cada cambio.</li>
+    <li><strong>Ramas:</strong> <code>main</code> es producción, <code>develop</code> integra el trabajo y cada funcionalidad va en su propia rama, que se une a <code>develop</code> al terminarla.</li>
+    <li><strong>Commits:</strong> mensajes con prefijo (<code>feat:</code>, <code>fix:</code>, <code>docs:</code>). El <code>.env</code> con las claves no se sube nunca.</li>
+  </ul>
+
+  <h2 style="font: 900 30px/1 var(--font-display); text-transform: uppercase; margin: 32px 0 12px; display: flex; gap: 12px; align-items: baseline;"><span style="color: #A83456;">10</span>Uso de IA</h2>
+  <p style="margin: 0 0 8px;">He usado <strong>Claude</strong> (Anthropic), en su versión de chat, en estas partes:</p>
+  <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px;">
+    <li><strong>Prototipos de pantalla:</strong> generar el HTML, CSS y JavaScript de las pantallas y del sistema de diseño a partir de mis indicaciones, y probar varias versiones visuales (v1 a v4) hasta elegir la v2.</li>
+    <li><strong>Diseño técnico:</strong> comparar alternativas para el modelo de datos, la arquitectura, el pago, la cola de correo, el lector de QR y el VPS. Las decisiones las he tomado yo; por ejemplo, quitar los packs de entradas, no permitir devoluciones, mandar las entradas solo por correo y elegir Hetzner.</li>
+    <li><strong>Documentación:</strong> redactar y maquetar la Propuesta, este documento, los diagramas, el CHANGELOG y la guía de Git, a partir de lo que habíamos decidido.</li>
+  </ul>
+  <p style="margin: 10px 0 0;">Todavía no hay código del proyecto. Todo lo generado lo he revisado y lo sé explicar. Si en la programación uso alguna herramienta de IA, lo indicaré en la entrega correspondiente.</p>
+</div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const Y = 'Sí', N = '—';
+const G = label => ({ label, v:'', p:'', a:'', note:'', bg:'#f4eef1', weight:700, vc:'#1a1216', pc:'#1a1216', ac:'#1a1216' });
+const R = (label, v, p, a, note) => ({ label, note: note || '', v: v ? Y : N, p: p ? Y : N, a: a ? Y : N, vc: v ? '#A83456' : '#9a8f95', pc: p ? '#A83456' : '#9a8f95', ac: a ? '#A83456' : '#9a8f95', bg:'transparent', weight:400 });
+const ROLES = [
+  G('Web pública'),
+  R('Ver agenda, carta, terraza, horario y cómo llegar', 1, 1, 1),
+  R('Comprar entradas', 1, 1, 1, 'Sin cuenta: nombre, email y teléfono'),
+  R('Recibir sus entradas en PDF por correo', 1, 0, 0, 'Un PDF con un QR por entrada'),
+  R('Pedir una reserva de mesa', 1, 1, 1, 'Email obligatorio para confirmarla'),
+  R('Suscribirse a la newsletter y darse de baja', 1, 1, 1),
+  G('Puerta'),
+  R('Iniciar sesión', 0, 1, 1),
+  R('Validar entradas con el lector de QR o con el código a mano', 0, 1, 1, 'Cada entrada se valida una vez'),
+  R('Ver las reservas del día', 0, 1, 1, 'Solo lectura'),
+  R('Descargar la lista de entradas de la noche en PDF', 0, 1, 1, 'Plan B si se cae la web'),
+  G('Gestión'),
+  R('Crear, editar, publicar y cancelar eventos y sus tipos de entrada', 0, 0, 1),
+  R('Avisar a los suscriptores de un evento', 0, 0, 1, 'Botón manual, una vez por evento'),
+  R('Gestionar la carta', 0, 0, 1),
+  R('Aceptar o rechazar reservas', 0, 0, 1, 'Se envía un correo al cliente'),
+  R('Subir imágenes', 0, 0, 1),
+  R('Ver y exportar estadísticas', 0, 0, 1),
+  R('Dar de alta, editar y desactivar personal', 0, 0, 1, 'No puede desactivarse a sí mismo'),
+];
+const AG = label => ({ m:'', path: label, what:'', role:'', codes:'', bg:'#f4eef1', weight:700 });
+const A = (m, path, what, role, codes) => ({ m, path, what, role, codes, bg:'transparent', weight:400 });
+const API = [
+  AG('Pública'),
+  A('GET', '/eventos?genero=', 'Próximos eventos publicados, filtrables por género', 'Visitante', '200'),
+  A('GET', '/eventos/{slug}', 'Detalle del evento con sus tipos de entrada y cuántas quedan', 'Visitante', '200 · 404'),
+  A('GET', '/generos', 'Géneros para los filtros de la agenda', 'Visitante', '200'),
+  A('GET', '/carta', 'Categorías con sus productos visibles', 'Visitante', '200'),
+  A('POST', '/compras', 'Crea la compra pendiente, bloquea el stock 10 minutos y devuelve la dirección de pago de Stripe', 'Visitante', '201 · 409 · 422 · 429'),
+  A('GET', '/compras/estado?sesion=', 'Estado de la compra al volver de Stripe. No devuelve los QR', 'Visitante', '200 · 404'),
+  A('GET', '/reservas/horas?fecha=', 'Horas disponibles para reservar ese día, según el horario', 'Visitante', '200 · 422'),
+  A('POST', '/reservas', 'Solicitud de mesa: zona, día, hora, personas, nombre, teléfono y email', 'Visitante', '201 · 422 · 429'),
+  A('POST', '/suscriptores', 'Alta en la newsletter con consentimiento', 'Visitante', '201 · 422 · 429'),
+  A('DELETE', '/suscriptores/{token}', 'Baja de la newsletter desde el enlace del correo', 'Visitante con token', '204 · 404'),
+  A('POST', '/stripe/webhook', 'Stripe confirma el pago: compra pagada, se crean las entradas y se encola el correo con el PDF', 'Stripe (firma)', '200 · 400'),
+  AG('Sesión del personal'),
+  A('POST', '/login', 'Inicio de sesión con email y contraseña', 'Personal', '204 · 422 · 429'),
+  A('POST', '/logout', 'Cierre de sesión', 'Portero · Admin', '204'),
+  A('GET', '/yo', 'Usuario que ha iniciado sesión y su rol', 'Portero · Admin', '200'),
+  AG('Puerta'),
+  A('POST', '/acceso/validar', 'Valida el código del QR o escrito a mano y marca la entrada como usada. 409 si ya está usada o es de otra noche', 'Portero · Admin', '200 · 404 · 409 · 429'),
+  A('GET', '/reservas/hoy', 'Reservas aceptadas del día (solo lectura)', 'Portero · Admin', '200'),
+  A('GET', '/eventos/{id}/lista', 'PDF con las entradas de la noche y su código, para validar a mano (plan B)', 'Portero · Admin', '200 · 404'),
+  AG('Gestión'),
+  A('GET POST', '/admin/eventos', 'Listar (paginado) y crear eventos', 'Admin', '200 · 201 · 422'),
+  A('PUT', '/admin/eventos/{id}', 'Editar un evento', 'Admin', '200 · 404 · 422'),
+  A('PATCH', '/admin/eventos/{id}/estado', 'Publicar o cancelar un evento', 'Admin', '200 · 422'),
+  A('POST', '/admin/eventos/{id}/aviso', 'Avisar a los suscriptores; una vez y solo si está publicado', 'Admin', '202 · 409'),
+  A('POST', '/admin/eventos/{id}/tipos-entrada', 'Añadir un tipo de entrada al evento', 'Admin', '201 · 422'),
+  A('PUT DELETE', '/admin/tipos-entrada/{id}', 'Editar o borrar un tipo; borrar solo si no tiene ventas', 'Admin', '200 · 204 · 409 · 422'),
+  A('POST PUT DELETE', '/admin/carta/categorias/{id?}', 'Crear, editar y borrar categorías de la carta', 'Admin', '201 · 200 · 204 · 422'),
+  A('POST PUT DELETE', '/admin/carta/productos/{id?}', 'Crear, editar, ordenar, ocultar y borrar productos', 'Admin', '201 · 200 · 204 · 422'),
+  A('GET', '/admin/reservas?estado=&fecha=', 'Listar reservas; primero las pendientes', 'Admin', '200'),
+  A('PATCH', '/admin/reservas/{id}', 'Aceptar o rechazar; se encola el correo al cliente', 'Admin', '200 · 422'),
+  A('GET POST', '/admin/imagenes', 'Listar y subir imágenes (3 tamaños en WebP)', 'Admin', '200 · 201 · 422'),
+  A('DELETE', '/admin/imagenes/{id}', 'Borrar una imagen que no se usa', 'Admin', '204 · 409'),
+  A('GET', '/admin/estadisticas?desde=&hasta=', 'Datos de las gráficas: ventas, ingresos, ocupación y reservas', 'Admin', '200 · 422'),
+  A('GET', '/admin/estadisticas/exportar', 'Las mismas estadísticas en CSV', 'Admin', '200'),
+  A('GET POST', '/admin/usuarios', 'Listar y dar de alta personal', 'Admin', '200 · 201 · 422'),
+  A('PUT', '/admin/usuarios/{id}', 'Editar nombre, email o rol', 'Admin', '200 · 422'),
+  A('PATCH', '/admin/usuarios/{id}/activo', 'Activar o desactivar; no puede desactivarse a sí mismo', 'Admin', '200 · 409'),
+];
+const ENUMS = [
+  ['usuarios.rol', 'portero · admin'], ['eventos.estado', 'borrador · publicado · cancelado'],
+  ['compras.estado', 'pendiente · pagada · cancelada'], ['entradas.estado', 'valida · usada'],
+  ['reservas.zona', 'terraza · interior'], ['reservas.estado', 'pendiente · aceptada · rechazada'],
+  ['notificaciones.tipo', 'entradas · reserva_aceptada · reserva_rechazada · recordatorio · nuevo_evento'],
+  ['notificaciones.estado', 'pendiente · enviado · fallido'],
+];
+const TECH = [
+  ['Cliente', 'Blade + HTML, CSS y JavaScript sin framework', 'Laravel pinta las páginas, que cargan rápido y Google indexa. JavaScript añade filtros, compra, validaciones y lector de QR pidiendo datos a la API. React se descarta: pocas pantallas, y añadiría compilación y peso.'],
+  ['API', 'Rutas /api/v1 en Laravel, JSON', 'Códigos HTTP coherentes. La usan la web pública, el portero y el panel.'],
+  ['Servidor', 'PHP 8.3 + Laravel 11', 'Trae autenticación, validación, colas, correo, tareas programadas y migraciones. Es lo que se trabaja en el ciclo.'],
+  ['Base de datos', 'MySQL 8', 'Datos relacionales y transacciones para no vender por encima del aforo.'],
+  ['Pago', 'Stripe Checkout, modo pruebas', 'La tarjeta nunca pasa por el servidor del pub. Stripe Elements se descarta por complejidad.'],
+  ['Panel admin', 'Propio, con Blade', 'Filament se descarta para que el trabajo sea propio y demostrable.'],
+  ['Cola y correo', 'Cola en la base de datos + Supervisor + SMTP', '3 reintentos por correo. Redis se descarta: un servicio más que el volumen del pub no necesita.'],
+  ['PDF y QR', 'laravel-dompdf · simple-qrcode · html5-qrcode', 'Un PDF por compra con un QR por entrada, y la lista del plan B. html5-qrcode lee en Android e iPhone; la API nativa no está en todos los móviles.'],
+  ['Imágenes y gráficas', 'Intervention Image · Chart.js', 'Tres tamaños en WebP sin datos EXIF. Gráficas del panel sin dependencias pesadas.'],
+];
+const A11Y = [
+  ['Contraste.', 'Texto con 4.5:1 como mínimo sobre su fondo, y 3:1 en titulares grandes y bordes de controles.'],
+  ['Teclado.', 'Todo se usa sin ratón, en orden lógico, con foco visible (anillo magenta neón) y enlace «Saltar al contenido».'],
+  ['Tamaño táctil.', 'Botones y controles de al menos 44 × 44 px en móvil.'],
+  ['Formularios.', 'Cada campo con su etiqueta. Los errores salen junto al campo, en texto, y se anuncian al lector de pantalla.'],
+  ['No solo color.', 'Los estados (agotado, usada, aceptada) llevan texto e icono, no solo un color.'],
+  ['Estructura.', 'Un h1 por página, encabezados en orden, regiones header, main y footer, e idioma declarado (es o en).'],
+  ['Imágenes.', 'Texto alternativo en carteles y fotos; las decorativas se ocultan al lector.'],
+  ['Movimiento.', 'Animaciones cortas que se desactivan con «reducir movimiento» del sistema.'],
+  ['Zoom y reflujo.', 'Se lee a 200 % de zoom y a 320 px de ancho sin scroll horizontal.'],
+  ['Comprobación.', 'Lighthouse con 90 o más en accesibilidad en cada pantalla y prueba manual con teclado y NVDA.'],
+];
+const D = { fw:1280, fh:800, ds:.56, dw:717, dh:448 };
+const S = (title, file, desc, opt) => ({ title, file: file.split('?')[0], src: encodeURI(file), desc, anchor: (opt && opt.anchor) || '', hasMobile: !(opt && opt.noMobile), ...D, ...((opt && opt.size) || {}) });
+const SCREENS = [
+  S('Inicio', 'Magenta Web v2.dc.html', 'Portada con la foto del local, el próximo evento y el botón de entradas con forma de ticket en la cabecera. En móvil la navegación pasa a un menú desplegable.'),
+  S('Agenda', 'Magenta Web v2.dc.html', 'Próximas noches con fecha, artistas, precio y estado (Esta noche, Últimas, Agotado). Filtro por género. Cada fila lleva a la compra de entradas.', { anchor:'agenda' }),
+  S('Carta', 'Magenta Web v2.dc.html', 'Pijoteo y Cócteles con precio. Solo de consulta: no se pide desde la web.', { anchor:'carta' }),
+  S('Reserva de mesa', 'Magenta Web v2.dc.html', 'Zona (terraza o interior), día, hora y personas. Las horas las calcula el servidor según el horario. El admin acepta o rechaza y el cliente recibe un correo.', { anchor:'reservas' }),
+  S('Compra de entradas', 'Entradas v2.dc.html', 'Tres pasos: tipos y cantidades (máximo 10), datos del comprador y pago en Stripe. Los errores salen junto a cada campo. Al final, otras fechas.'),
+  S('Vuelta del pago', 'Vuelta del pago.dc.html?estado=pagada', 'Resultado al volver de Stripe: pagada, confirmando, cancelada o caducada. No muestra los QR; las entradas llegan en PDF por correo.'),
+  S('Baja de la newsletter', 'Baja newsletter.dc.html', 'Se abre desde el enlace del correo. Da de baja sin iniciar sesión y permite volver a apuntarse.'),
+  S('Textos legales', 'Textos legales.dc.html', 'Aviso legal, privacidad, cookies y condiciones de compra (sin devoluciones, +18 con DNI).'),
+  S('Página 404', 'Pagina 404.dc.html', 'Página no encontrada con enlaces a la agenda y al inicio.'),
+  S('Inicio de sesión del personal', 'Inicio de sesion.dc.html', 'Solo para portero y admin. Tras entrar, cada rol va a su zona. Límite de intentos.'),
+  S('Portero · Lector de QR', 'Portero - Lector QR.dc.html', 'Cámara del móvil, código a mano si falla y resultado a pantalla completa: válida, ya usada, otra noche o no existe. El resultado se anuncia también al lector de pantalla.'),
+  S('Portero · Reservas del día', 'Portero - Reservas.dc.html', 'Reservas aceptadas de hoy, solo lectura, y descarga de la lista del plan B en PDF.'),
+  S('Admin · Inicio y estadísticas', 'Admin - Inicio.dc.html', 'Resumen de la noche, ventas, ingresos, ocupación y reservas pendientes, con exportación a CSV.'),
+  S('Admin · Eventos', 'Admin - Eventos.dc.html', 'Lista y edición de eventos con sus tipos de entrada, cartel, publicación y aviso a suscriptores (una sola vez).'),
+  S('Admin · Carta', 'Admin - Carta.dc.html', 'Productos de Pijoteo y Cócteles: añadir, editar, ordenar, ocultar y borrar.'),
+  S('Admin · Reservas', 'Admin - Reservas.dc.html', 'Solicitudes pendientes primero. Aceptar o rechazar con motivo; se envía un correo al cliente.'),
+  S('Admin · Imágenes', 'Admin - Imagenes.dc.html', 'Subida de carteles y fotos. El servidor valida, redimensiona a tres tamaños y convierte a WebP.'),
+  S('Admin · Personal', 'Admin - Personal.dc.html', 'Alta, edición y desactivación de porteros y admins. Un admin no puede desactivarse a sí mismo.'),
+  S('Correos y PDF', 'Correos y PDF.dc.html', 'Correos de 600 px (entradas, reserva aceptada, reserva rechazada y nuevo evento) y PDF en A4 (entrada con QR y lista del plan B). Se ven igual en móvil porque el correo ya tiene ancho fijo.', { noMobile:true, size:{ fw:1600, fh:1000, ds:.6, dw:960, dh:600 } }),
+];
+const AMP = [
+  { name:'A · Panel con estadísticas', why:'Saber qué eventos repetir.', db:'Sin tabla propia: consultas sobre compras, lineas_compra, entradas y reservas. validada_por permite ver la ocupación real.', api:'GET /admin/estadisticas y /admin/estadisticas/exportar (CSV).', ui:'Admin · Inicio: gráficas de ventas, ingresos, ocupación y reservas con Chart.js.' },
+  { name:'B · Notificaciones por correo', why:'Entradas, confirmación de reservas y avisos.', db:'Tabla notificaciones (tipo, destinatario, estado, intentos) ligada a compras o reservas; suscriptores con token_baja; eventos.avisado_en.', api:'Las encolan el webhook de Stripe, PATCH /admin/reservas/{id} y POST /admin/eventos/{id}/aviso. Baja con DELETE /suscriptores/{token}.', ui:'Correos E1–E4, baja de la newsletter y botón «Avisar» en Admin · Eventos.' },
+  { name:'C · Carga y procesamiento de imágenes', why:'Los carteles cambian cada semana.', db:'Tabla imagenes (ruta, ancho, alto, subida_por), usada por eventos y categorias_carta.', api:'GET/POST /admin/imagenes y DELETE /admin/imagenes/{id} (409 si está en uso).', ui:'Admin · Imágenes y el hueco del cartel en Admin · Eventos.' },
+];
+const CAL = [
+  ['30 nov', 'Presentación de la entrega 2. Proyecto Laravel 11 con Sail en casa (WSL2) y en clase. Ramas main y develop.'],
+  ['7 dic', 'Migraciones de las 13 tablas, modelos Eloquent y relaciones.'],
+  ['14 dic', 'Seeders con datos ficticios. Inicio de sesión del personal con Sanctum y middleware de rol.'],
+  ['21 dic', 'Plantilla Blade común: cabecera, pie y estilos del sistema de diseño.', 'v'],
+  ['28 dic', 'Vacaciones de Navidad: margen.', 'v'],
+  ['4 ene', 'API pública de eventos, géneros y carta. La agenda y la carta leen datos reales.'],
+  ['11 ene', 'Panel: eventos y tipos de entrada (crear, editar, publicar, cancelar) con validación.'],
+  ['18 ene', 'Panel: carta y personal. Pruebas de los casos que deben fallar. Entrega 3 (22 ene).', 'e'],
+  ['25 ene', 'POST /compras: compra pendiente y bloqueo del stock 10 minutos en una transacción.'],
+  ['1 feb', 'Stripe Checkout en pruebas, webhook con firma y vuelta del pago.'],
+  ['8 feb', 'Entradas con código de 12 caracteres y QR, PDF con dompdf y correo en cola.'],
+  ['15 feb', 'Lector de QR con html5-qrcode, código a mano y /acceso/validar.'],
+  ['22 feb', 'Reservas: horas disponibles, solicitud, aceptar o rechazar, reservas del día y lista del plan B.'],
+  ['1 mar', 'Newsletter (alta y baja), textos legales, 404 y traducción de la interfaz al inglés.'],
+  ['8 mar', 'Repaso de interfaz, móvil y accesibilidad. Entrega 4 (12 mar).', 'e'],
+  ['15 mar', 'Ampliación C: subida de imágenes, tres tamaños en WebP, sin EXIF. Fallas.'],
+  ['22 mar', 'Ampliación A: estadísticas con Chart.js y exportación a CSV.'],
+  ['29 mar', 'Vacaciones de Pascua: margen.', 'v'],
+  ['5 abr', 'Ampliación B: registro de notificaciones, reintentos, recordatorio 24 h y aviso a suscriptores.'],
+  ['12 abr', 'Despliegue en Hetzner: Nginx, PHP-FPM, MySQL, Supervisor, cron, dominio y HTTPS.'],
+  ['19 abr', 'Copias diarias fuera del servidor, prueba de restauración y deploy.sh.'],
+  ['26 abr', 'Plan de pruebas ejecutado en producción y registro de correcciones.'],
+  ['3 may', 'Corrección de errores, Lighthouse y documentación de la API con Scribe.'],
+  ['10 may', 'Margen y cierre. Entrega 5 (14 may).', 'e'],
+];
+
+class Component extends DCLogic {
+  componentDidMount() {
+    const go = f => {
+      const a = f.getAttribute('data-anchor');
+      if (!a || f.dataset.done) return;
+      try {
+        const doc = f.contentDocument, win = f.contentWindow, el = doc && doc.getElementById(a);
+        if (!el) return;
+        doc.documentElement.style.scrollBehavior = 'auto';
+        win.scrollTo({ top: el.getBoundingClientRect().top + win.scrollY, behavior: 'instant' });
+        if (win.scrollY > 0) f.dataset.done = '1';
+      } catch (e) {}
+    };
+    let n = 0;
+    this.iv = setInterval(() => {
+      const fs = [...document.querySelectorAll('iframe[data-anchor]')].filter(f => f.getAttribute('data-anchor'));
+      fs.forEach(go);
+      if (++n > 60 || (fs.length && fs.every(f => f.dataset.done))) clearInterval(this.iv);
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.iv); }
+  renderVals() {
+    return {
+      enums: ENUMS.map(([f, v]) => ({ f, v })),
+      tech: TECH.map(([layer, tech, why]) => ({ layer, tech, why })),
+      roles: ROLES, api: API,
+      a11y: A11Y.map(([t, d]) => ({ t, d })),
+      screens: SCREENS.map((s, i) => ({ ...s, n: '6.' + (i + 1) })),
+      amp: AMP,
+      cal: CAL.map(([d, t, k], i) => ({ n: String(i + 1).padStart(2, '0'), d, t, bg: k === 'e' ? '#f7e6ec' : 'transparent', fg: k === 'v' ? '#5e5158' : '#1a1216', w: k === 'e' ? 700 : 400 })),
+    };
+  }
+}
+</script>
+</body>
+</html>

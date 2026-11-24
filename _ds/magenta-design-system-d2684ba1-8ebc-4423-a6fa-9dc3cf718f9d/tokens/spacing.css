@@ -1,0 +1,15 @@
+:root{
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:144px;
+--gutter:clamp(20px,4vw,56px); /* @kind spacing */
+--container:1440px;--header-h:72px;
+--radius-0:0;--radius-sm:2px;--radius-md:4px;--radius-pill:999px;--radius-round:50%;
+--border-hair:1px; /* @kind other */
+--border-thick:2px; /* @kind other */
+--shadow-pop:0 24px 64px -16px rgba(0,0,0,.7);--shadow-glow:0 0 0 1px var(--magenta-500),0 0 32px -4px rgba(168,52,86,.6);
+--blur-glass:saturate(140%) blur(18px); /* @kind other */
+--ease-out:cubic-bezier(.2,.7,.2,1); /* @kind other */
+--ease-in-out:cubic-bezier(.7,0,.2,1); /* @kind other */
+--dur-fast:140ms; /* @kind other */
+--dur-base:240ms; /* @kind other */
+--dur-slow:600ms; /* @kind other */
+}

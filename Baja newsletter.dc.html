@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/mail.svg"] { -webkit-mask-image: url(assets/icons/mail.svg) !important; mask-image: url(assets/icons/mail.svg) !important; }
+    span[style*="icons/circle-check.svg"] { -webkit-mask-image: url(assets/icons/circle-check.svg) !important; mask-image: url(assets/icons/circle-check.svg) !important; }
+    span[style*="icons/x.svg"] { -webkit-mask-image: url(assets/icons/x.svg) !important; mask-image: url(assets/icons/x.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 18px; line-height: 1.55; min-height: 100vh; display: flex; flex-direction: column;">
+
+  <header style="height: {{ headerH }}; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gutter); border-bottom: 1px solid var(--border-subtle);">
+    <a href="Magenta Web v2.dc.html" style="display: flex; align-items: center; gap: 10px; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 20 }}" hint-size="20px,20px"></x-import>
+      <span>{{ backLabel }}</span>
+    </a>
+    <a href="Magenta Web v2.dc.html" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <span style="justify-self: end; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; color: var(--fg-2);">ES / EN</span>
+  </header>
+
+  <main data-screen-label="Baja de la newsletter" style="flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: clamp(56px, 9vw, 128px) var(--gutter); box-sizing: border-box; display: flex; flex-direction: column; gap: 28px;">
+    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ icon }}" size="{{ 56 }}" color="{{ iconColor }}" hint-size="56px,56px"></x-import>
+    <h1 role="status" aria-live="polite" style="margin: 0; font: 900 clamp(48px, 8vw, 104px)/.88 var(--font-display); text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance;">{{ title }}</h1>
+    <p style="margin: 0; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; max-width: 600px; text-wrap: pretty;">{{ lead }}</p>
+    <sc-if value="{{ hasNote }}" hint-placeholder-val="{{ true }}">
+      <p style="margin: 0; font-size: 16px; color: var(--fg-2); max-width: 560px;">{{ note }}</p>
+    </sc-if>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ goHome }}" hint-size="200px,52px">Volver a la web</x-import>
+      <sc-if value="{{ canResub }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" on-click="{{ resub }}" hint-size="220px,52px">Volver a apuntarme</x-import>
+      </sc-if>
+    </div>
+  </main>
+
+  <footer style="padding: 28px var(--gutter); border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 15px; color: var(--fg-2);">
+    <span>© 2026 Magenta · Almussafes · +18</span>
+    <span>Cookies · Privacidad · Aviso legal</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;baja&quot;,&quot;reapuntado&quot;,&quot;invalido&quot;],&quot;default&quot;:&quot;baja&quot;,&quot;tsType&quot;:&quot;'baja'|'reapuntado'|'invalido'&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const STATES = ['baja', 'reapuntado', 'invalido'];
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search).get('estado');
+    return { mobile: window.matchMedia('(max-width: 760px)').matches, urlEstado: STATES.includes(q) ? q : null, resub: false };
+  })();
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 760px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); }
+  renderVals() {
+    const s = this.state, m = s.mobile;
+    let est = s.urlEstado || this.props.estado || 'baja';
+    if (s.resub && est === 'baja') est = 'reapuntado';
+    const email = 'l***@gmail.com';
+    const C = {
+      baja: { icon:'mail', color:'var(--fg-1)', title:'Te hemos dado de baja', lead:`${email} ya no recibirá más correos de Magenta.`, note:'Si compras entradas o reservas mesa, te seguiremos enviando lo necesario para esa compra o reserva.', resub:true },
+      reapuntado: { icon:'circle-check', color:'var(--neon-400)', title:'Has vuelto', lead:`Te volveremos a avisar de cada fecha nueva en ${email}.`, note:'', resub:false },
+      invalido: { icon:'x', color:'var(--fg-1)', title:'Este enlace no vale', lead:'Puede que ya te hayas dado de baja o que el enlace esté incompleto.', note:'Si sigues recibiendo correos, usa el enlace del último que te llegó.', resub:false },
+    }[est];
+    return {
+      headerH: m ? '80px' : '120px', logoH: m ? '56px' : '100px', navSize: m ? '13px' : '16px', backLabel: m ? 'Web' : 'Volver a la web',
+      icon: C.icon, iconColor: C.color, title: C.title, lead: C.lead, note: C.note, hasNote: !!C.note, canResub: C.resub,
+      goHome: () => { location.href = 'Magenta Web v2.dc.html'; },
+      resub: () => this.setState({ resub: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

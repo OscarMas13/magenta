@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: #FFFFFF; }
+    a { color: var(--magenta-500); }
+    a:hover { color: var(--magenta-700); }
+  </style>
+</helmet>
+<div data-screen-label="Roles y permisos" style="width: 1400px; padding: 56px 40px 72px; box-sizing: border-box; background: #FFFFFF; color: var(--ink-950); font-family: var(--font-body);">
+
+  <div style="padding-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; border-bottom: 1px solid var(--ink-200);">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font: 700 13px/1 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--magenta-500);">Entrega 2 · Roles y permisos</div>
+      <h1 style="margin: 0; font: 900 72px/.9 var(--font-display); text-transform: uppercase;">Qué puede hacer cada perfil</h1>
+    </div>
+    <div style="font: 500 16px/1.5 var(--font-mono); text-align: right; color: var(--ink-800);">3 perfiles · 2 roles con sesión<br>Permisos comprobados en el servidor</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) 150px 150px 150px; margin-top: 32px;">
+    <div style="padding: 16px 0; border-bottom: 2px solid var(--ink-950); font: 700 13px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Acción</div>
+    <div style="padding: 16px 0; border-bottom: 2px solid var(--ink-950); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+      <span style="font: 900 24px/1 var(--font-display); text-transform: uppercase;">Visitante</span>
+      <span style="font: 500 12px/1 var(--font-mono); color: var(--ink-700);">sin sesión</span>
+    </div>
+    <div style="padding: 16px 0; border-bottom: 2px solid var(--ink-950); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+      <span style="font: 900 24px/1 var(--font-display); text-transform: uppercase;">Portero</span>
+      <span style="font: 500 12px/1 var(--font-mono); color: var(--ink-700);">rol = portero</span>
+    </div>
+    <div style="padding: 16px 0; border-bottom: 2px solid var(--ink-950); display: flex; flex-direction: column; align-items: center; gap: 6px; background: var(--magenta-50);">
+      <span style="font: 900 24px/1 var(--font-display); text-transform: uppercase;">Admin</span>
+      <span style="font: 500 12px/1 var(--font-mono); color: var(--ink-700);">rol = admin</span>
+    </div>
+
+    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="18">
+      <sc-if value="{{ r.isGroup }}" hint-placeholder-val="{{ false }}">
+        <div style="grid-column: 1 / -1; padding: 28px 0 10px; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-500); border-bottom: 1px solid var(--ink-200);">{{ r.label }}</div>
+      </sc-if>
+      <sc-if value="{{ r.isRow }}" hint-placeholder-val="{{ true }}">
+        <div style="padding: 13px 16px 13px 0; border-bottom: 1px solid var(--ink-200); display: flex; flex-direction: column; gap: 3px;">
+          <span style="font-size: 17px;">{{ r.label }}</span>
+          <sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size: 14px; color: var(--ink-700);">{{ r.note }}</span>
+          </sc-if>
+        </div>
+        <div style="border-bottom: 1px solid var(--ink-200); display: flex; align-items: center; justify-content: center; font: 700 20px/1 var(--font-mono); color: {{ r.vColor }};">{{ r.v }}</div>
+        <div style="border-bottom: 1px solid var(--ink-200); display: flex; align-items: center; justify-content: center; font: 700 20px/1 var(--font-mono); color: {{ r.pColor }};">{{ r.p }}</div>
+        <div style="border-bottom: 1px solid var(--ink-200); display: flex; align-items: center; justify-content: center; font: 700 20px/1 var(--font-mono); color: {{ r.aColor }}; background: var(--magenta-50);">{{ r.a }}</div>
+      </sc-if>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; gap: 28px; margin-top: 16px; font-size: 15px; color: var(--ink-800);">
+    <span><strong style="font-family: var(--font-mono); color: var(--magenta-500);">✓</strong> puede</span>
+    <span><strong style="font-family: var(--font-mono); color: var(--ink-300);">—</strong> no puede</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px; margin-top: 56px;">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Por qué no sobra ninguno</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li><strong>Visitante:</strong> es quien compra y reserva. No tiene cuenta: recibe sus entradas en PDF por correo.</li>
+        <li><strong>Portero:</strong> solo entra a la zona de puerta. Si alguien le quita el móvil, no puede tocar eventos, carta, reservas ni personal.</li>
+        <li><strong>Admin:</strong> gestiona el negocio. También puede validar en la puerta por si falta el portero.</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Cómo se comprueba</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li>Las rutas de portero y admin van en grupos con middleware de sesión y de rol. Sin permiso, la API responde 401 o 403.</li>
+        <li>Cada acción sobre un recurso concreto pasa por una política de Laravel. Ocultar un botón no es seguridad.</li>
+        <li>Las entradas no se consultan en la web: el PDF solo llega al email de la compra. La página de vuelta del pago se identifica con la sesión de Stripe y no muestra los QR.</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Reglas</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li>Una entrada solo se valida una vez. No se anulan entradas ni hay devoluciones.</li>
+        <li>El admin no puede desactivarse a sí mismo, así siempre queda al menos uno.</li>
+        <li>Cada evento se avisa a los suscriptores una sola vez (<code style="font-family: var(--font-mono);">eventos.avisado_en</code>).</li>
+        <li>El portero ve las reservas del día, pero no las modifica.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const G = label => ({ isGroup:true, isRow:false, label });
+const R = (label, v, p, a, note) => ({ isGroup:false, isRow:true, label, note: note || '', hasNote: !!note, v, p, a });
+const ROWS = [
+  G('Web pública'),
+  R('Ver agenda, carta, terraza, horario y cómo llegar', 1, 1, 1),
+  R('Comprar entradas', 1, 1, 1, 'Sin cuenta: nombre, email y teléfono en la compra'),
+  R('Recibir sus entradas en PDF por correo', 1, 0, 0, 'Un PDF con un QR por entrada'),
+  R('Pedir una reserva de mesa', 1, 1, 1, 'Email obligatorio para la confirmación'),
+  R('Suscribirse a la newsletter y darse de baja', 1, 1, 1),
+  G('Puerta'),
+  R('Iniciar sesión', 0, 1, 1),
+  R('Validar entradas con el lector de QR o con el código a mano', 0, 1, 1, 'Cada entrada se valida una sola vez'),
+  R('Ver las reservas del día', 0, 1, 1, 'Solo lectura'),
+  R('Descargar la lista de entradas de la noche en PDF', 0, 1, 1, 'Plan B si se cae la web'),
+  G('Gestión'),
+  R('Crear, editar, publicar y cancelar eventos y sus tipos de entrada', 0, 0, 1),
+  R('Avisar a los suscriptores de un evento', 0, 0, 1, 'Botón manual, una vez por evento'),
+  R('Gestionar la carta', 0, 0, 1),
+  R('Aceptar o rechazar reservas', 0, 0, 1, 'Se envía un correo al cliente'),
+  R('Subir imágenes', 0, 0, 1),
+  R('Ver y exportar estadísticas', 0, 0, 1),
+  R('Dar de alta, editar y desactivar personal', 0, 0, 1, 'No puede desactivarse a sí mismo'),
+];
+const mark = x => x ? '✓' : '—';
+const col = x => x ? 'var(--magenta-500)' : 'var(--ink-300)';
+class Component extends DCLogic {
+  renderVals() {
+    return { rows: ROWS.map(r => r.isGroup ? r : { ...r, v: mark(r.v), p: mark(r.p), a: mark(r.a), vColor: col(r.v), pColor: col(r.p), aColor: col(r.a) }) };
+  }
+}
+</script>
+</body>
+</html>

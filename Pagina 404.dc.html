@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 18px; line-height: 1.55; min-height: 100vh; display: flex; flex-direction: column;">
+
+  <header style="height: {{ headerH }}; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gutter); border-bottom: 1px solid var(--border-subtle);">
+    <a href="Magenta Web v2.dc.html" style="display: flex; align-items: center; gap: 10px; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 20 }}" hint-size="20px,20px"></x-import>
+      <span>{{ backLabel }}</span>
+    </a>
+    <a href="Magenta Web v2.dc.html" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <span style="justify-self: end; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; color: var(--fg-2);">ES / EN</span>
+  </header>
+
+  <main data-screen-label="Página 404" style="flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: clamp(48px, 8vw, 120px) var(--gutter) clamp(64px, 9vw, 128px); display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px);">
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <span aria-hidden="true" style="font: 900 clamp(140px, 30vw, 420px)/.78 var(--font-display); color: var(--magenta-500); letter-spacing: -.02em;">404</span>
+      <h1 style="margin: 0; font: 900 clamp(44px, 7vw, 104px)/.88 var(--font-display); text-transform: uppercase; letter-spacing: -.01em; text-wrap: balance;">Aquí no hay nadie bailando</h1>
+      <p style="margin: 0; max-width: 560px; font-size: clamp(19px, 1.8vw, 22px); text-wrap: pretty;">La página que buscas no existe o ha cambiado de sitio. Si has llegado desde un enlace de un correo, puede que esté incompleto.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ goHome }}" hint-size="200px,52px">Volver a la web</x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" on-click="{{ goAgenda }}" hint-size="170px,52px">Ver la agenda</x-import>
+      </div>
+    </div>
+
+    <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">{{ nextLabel }}</span>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding: 22px 26px; background: var(--ink-900); transition: background 140ms ease-out;" style-hover="background: var(--ink-850);">
+          <div style="flex: 0 0 auto; width: 84px; display: flex; flex-direction: column; gap: 6px;">
+            <span style="font: 900 60px/.85 var(--font-display); font-variant-numeric: tabular-nums;">{{ next.date }}</span>
+            <span style="font: 600 15px/1 var(--font-body); color: var(--fg-2);">{{ nextDayMonth }}</span>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+            <span style="font: 900 clamp(26px, 2.4vw, 36px)/.95 var(--font-display); text-transform: uppercase;">{{ next.title }}</span>
+            <span style="font-size: 16px; color: var(--fg-2);">{{ next.artists }} · {{ next.doors }}</span>
+          </div>
+          <span style="font: 600 18px/1 var(--font-body);">{{ next.price }}</span>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" icon-right="arrow-right" on-click="{{ buyNext }}" hint-size="140px,44px">Entradas</x-import>
+        </div>
+      </div>
+    </sc-if>
+
+    <nav aria-label="Secciones de la web" style="display: flex; flex-wrap: wrap; gap: 12px 32px; font: 700 16px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+      <a href="Magenta Web v2.dc.html#agenda">Agenda</a>
+      <a href="Magenta Web v2.dc.html#carta">Carta</a>
+      <a href="Magenta Web v2.dc.html#reservas">Reservas</a>
+      <a href="Magenta Web v2.dc.html#horario">Cuándo y dónde</a>
+    </nav>
+  </main>
+
+  <footer style="padding: 28px var(--gutter); border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 15px; color: var(--fg-2);">
+    <span>© 2026 Magenta · Almussafes · +18</span>
+    <span>Cookies · Privacidad · Aviso legal</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DAYS = ['dom','lun','mar','mié','jue','vie','sáb'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 760px)').matches };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 760px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); }
+  renderVals() {
+    const m = this.state.mobile, now = new Date();
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dateOf = e => new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date);
+    const next = (window.MAGENTA_EVENTS || []).find(e => e.status !== 'soldout' && dateOf(e) >= today0);
+    const w = next ? dateOf(next) : today0;
+    return {
+      headerH: m ? '80px' : '120px', logoH: m ? '56px' : '100px', navSize: m ? '13px' : '16px', backLabel: m ? 'Web' : 'Volver a la web',
+      goHome: () => { location.href = 'Magenta Web v2.dc.html'; },
+      goAgenda: () => { location.href = 'Magenta Web v2.dc.html#agenda'; },
+      hasNext: !!next, next: next || { date:'', title:'', artists:'', doors:'', price:'' },
+      nextLabel: next && +w === +today0 ? 'Mientras tanto, esta noche' : 'Mientras tanto, la próxima noche',
+      nextDayMonth: DAYS[w.getDay()].charAt(0).toUpperCase() + DAYS[w.getDay()].slice(1) + ', ' + MON_UP[w.getMonth()].toLowerCase(),
+      buyNext: () => { if (next) location.href = 'Entradas v2.dc.html?e=' + next.id; },
+    };
+  }
+}
+</script>
+</body>
+</html>

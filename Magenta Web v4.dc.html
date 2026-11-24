@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--ink-950); }
+    @keyframes slowScale { from { transform: scale(1); } to { transform: scale(1.08); } }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-up-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-up-right.svg) !important; mask-image: url(assets/icons/arrow-up-right.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/ticket.svg"] { -webkit-mask-image: url(assets/icons/ticket.svg) !important; mask-image: url(assets/icons/ticket.svg) !important; }
+    span[style*="icons/menu.svg"] { -webkit-mask-image: url(assets/icons/menu.svg) !important; mask-image: url(assets/icons/menu.svg) !important; }
+    span[style*="icons/x.svg"] { -webkit-mask-image: url(assets/icons/x.svg) !important; mask-image: url(assets/icons/x.svg) !important; }
+    span[style*="icons/map-pin.svg"] { -webkit-mask-image: url(assets/icons/map-pin.svg) !important; mask-image: url(assets/icons/map-pin.svg) !important; }
+    span[style*="icons/clock.svg"] { -webkit-mask-image: url(assets/icons/clock.svg) !important; mask-image: url(assets/icons/clock.svg) !important; }
+    span[style*="icons/instagram.svg"] { -webkit-mask-image: url(assets/icons/instagram.svg) !important; mask-image: url(assets/icons/instagram.svg) !important; }
+    span[style*="icons/music-2.svg"] { -webkit-mask-image: url(assets/icons/music-2.svg) !important; mask-image: url(assets/icons/music-2.svg) !important; }
+    span[style*="icons/mail.svg"] { -webkit-mask-image: url(assets/icons/mail.svg) !important; mask-image: url(assets/icons/mail.svg) !important; }
+    span[style*="icons/chevron-down.svg"] { -webkit-mask-image: url(assets/icons/chevron-down.svg) !important; mask-image: url(assets/icons/chevron-down.svg) !important; }
+    span[style*="icons/check.svg"] { -webkit-mask-image: url(assets/icons/check.svg) !important; mask-image: url(assets/icons/check.svg) !important; }
+  </style>
+</helmet>
+<div style="--header-h: {{ headerH }}; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 17px; line-height: 1.55; overflow-x: clip;">
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; height: var(--header-h); display: grid; grid-template-columns: {{ headerCols }}; align-items: center; gap: 24px; padding: 0 var(--gutter); background: {{ headerBg }}; backdrop-filter: {{ headerBlur }}; -webkit-backdrop-filter: {{ headerBlur }}; border-bottom: 1px solid {{ headerBorder }}; transition: background 240ms ease-out;">
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display: flex; gap: 28px; align-items: center;">
+        <a href="#agenda" style="font: 700 15px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Agenda</a>
+        <a href="#ahora" style="font: 700 15px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Esta noche</a>
+        <a href="#carta" style="font: 700 15px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Carta</a>
+        <a href="#reservar" style="font: 700 15px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Reservar</a>
+      </nav>
+      <a href="#top" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: 92px; display: block;"></a>
+      <div style="display: flex; gap: 20px; justify-content: flex-end; align-items: center;">
+        <span style="font: 700 14px/1 var(--font-body); letter-spacing: var(--ls-caps); color: var(--fg-2);">ES / EN</span>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="ticket" on-click="{{ goAgenda }}" hint-size="160px,52px">Entradas</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <a href="#top" onClick="{{ closeMenu }}" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: 60px; display: block;"></a>
+      <div style="display: flex; justify-content: flex-end;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.IconButton" icon="{{ menuIcon }}" label="{{ menuLabel }}" on-click="{{ toggleMenu }}" hint-size="44px,44px"></x-import>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0; z-index: 39; background: var(--ink-950); padding: 24px var(--gutter) 40px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;">
+      <a href="#agenda" onClick="{{ closeMenu }}" style="font: 900 60px/1 var(--font-display); text-transform: uppercase;">Agenda</a>
+      <a href="#ahora" onClick="{{ closeMenu }}" style="font: 900 60px/1 var(--font-display); text-transform: uppercase;">Esta noche</a>
+      <a href="#carta" onClick="{{ closeMenu }}" style="font: 900 60px/1 var(--font-display); text-transform: uppercase;">Carta</a>
+      <a href="#reservar" onClick="{{ closeMenu }}" style="font: 900 60px/1 var(--font-display); text-transform: uppercase;">Reservar</a>
+      <a href="#llegar" onClick="{{ closeMenu }}" style="font: 900 60px/1 var(--font-display); text-transform: uppercase;">Cómo llegar</a>
+      <div style="margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 18px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" full="{{ true }}" icon="ticket" on-click="{{ goAgendaMobile }}" hint-size="100%,52px">Entradas</x-import>
+        <span style="font: 700 15px/1 var(--font-body); letter-spacing: var(--ls-caps); color: var(--fg-2); text-align: center;">ES / EN</span>
+      </div>
+    </nav>
+  </sc-if>
+
+  <section id="top" data-screen-label="Inicio" style="position: relative; height: 100svh; min-height: 680px; overflow: hidden; display: flex; align-items: flex-end;">
+    <img id="hero-img" src="assets/hero-2.png" alt="Gente bailando con las manos en alto bajo las luces rosas de Magenta" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; transform-origin: 50% 60%;">
+    <div style="position: absolute; inset: 0 0 auto 0; height: 30%; background: linear-gradient(to bottom, rgba(11,7,9,.7), rgba(11,7,9,0));"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,7,9,.96) 0%, rgba(11,7,9,.55) 40%, rgba(11,7,9,0) 72%);"></div>
+    <div style="position: relative; width: 100%; padding: 0 var(--gutter) clamp(36px, 5vw, 72px); display: flex; flex-direction: column; gap: 24px;">
+      <div data-reveal style="display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center;">
+        <sc-if value="{{ hasTonight }}" hint-placeholder-val="{{ true }}">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="live" dot="{{ true }}" hint-size="110px,26px">Esta noche</x-import>
+        </sc-if>
+        <span style="font: 600 clamp(15px, 1.2vw, 18px)/1.3 var(--font-mono);">{{ heroLine }}</span>
+      </div>
+      <h1 data-reveal style="margin: 0; font: 900 clamp(64px, 13vw, 232px)/.82 var(--font-display); text-transform: uppercase; letter-spacing: -.01em;">De la terraza<br><span style="color: var(--magenta-400);">a la pista</span></h1>
+      <div data-reveal style="display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: flex-end; justify-content: space-between;">
+        <p style="margin: 0; max-width: 520px; font-size: clamp(17px, 1.3vw, 20px); text-wrap: pretty;">{{ heroStatus }} Pijoteo y cócteles al caer la tarde; viernes y sábado, DJ hasta las 03:30.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-up-right" on-click="{{ buyTonight }}" hint-size="230px,52px">{{ heroBuyLabel }}</x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" on-click="{{ goReservar }}" hint-size="190px,52px">Reservar mesa</x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="background: var(--magenta-500); overflow: hidden; padding: 18px 0;">
+    <div id="marquee" style="display: flex; width: max-content; will-change: transform;">
+      <sc-for list="{{ marqueeLoop }}" as="q" hint-placeholder-count="10">
+        <span style="display: flex; align-items: center; gap: 28px; padding-right: 28px; font: 900 clamp(32px, 3.6vw, 56px)/1 var(--font-display); text-transform: uppercase; white-space: nowrap; color: #fff;">
+          <span>{{ q.title }}</span>
+          <span style="font: 600 clamp(15px, 1.2vw, 18px)/1 var(--font-mono); color: var(--magenta-50);">{{ q.date }}</span>
+          <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--ink-950);"></span>
+        </span>
+      </sc-for>
+    </div>
+  </div>
+
+  <section id="agenda" data-screen-label="Agenda" style="padding: var(--space-10) var(--gutter); overflow: hidden; display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px); scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px;">
+      <h2 data-reveal style="margin: 0; font: 900 clamp(56px, 8vw, 140px)/.85 var(--font-display); text-transform: uppercase;">Próximas<br>noches</h2>
+      <div data-reveal style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start;">
+        <p style="margin: 0; max-width: 420px;">La entrada te llega al móvil con su QR. En la puerta, DNI o pasaporte.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <sc-for list="{{ genres }}" as="g" hint-placeholder-count="5">
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Tag" active="{{ g.on }}" on-click="{{ g.pick }}" hint-size="80px,34px">{{ g.label }}</x-import>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="border-bottom: 1px solid var(--border-default);">
+      <sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+        <div data-reveal>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.EventCard" layout="row" day="{{ e.day }}" date="{{ e.date }}" month="{{ e.month }}" title="{{ e.title }}" artists="{{ e.artists }}" status="{{ e.cardStatus }}" price="{{ e.price }}" on-click="{{ e.open }}" hint-size="100%,152px"></x-import>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noEvents }}" hint-placeholder-val="{{ false }}">
+        <p style="margin: 0; padding: 32px; background: var(--ink-900);">No hay noches de este estilo por ahora.</p>
+      </sc-if>
+    </div>
+  </section>
+
+  <section id="ahora" data-screen-label="A esta hora" style="background: {{ liveBg }}; color: #fff; transition: background 500ms ease; padding: var(--space-10) var(--gutter); display: grid; grid-template-columns: {{ twoCols }}; gap: clamp(40px, 5vw, 96px); align-items: start; scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 28px; min-width: 0;">
+      <h2 data-reveal style="margin: 0; font: 900 clamp(48px, 6vw, 104px)/.85 var(--font-display); text-transform: uppercase;">¿Qué hay<br>a esta hora?</h2>
+      <p data-reveal style="margin: 0; max-width: 440px;">Elige día y hora y mira qué te encuentras: terraza, pijoteo o pista.</p>
+      <div data-reveal role="group" aria-label="Día de la semana" style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <sc-for list="{{ liveDays }}" as="d" hint-placeholder-count="7">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Tag" active="{{ d.on }}" on-click="{{ d.pick }}" hint-size="64px,34px">{{ d.label }}</x-import>
+        </sc-for>
+      </div>
+      <div data-reveal style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="hora" style="font: 700 13px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Hora · <span style="font-family: var(--font-mono);">{{ liveHour }}</span></label>
+        <input id="hora" type="range" min="0" max="21" step="1" value="{{ liveIdx }}" onChange="{{ setLiveIdx }}" style="width: 100%; height: 44px; accent-color: var(--neon-500); cursor: pointer;">
+        <div aria-hidden="true" style="display: flex; justify-content: space-between; font: 500 14px/1 var(--font-mono);">
+          <span>17:00</span><span>20:00</span><span>23:00</span><span>02:00</span><span>03:30</span>
+        </div>
+      </div>
+    </div>
+    <div aria-live="polite" style="display: flex; flex-direction: column; gap: 22px; min-width: 0;">
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ liveTone }}" dot="{{ liveOpen }}" hint-size="100px,26px">{{ liveBadge }}</x-import>
+        <span style="font: 600 18px/1 var(--font-mono);">{{ liveWhen }}</span>
+      </div>
+      <p style="margin: 0; font: 900 clamp(44px, 5.4vw, 92px)/.88 var(--font-display); text-transform: uppercase;">{{ liveHeadline }}</p>
+      <sc-for list="{{ liveLines }}" as="l" hint-placeholder-count="1">
+        <p style="margin: 0; font-size: clamp(18px, 1.5vw, 22px); max-width: 560px;">{{ l.text }}</p>
+      </sc-for>
+      <sc-if value="{{ liveHasEvent }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="secondary" icon-right="arrow-up-right" on-click="{{ liveBuy }}" hint-size="260px,52px">{{ liveEventCta }}</x-import>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section id="carta" data-screen-label="Carta" style="padding: var(--space-10) var(--gutter); display: grid; grid-template-columns: {{ twoCols }}; gap: clamp(48px, 6vw, 112px); scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 24px; min-width: 0;">
+      <h2 data-reveal style="margin: 0; font: 900 clamp(56px, 8vw, 140px)/.85 var(--font-display); text-transform: uppercase;">El <span style="color: var(--magenta-400);">Pijoteo</span></h2>
+      <p data-reveal style="margin: 0; max-width: 440px; font-size: clamp(18px, 1.5vw, 22px);">Conservas de Ramón Peña, jamón Beher a cuchillo y gildas al momento. Para compartir antes de bailar.</p>
+      <div data-reveal style="aspect-ratio: 4 / 5; width: 100%; max-width: 520px; margin-top: 12px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-pijoteo" placeholder="Foto de un plato del Pijoteo" radius="0" hint-size="100%,100%"></x-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; min-width: 0; padding-top: {{ listPad }};">
+      <sc-for list="{{ pijoteo }}" as="m" hint-placeholder-count="8">
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding: 18px 16px; margin: 0 -16px; border-bottom: 1px solid var(--border-subtle); transition: background 140ms ease-out;" style-hover="background: var(--ink-900);">
+          <span style="font: 800 clamp(24px, 2vw, 30px)/1.05 var(--font-display); text-transform: uppercase;">{{ m.name }}</span>
+          <span style="font: 600 17px/1.6 var(--font-mono); color: var(--magenta-300);">{{ m.price }}</span>
+          <sc-if value="{{ m.showDesc }}" hint-placeholder-val="{{ true }}">
+            <span style="grid-column: 1 / -1; color: var(--fg-2); font-size: 16px;">{{ m.desc }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+      <p data-reveal style="margin: 24px 0 0; font-size: 15px; color: var(--fg-2);">Se pide en la mesa o en la barra. Pregunta por los alérgenos.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Cócteles" style="background: var(--magenta-500); color: #fff;">
+    <div style="position: relative; height: clamp(320px, 64vh, 760px); overflow: hidden;">
+      <img src="assets/vip.png" alt="La sala de Magenta: sofás blancos, bolas de espejo y luz magenta" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,7,9,.85) 0%, rgba(11,7,9,0) 55%);"></div>
+      <h2 data-reveal style="position: absolute; left: var(--gutter); bottom: clamp(24px, 4vw, 56px); margin: 0; font: 900 clamp(64px, 12vw, 220px)/.8 var(--font-display); text-transform: uppercase;">Cócteles</h2>
+    </div>
+    <div style="padding: clamp(64px, 7vw, 120px) var(--gutter) var(--space-10); display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px);">
+      <p data-reveal style="margin: 0; max-width: 520px; font-size: clamp(18px, 1.5vw, 22px); color: var(--magenta-50);">El de la casa lleva ginebra, frambuesa y tónica de pomelo rosa. El resto, los de siempre, bien fríos.</p>
+      <div style="display: flex; flex-direction: column;">
+        <sc-for list="{{ cocteles }}" as="m" hint-placeholder-count="6">
+          <div data-reveal style="display: grid; grid-template-columns: {{ cocktailCols }}; gap: 6px 40px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.28);">
+            <span style="font: 900 clamp(40px, 4.8vw, 84px)/.9 var(--font-display); text-transform: uppercase;">{{ m.name }}</span>
+            <span style="font-size: 17px; color: var(--magenta-50); grid-column: {{ m.descCol }}; grid-row: {{ m.descRow }};">{{ m.desc }}</span>
+            <span style="font: 600 18px/1 var(--font-mono); text-align: right;">{{ m.price }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div data-reveal style="display: grid; grid-template-columns: {{ duoCols }}; gap: 16px;">
+        <div style="aspect-ratio: 4 / 3; min-width: 0;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-coctel" placeholder="Foto de un cóctel" radius="0" hint-size="100%,100%"></x-import></div>
+        <div style="aspect-ratio: 4 / 3; min-width: 0;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-barra" placeholder="Foto de la barra" radius="0" hint-size="100%,100%"></x-import></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservar" data-screen-label="Reservar" style="display: grid; grid-template-columns: {{ twoCols }}; min-height: 680px; scroll-margin-top: var(--header-h);">
+    <div style="position: relative; min-height: 380px; overflow: hidden;">
+      <img src="assets/terraza.png" alt="La terraza de Magenta de noche, llena de gente bajo el toldo iluminado" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease-out;" style-hover="transform: scale(1.05);">
+    </div>
+    <div style="padding: var(--space-9) var(--gutter); display: flex; flex-direction: column; justify-content: center; gap: 28px; background: var(--ink-900);">
+      <h2 data-reveal style="margin: 0; font: 900 clamp(52px, 6.4vw, 112px)/.85 var(--font-display); text-transform: uppercase;">Pilla<br>mesa</h2>
+      <p data-reveal style="margin: 0; max-width: 460px;">En la terraza o dentro, de 2 a 12 personas. Te confirmamos por email.</p>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div data-reveal style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 18px; max-width: 620px;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Zona" value="{{ resZone }}" on-change="{{ setResZone }}" options="{{ zoneOptions }}" hint-size="100%,68px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Personas" value="{{ resPeople }}" on-change="{{ setResPeople }}" options="{{ peopleOptions }}" hint-size="100%,68px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Día" value="{{ resDay }}" on-change="{{ setResDay }}" options="{{ dayOptions }}" hint-size="100%,68px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Hora" value="{{ resHour }}" on-change="{{ setResHour }}" options="{{ hourOptions }}" hint-size="100%,68px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Nombre" placeholder="Nombre y apellidos" value="{{ resName }}" on-change="{{ setResName }}" hint-size="100%,68px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Teléfono" type="tel" placeholder="600 000 000" value="{{ resPhone }}" on-change="{{ setResPhone }}" hint-size="100%,68px"></x-import>
+          <div style="grid-column: 1 / -1;">
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Email" type="email" placeholder="tu@email.com" hint="Te enviamos aquí la confirmación." value="{{ resEmail }}" on-change="{{ setResEmail }}" hint-size="100%,84px"></x-import>
+          </div>
+          <sc-if value="{{ hasResError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="grid-column: 1 / -1; margin: 0; font-weight: 700; color: var(--magenta-300);">{{ resError }}</p>
+          </sc-if>
+          <div style="grid-column: 1 / -1;">
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ sendRes }}" hint-size="220px,52px">Enviar solicitud</x-import>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display: flex; flex-direction: column; gap: 16px; max-width: 520px;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="Solicitud enviada" message="{{ sentSummary }}" hint-size="100%,72px"></x-import>
+          <div>
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" on-click="{{ resetRes }}" hint-size="180px,44px">Otra reserva</x-import>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section id="llegar" data-screen-label="Cómo llegar" style="padding: var(--space-10) var(--gutter); display: grid; grid-template-columns: {{ twoCols }}; gap: clamp(48px, 6vw, 96px); scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 28px; min-width: 0;">
+      <h2 data-reveal style="margin: 0; font: 900 clamp(52px, 6.4vw, 112px)/.85 var(--font-display); text-transform: uppercase;">Cómo<br>llegar</h2>
+      <p data-reveal style="margin: 0; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.35;">Carrer dels Llauradors, 44<br>46440 Almussafes, Valencia</p>
+      <div data-reveal style="display: flex; flex-direction: column; max-width: 460px; border-top: 1px solid var(--border-subtle);">
+        <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+          <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border-subtle); color: {{ d.fg }};">
+            <span style="font: 700 14px/1.4 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">{{ d.name }}</span>
+            <span style="font: 500 15px/1.4 var(--font-mono);">{{ d.hours }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p data-reveal style="margin: 0; color: var(--fg-2);">+18 con DNI o pasaporte original. Derecho de admisión reservado.</p>
+    </div>
+    <div data-reveal style="min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <iframe title="Mapa: Carrer dels Llauradors 44, Almussafes" src="https://www.google.com/maps?q=Carrer%20dels%20Llauradors%2044%2C%2046440%20Almussafes&amp;output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" style="flex: 1; width: 100%; min-height: 440px; border: 0; display: block; filter: grayscale(1) invert(.92) contrast(.9);"></iframe>
+      <div>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" icon="map-pin" on-click="{{ openMaps }}" hint-size="200px,44px">Abrir en Maps</x-import>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: var(--magenta-500); color: #fff; padding: var(--space-10) var(--gutter) 32px; display: flex; flex-direction: column; gap: clamp(56px, 7vw, 104px);">
+    <div style="display: grid; grid-template-columns: {{ footCols }}; gap: 48px var(--gutter);">
+      <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
+        <h2 style="margin: 0; font: 900 clamp(48px, 5.4vw, 92px)/.85 var(--font-display); text-transform: uppercase;">Entérate<br>primero</h2>
+        <sc-if value="{{ subscribed }}" hint-placeholder-val="{{ false }}">
+          <p role="status" style="margin: 0; font-weight: 700;">Estás dentro. Te avisamos de cada noche nueva.</p>
+        </sc-if>
+        <sc-if value="{{ notSubscribed }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; max-width: 480px;">
+            <div style="flex: 1 1 220px; min-width: 0;">
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" type="email" placeholder="tu@email.com" value="{{ email }}" on-change="{{ setEmail }}" hint-size="100%,44px"></x-import>
+            </div>
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="secondary" on-click="{{ subscribe }}" hint-size="140px,44px">Suscribirme</x-import>
+          </div>
+          <sc-if value="{{ emailError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="margin: 0; font-weight: 700;">Revisa el email: le falta algo.</p>
+          </sc-if>
+        </sc-if>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="#agenda" style="font: 700 14px/1.6 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;" style-hover="color: var(--ink-950);">Agenda</a>
+        <a href="#carta" style="font: 700 14px/1.6 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;" style-hover="color: var(--ink-950);">Carta</a>
+        <a href="#reservar" style="font: 700 14px/1.6 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;" style-hover="color: var(--ink-950);">Reservar</a>
+        <a href="#llegar" style="font: 700 14px/1.6 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;" style-hover="color: var(--ink-950);">Cómo llegar</a>
+        <a href="#" style="font: 700 14px/1.6 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;" style-hover="color: var(--ink-950);">Preguntas frecuentes</a>
+      </nav>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <span style="font: 700 14px/1 var(--font-body); letter-spacing: var(--ls-caps); text-transform: uppercase;">Síguenos</span>
+        <div style="display: flex; gap: 12px;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.IconButton" icon="instagram" label="Instagram" hint-size="44px,44px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.IconButton" icon="music-2" label="TikTok" hint-size="44px,44px"></x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.IconButton" icon="mail" label="Email" hint-size="44px,44px"></x-import>
+        </div>
+      </div>
+    </div>
+    <img src="assets/logo-white.png" alt="Magenta" style="width: 100%; max-width: 640px; height: auto; display: block; align-self: center;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 14px; color: var(--magenta-50);">
+      <span>© 2026 Magenta · Almussafes · +18</span>
+      <span>Cookies · Privacidad · Aviso legal</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hideSoldOut&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Agenda&quot;}}">
+const HOURS = { 0:[1020,1500], 1:[1080,1350], 2:[1080,1350], 3:[1080,1350], 4:[1080,1350], 5:[1020,1650], 6:[1020,1650] };
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const SHORT = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const fmt = m => String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+const MENU = {
+  pijoteo: [
+    { name:'Mejillón de Ría «Ramón Peña»', desc:'Lata de Ramón Peña, calibre 8/12.', price:'14,00 €' },
+    { name:'Anchoa del Cantábrico 000', desc:'Sobre tosta.', price:'4,50 €' },
+    { name:'Jamón ibérico Beher', desc:'Cortado a cuchillo, 100 g.', price:'22,00 €' },
+    { name:'Queso añejo POK y queso reserva', desc:'Oveja de alta maduración y un reserva.', price:'16,00 €' },
+    { name:'Ajoarriero Santa Henar', desc:'', price:'9,50 €' },
+    { name:'Gilda premium de triple boquerón', desc:'', price:'3,50 €' },
+    { name:'Gilda selección de anchoa', desc:'', price:'3,00 €' },
+    { name:'Gilda de cecina y queso', desc:'', price:'3,00 €' },
+  ],
+  cocteles: [
+    { name:'Magenta', desc:'Ginebra, frambuesa, lima y tónica de pomelo rosa.', price:'10,00 €' },
+    { name:'Mojito', desc:'Ron blanco, hierbabuena, lima y azúcar de caña.', price:'9,00 €' },
+    { name:'Pornstar Martini', desc:'Vodka de vainilla, maracuyá y un chupito de cava.', price:'11,00 €' },
+    { name:'Margarita', desc:'Tequila, triple seco y lima. Con sal o sin ella.', price:'9,50 €' },
+    { name:'Espresso Martini', desc:'Vodka, licor de café y espresso recién hecho.', price:'10,50 €' },
+    { name:'Aperol Spritz', desc:'Aperol, prosecco y soda con naranja.', price:'8,50 €' },
+  ],
+};
+const POSTER = [
+  { bg:'var(--magenta-500)', sub:'var(--magenta-50)', btnVariant:'secondary' },
+  { bg:'var(--ink-850)', sub:'var(--fg-2)', btnVariant:'primary' },
+  { bg:'var(--magenta-700)', sub:'var(--magenta-100)', btnVariant:'secondary' },
+];
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, t) => { const A = hex(a), B = hex(b); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')'; };
+const fieldAt = t => t <= 0.35 ? mix('#A83456', '#7A2240', t / 0.35) : mix('#7A2240', '#0B0709', Math.min(1, (t - 0.35) / 0.5));
+
+function nowNight(now) {
+  const d = now.getDay(), m = now.getHours() * 60 + now.getMinutes();
+  if (m < 360) return { wd: (d + 6) % 7, m: m + 1440 };
+  return { wd: d, m };
+}
+function statusOf(wd, m) {
+  const [o, c] = HOURS[wd];
+  if (m >= o && m < c) return { open:true, o, c };
+  return { open:false, before: m < o, o, c };
+}
+function resDays(now) {
+  const nn = nowNight(now), out = [];
+  for (let i = 0; i < 9 && out.length < 7; i++) {
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    const wd = dt.getDay(), [o, c] = HOURS[wd];
+    let slots = [];
+    for (let t = o; t <= c - 60; t += 30) slots.push(t);
+    if (i === 0) slots = slots.filter(t => t > nn.m + 30);
+    if (!slots.length) continue;
+    const n = dt.getDate();
+    const label = i === 0 ? `Hoy, ${SHORT[wd].toLowerCase()} ${n}` : i === 1 ? `Mañana, ${SHORT[wd].toLowerCase()} ${n}` : `${DAYS[wd]} ${n} ${MON_UP[dt.getMonth()].toLowerCase()}`;
+    out.push({ label, slots: slots.map(fmt) });
+  }
+  return out;
+}
+
+class Component extends DCLogic {
+  state = (() => {
+    const now = new Date(), nn = nowNight(now);
+    let idx = Math.round((nn.m - 1020) / 30);
+    if (idx < 0 || idx > 21) idx = 12;
+    return { mobile: window.matchMedia('(max-width: 1100px)').matches, menuOpen:false, scrolled:false, now, genre:'Todos',
+      liveWd: nn.wd, liveIdx: idx,
+      resZone:'Terraza', resPeople:'4 personas', resDay:'', resHour:'', resName:'', resPhone:'', resEmail:'', resError:'', sent:null,
+      email:'', emailError:false, subscribed:false };
+  })();
+  componentDidMount() {
+    this.calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.mq = window.matchMedia('(max-width: 1100px)');
+    this.onMq = e => this.setState({ mobile:e.matches, menuOpen: e.matches && this.state.menuOpen });
+    this.mq.addEventListener('change', this.onMq);
+    this.onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled:s }); };
+    window.addEventListener('scroll', this.onScroll, { passive:true });
+    this.tick = setInterval(() => this.setState({ now:new Date() }), 60000);
+    if (!this.calm) {
+      const hero = document.getElementById('hero-img');
+      if (hero) hero.style.animation = 'slowScale 24s ease-out forwards';
+      this.startMarquee();
+      this.revealT = setTimeout(() => this.setupReveal(), 300);
+    }
+  }
+  startMarquee() {
+    const el = document.getElementById('marquee');
+    if (!el || !el.children.length) { this.mqT = setTimeout(() => this.startMarquee(), 300); return; }
+    if (this.marq) this.marq.cancel();
+    this.marq = el.animate([{ transform:'translateX(0)' }, { transform:'translateX(-50%)' }], { duration: 38000, iterations: Infinity, easing:'linear' });
+  }
+  componentWillUnmount() {
+    clearTimeout(this.revealT); clearTimeout(this.mqT); clearInterval(this.tick);
+    if (this.io) this.io.disconnect(); if (this.marq) this.marq.cancel();
+    window.removeEventListener('scroll', this.onScroll); if (this.mq) this.mq.removeEventListener('change', this.onMq);
+  }
+  setupReveal() {
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    const groups = new Map();
+    els.forEach(el => { const g = el.closest('section, footer') || document.body; const i = groups.get(g) || 0; el.dataset.ri = i; groups.set(g, i + 1); });
+    this.io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target; this.io.unobserve(el);
+      el.style.transition = 'opacity 600ms ease-out, transform 600ms cubic-bezier(.2,.7,.2,1)';
+      el.style.transitionDelay = Math.min(+el.dataset.ri || 0, 6) * 70 + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = ''; el.style.transitionDelay = ''; }, 1500);
+    }), { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    els.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.animate([{ opacity:0, transform:'translateY(28px)' }, { opacity:1, transform:'none' }], { duration:700, delay: Math.min(+el.dataset.ri || 0, 6) * 90, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' });
+        return;
+      }
+      el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; this.io.observe(el);
+    });
+  }
+  go(id) { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (this.state.mobile ? 80 : 112) + 1, behavior:'smooth' }); }
+  renderVals() {
+    const s = this.state, m = s.mobile, now = s.now;
+    const all = window.MAGENTA_EVENTS || [];
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dated = all.map(e => ({ ...e, when: new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date) })).filter(e => e.when >= today0);
+    const nn = nowNight(now), st = statusOf(nn.wd, nn.m);
+    const todayWd = now.getDay(), [tO, tC] = HOURS[todayWd];
+    const tonight = dated.find(e => +e.when === +today0 && e.status !== 'soldout');
+    const nextBuy = dated.find(e => e.status !== 'soldout');
+    let heroStatus;
+    if (st.open) heroStatus = `Abierto ahora, hasta las ${fmt(st.c)}.`;
+    else if (nn.m < tO) heroStatus = `Hoy abrimos a las ${fmt(tO)}.`;
+    else heroStatus = `Mañana abrimos a las ${fmt(HOURS[(todayWd + 1) % 7][0])}.`;
+    const heroLine = tonight ? `${tonight.title} · ${tonight.day} ${tonight.date} ${tonight.month} · ${tonight.doors}` : `${SHORT[todayWd].toUpperCase()} ${now.getDate()} ${MON_UP[now.getMonth()]} · ${fmt(tO)} → ${fmt(tC)}`;
+    const buyEv = tonight || nextBuy;
+    const marquee = dated.filter(e => e.status !== 'soldout').map(e => ({ title: e.title, date: `${e.day} ${e.date} ${e.month}` }));
+
+    const lwd = s.liveWd, lmin = 1020 + s.liveIdx * 30, ls = statusOf(lwd, lmin), t = s.liveIdx / 21;
+    const djDay = lwd === 5 || lwd === 6;
+    const nextEv = dated.find(e => e.when.getDay() === lwd);
+    const lines = [];
+    let liveHeadline;
+    if (ls.open) {
+      if (djDay && lmin >= 1380) {
+        liveHeadline = nextEv ? (nextEv.status === 'soldout' ? 'Sala llena' : 'Toca pista') : 'Copas y música';
+        if (nextEv) lines.push(nextEv.status === 'soldout' ? `${nextEv.title}: entradas agotadas.` : `${nextEv.title} con DJ en la sala. ${nextEv.artists}.`);
+      } else {
+        liveHeadline = lmin < 1260 ? 'Terraza y pijoteo' : 'Cócteles en la terraza';
+        lines.push('Pijoteo y cócteles, fuera en la terraza o dentro.');
+        if (djDay && nextEv) lines.push(`A las 23:00 empieza ${nextEv.title}.`);
+      }
+      if (ls.c - lmin <= 60) lines.push(`Cerramos a las ${fmt(ls.c)}.`);
+    } else if (ls.before) {
+      liveHeadline = 'Aún cerrado';
+      lines.push(`Ese día abrimos a las ${fmt(ls.o)}.`);
+    } else {
+      liveHeadline = 'Ya hemos cerrado';
+      lines.push(`Ese día cerramos a las ${fmt(ls.c)}.`);
+    }
+    const showEv = ls.open && djDay && nextEv && nextEv.status !== 'soldout';
+    const wdOrder = [1, 2, 3, 4, 5, 6, 0];
+
+    const days = resDays(now);
+    const day = days.find(d => d.label === s.resDay) || days[0] || { label:'', slots:[] };
+    const hour = day.slots.includes(s.resHour) ? s.resHour : (day.slots.includes('21:00') ? '21:00' : day.slots[0] || '');
+    const hide = this.props.hideSoldOut ?? false;
+    const list = dated.filter(e => (s.genre === 'Todos' || e.genre === s.genre) && (!hide || e.status !== 'soldout'));
+
+    return {
+      isMobile: m, isDesktop: !m,
+      headerH: m ? '80px' : '112px',
+      headerCols: m ? 'auto 1fr' : '1fr auto 1fr',
+      headerBg: (s.scrolled || s.menuOpen) ? 'rgba(11,7,9,.8)' : 'transparent',
+      headerBlur: (s.scrolled || s.menuOpen) ? 'var(--blur-glass)' : 'none',
+      headerBorder: (s.scrolled || s.menuOpen) ? 'var(--border-subtle)' : 'transparent',
+      menuOpen: m && s.menuOpen, menuIcon: s.menuOpen ? 'x' : 'menu', menuLabel: s.menuOpen ? 'Cerrar menú' : 'Abrir menú',
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      closeMenu: () => this.setState({ menuOpen:false }),
+      goAgenda: () => this.go('agenda'),
+      goAgendaMobile: () => { this.setState({ menuOpen:false }); setTimeout(() => this.go('agenda'), 30); },
+      goReservar: () => this.go('reservar'),
+      hasTonight: !!tonight, heroLine, heroStatus,
+      heroBuyLabel: tonight ? 'Entradas esta noche' : 'Comprar entradas',
+      buyTonight: () => { if (buyEv) location.href = 'Entradas.dc.html?e=' + buyEv.id; else this.go('agenda'); },
+      marqueeLoop: [...marquee, ...marquee, ...marquee, ...marquee],
+      genres: ['Todos','House','Techno','Latin','Pop'].map(g => ({ label:g, on: s.genre === g, pick: () => this.setState({ genre:g }) })),
+      noEvents: list.length === 0,
+      railCol: m ? 'min(78vw, 320px)' : 'minmax(280px, 22vw)',
+      posterPos: m ? 'relative' : 'sticky', posterMinH: m ? '0px' : 'calc(100vh - var(--header-h) - 48px)',
+      posterCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 7fr) minmax(0, 4fr)',
+      events: list.map((e, i) => {
+        const c = POSTER[i % 3], isT = +e.when === +today0 && e.status !== 'soldout';
+        const badge = isT ? ['live','Esta noche',true] : e.status === 'few' ? ['paper','Últimas',false] : e.status === 'new' ? ['paper','Nuevo',false] : null;
+        return { ...c, id: e.id, day: e.day, date: e.date, month: e.month, cardStatus: isT ? 'live' : e.status, title: e.title, artists: e.artists, doors: e.doors, price: e.price,
+          dateShort: `${e.day} ${e.date} ${e.month}`, dayNum: e.date,
+          hasBadge: !!badge, badgeTone: badge ? badge[0] : 'paper', badgeLabel: badge ? badge[1] : '', badgeDot: badge ? badge[2] : false,
+          canBuy: e.status !== 'soldout', soldOut: e.status === 'soldout',
+          open: () => { location.href = 'Entradas.dc.html?e=' + e.id; } };
+      }),
+      twoCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)',
+      liveBg: fieldAt(t),
+      liveDays: wdOrder.map(wd => ({ label: SHORT[wd], on: wd === lwd, pick: () => this.setState({ liveWd: wd }) })),
+      liveIdx: s.liveIdx, setLiveIdx: e => this.setState({ liveIdx: +e.target.value }),
+      liveHour: fmt(lmin), liveWhen: `${SHORT[lwd].toUpperCase()} · ${fmt(lmin)}`,
+      liveOpen: ls.open, liveTone: ls.open ? 'live' : 'paper', liveBadge: ls.open ? 'Abierto' : 'Cerrado',
+      liveHeadline, liveLines: lines.map(text => ({ text })),
+      liveHasEvent: !!showEv, liveEventCta: showEv ? `Entradas ${nextEv.title}` : '',
+      liveBuy: () => { if (showEv) location.href = 'Entradas.dc.html?e=' + nextEv.id; },
+      listPad: m ? '0px' : 'clamp(40px, 6vw, 120px)',
+      pijoteo: MENU.pijoteo.map(x => ({ ...x, showDesc: !!x.desc })),
+      cocteles: MENU.cocteles.map(x => ({ ...x, descCol: m ? '1 / -1' : 'auto', descRow: m ? '2' : 'auto' })),
+      cocktailCols: m ? 'minmax(0, 1fr) 96px' : 'minmax(0, 6fr) minmax(0, 4fr) 110px',
+      duoCols: m ? 'minmax(0, 1fr)' : 'repeat(2, minmax(0, 1fr))',
+      zoneOptions: ['Terraza', 'Interior'],
+      peopleOptions: Array.from({ length: 11 }, (_, i) => (i + 2) + ' personas'),
+      dayOptions: days.map(d => d.label), hourOptions: day.slots,
+      resZone: s.resZone, setResZone: v => this.setState({ resZone: v }),
+      resPeople: s.resPeople, setResPeople: v => this.setState({ resPeople: v }),
+      resDay: day.label, setResDay: v => this.setState({ resDay: v }),
+      resHour: hour, setResHour: v => this.setState({ resHour: v }),
+      resName: s.resName, setResName: v => this.setState({ resName: v, resError:'' }),
+      resPhone: s.resPhone, setResPhone: v => this.setState({ resPhone: v, resError:'' }),
+      resEmail: s.resEmail, setResEmail: v => this.setState({ resEmail: v, resError:'' }),
+      hasResError: !!s.resError, resError: s.resError,
+      sendRes: () => {
+        if ((s.resName || '').trim().length < 2) return this.setState({ resError:'Falta el nombre para la reserva.' });
+        if ((s.resPhone || '').replace(/\D/g, '').length < 9) return this.setState({ resError:'El teléfono necesita 9 cifras.' });
+        if (!/.+@.+\..+/.test(s.resEmail || '')) return this.setState({ resError:'Revisa el email: ahí te llega la confirmación.' });
+        this.setState({ sent: `${s.resZone} · ${day.label} · ${hour} · ${s.resPeople}. Te enviamos la confirmación a ${s.resEmail}.`, resError:'' });
+      },
+      notSent: !s.sent, sent: !!s.sent, sentSummary: s.sent || '',
+      resetRes: () => this.setState({ sent:null, resName:'', resPhone:'', resEmail:'' }),
+      week: wdOrder.map(wd => { const [o, c] = HOURS[wd], on = wd === todayWd;
+        return { name: DAYS[wd] + (on ? ' · hoy' : ''), hours: fmt(o) + ' → ' + fmt(c), fg: on ? 'var(--magenta-300)' : 'var(--fg-1)' }; }),
+      openMaps: () => window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Carrer dels Llauradors 44, 46440 Almussafes'), '_blank'),
+      footCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr)',
+      email: s.email, setEmail: v => this.setState({ email: v, emailError:false }),
+      emailError: s.emailError, subscribed: s.subscribed, notSubscribed: !s.subscribed,
+      subscribe: () => /.+@.+\..+/.test(s.email || '') ? this.setState({ subscribed:true }) : this.setState({ emailError:true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

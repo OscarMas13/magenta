@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/plus.svg"] { -webkit-mask-image: url(assets/icons/plus.svg) !important; mask-image: url(assets/icons/plus.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: {{ asidePos }}; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main data-screen-label="Admin · Inicio" style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 80px; display: flex; flex-direction: column; gap: clamp(32px, 4vw, 48px); max-width: 1240px; box-sizing: border-box; width: 100%;">
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font: 500 14px/1 var(--font-mono); color: var(--fg-2);">{{ todayLine }}</span>
+        <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Hola, Laura</h1>
+      </div>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="plus" on-click="{{ newEvent }}" hint-size="190px,52px">Nuevo evento</x-import>
+    </div>
+
+    <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ true }}">
+      <a href="Admin - Reservas.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 22px 26px; background: var(--magenta-500); color: #FFFFFF; transition: background 140ms ease-out;" style-hover="background: var(--magenta-600); color: #FFFFFF;">
+        <span style="display: flex; flex-direction: column; gap: 4px;">
+          <span style="font: 900 clamp(26px, 2.6vw, 36px)/1 var(--font-display); text-transform: uppercase;">{{ pendingTitle }}</span>
+          <span style="font-size: 16px;">{{ pendingText }}</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 10px; font: 700 14px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase;">
+          <span>Responder</span>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-right" size="{{ 20 }}" hint-size="20px,20px"></x-import>
+        </span>
+      </a>
+    </sc-if>
+
+    <section aria-labelledby="h-next" style="display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px;">
+        <h2 id="h-next" style="margin: 0; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">{{ nextEyebrow }}</h2>
+        <span style="font: 500 14px/1 var(--font-mono); color: var(--fg-2);">{{ nextWhen }}</span>
+      </div>
+      <div style="display: grid; grid-template-columns: {{ nextCols }}; gap: 8px;">
+        <div style="padding: 26px; background: var(--ink-900); display: flex; flex-direction: column; gap: 18px; min-width: 0;">
+          <span style="font: 900 clamp(40px, 4.4vw, 64px)/.88 var(--font-display); text-transform: uppercase;">{{ next.title }}</span>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="height: 10px; border-radius: 999px; background: var(--ink-800); overflow: hidden;">
+              <div style="height: 100%; width: {{ next.pct }}; background: var(--magenta-500);"></div>
+            </div>
+            <span style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; color: var(--fg-2);">
+              <span><strong style="color: var(--fg-1); font-family: var(--font-mono);">{{ next.sold }}</strong> de {{ next.cap }} entradas</span>
+              <span style="font-family: var(--font-mono);">{{ next.pctLabel }}</span>
+            </span>
+          </div>
+        </div>
+        <sc-for list="{{ nextStats }}" as="k" hint-placeholder-count="2">
+          <div style="padding: 26px; background: var(--ink-900); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-width: 0;">
+            <span style="font: 700 13px/1.2 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--fg-2);">{{ k.label }}</span>
+            <span style="font: 600 clamp(32px, 3vw, 44px)/1 var(--font-mono); font-variant-numeric: tabular-nums;">{{ k.value }}</span>
+            <span style="font-size: 14px; color: var(--fg-2);">{{ k.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-sales" style="display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px;">
+        <h2 id="h-sales" style="margin: 0; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Ventas · últimos 7 días</h2>
+        <span style="font: 600 15px/1 var(--font-mono);">{{ weekTotal }}</span>
+      </div>
+      <div style="padding: 26px 26px 18px; background: var(--ink-900); display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(6px, 1.4vw, 18px); align-items: end; height: 240px; box-sizing: border-box;">
+        <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+          <div title="{{ d.title }}" style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; gap: 8px; min-width: 0;">
+            <span style="font: 600 12px/1 var(--font-mono); color: var(--fg-2); text-align: center;">{{ d.n }}</span>
+            <div style="height: {{ d.h }}; min-height: 4px; background: {{ d.bg }}; transition: height 400ms ease-out;"></div>
+            <span style="font: 700 12px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: {{ d.fg }}; text-align: center;">{{ d.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-up" style="display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px;">
+        <h2 id="h-up" style="margin: 0; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Próximos eventos</h2>
+        <a href="Admin - Eventos.dc.html" style="font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">Ver todos</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <sc-for list="{{ upcoming }}" as="e" hint-placeholder-count="4">
+          <a href="Admin - Eventos.dc.html?e={{ e.id }}" style="display: grid; grid-template-columns: {{ upCols }}; align-items: center; gap: 12px 24px; padding: 18px 22px; background: var(--ink-900); transition: background 140ms ease-out;" style-hover="background: var(--ink-850);">
+            <span style="font: 600 15px/1.2 var(--font-mono); color: var(--fg-2);">{{ e.when }}</span>
+            <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0;">
+              <span style="font: 900 26px/1 var(--font-display); text-transform: uppercase;">{{ e.title }}</span>
+              <sc-if value="{{ e.hasBadge }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ e.badgeTone }}" hint-size="90px,22px">{{ e.badgeLabel }}</x-import>
+              </sc-if>
+            </span>
+            <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+              <span style="flex: 1; height: 6px; border-radius: 999px; background: var(--ink-800); overflow: hidden; min-width: 60px;">
+                <span style="display: block; height: 100%; width: {{ e.pct }}; background: {{ e.barColor }};"></span>
+              </span>
+              <span style="font: 600 14px/1 var(--font-mono); white-space: nowrap;">{{ e.sold }} / {{ e.cap }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;pendientes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:0,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const DS = ['dom','lun','mar','mié','jue','vie','sáb'];
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const CAP = 400;
+const eur = n => Math.round(n).toLocaleString('es-ES') + ' €';
+const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 7);
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 960px)').matches };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); }
+  renderVals() {
+    const m = this.state.mobile, now = new Date();
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const all = window.MAGENTA_EVENTS || [];
+    const dateOf = e => { let d = new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date); if (d < today0 - 60 * 864e5) d = new Date(now.getFullYear() + 1, MON_UP.indexOf(e.month), +e.date); return d; };
+    let up = all.filter(e => dateOf(e) >= today0).sort((a, b) => dateOf(a) - dateOf(b));
+    if (!up.length) up = all.slice(-4);
+    const soldOf = (e, i) => e.status === 'soldout' ? CAP : e.status === 'few' ? CAP - 18 - (hash(e.id) % 20) : Math.max(24, 290 - i * 70 + (hash(e.id) % 50));
+    const n0 = up[0] || { id:'', title:'—', base:0 };
+    const nSold = soldOf(n0, 0), nDate = up[0] ? dateOf(n0) : today0;
+    const isTonight = +nDate === +today0;
+    const diff = Math.round((nDate - today0) / 864e5);
+    const pending = this.props.pendientes ?? 3;
+    const week = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(today0 - (6 - i) * 864e5);
+      const n = [12, 9, 18, 26, 41, 57, 34][(d.getDay() + 6) % 7] + (hash(String(d.getDate())) % 9);
+      return { d, n };
+    });
+    const max = Math.max(...week.map(w => w.n));
+    const wTickets = week.reduce((a, w) => a + w.n, 0);
+    const navItems = [
+      ['Inicio', 'layout-dashboard', '#', true],
+      ['Eventos', 'calendar', 'Admin - Eventos.dc.html'],
+      ['Carta', 'utensils', 'Admin - Carta.dc.html'],
+      ['Reservas', 'calendar-clock', 'Admin - Reservas.dc.html', false, pending],
+      ['Imágenes', 'image', 'Admin - Imagenes.dc.html'],
+      ['Personal', 'users', 'Admin - Personal.dc.html'],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    return {
+      isDesktop: !m,
+      shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asidePos: 'sticky', asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px',
+      asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, count]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!count, count: count || 0,
+        bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      todayLine: `${DAYS[now.getDay()]} ${now.getDate()} de ${MONTHS[now.getMonth()]}`,
+      newEvent: () => { location.href = 'Admin - Eventos.dc.html?nuevo=1'; },
+      hasPending: pending > 0,
+      pendingTitle: pending === 1 ? '1 reserva por responder' : `${pending} reservas por responder`,
+      pendingText: 'Si no respondes, el cliente no sabe si tiene mesa. La más antigua lleva 9 h esperando.',
+      nextEyebrow: isTonight ? 'Esta noche' : 'Próxima noche',
+      nextWhen: isTonight ? `Hoy · ${n0.doors || ''}` : `${DAYS[nDate.getDay()]} ${nDate.getDate()} · ${diff === 1 ? 'falta 1 día' : 'faltan ' + diff + ' días'}`,
+      nextCols: m ? 'minmax(0, 1fr) minmax(0, 1fr)' : 'minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr)',
+      next: { title: n0.title, sold: nSold, cap: CAP, pct: (nSold / CAP * 100).toFixed(1) + '%', pctLabel: Math.round(nSold / CAP * 100) + ' %' },
+      nextStats: [
+        { label: 'Ingresos', value: eur(nSold * ((n0.base || 0) + 3)), note: 'Sin gastos de gestión' },
+        { label: 'Reservas terraza', value: '7', note: '30 personas · antes de abrir' },
+      ],
+      weekTotal: `${wTickets} entradas · ${eur(wTickets * 22)}`,
+      week: week.map((w, i) => ({ n: w.n, h: (w.n / max * 100).toFixed(1) + '%', label: i === 6 ? 'Hoy' : DS[w.d.getDay()],
+        bg: i === 6 ? 'var(--magenta-500)' : 'var(--ink-700, #3A2B31)', fg: i === 6 ? 'var(--fg-1)' : 'var(--fg-2)',
+        title: `${DS[w.d.getDay()]} ${w.d.getDate()}: ${w.n} entradas` })),
+      upCols: m ? 'minmax(0, 1fr)' : '120px minmax(0, 1fr) minmax(180px, 260px)',
+      upcoming: up.slice(0, 4).map((e, i) => {
+        const d = dateOf(e), sold = soldOf(e, i);
+        const badge = e.status === 'soldout' ? ['paper', 'Agotado'] : e.status === 'few' ? ['brand', 'Últimas'] : e.status === 'new' ? ['brand', 'Nuevo'] : null;
+        return { id: e.id, title: e.title, when: `${DS[d.getDay()]} ${d.getDate()} ${MON_UP[d.getMonth()].toLowerCase()}`, sold, cap: CAP,
+          pct: (sold / CAP * 100).toFixed(1) + '%', barColor: sold >= CAP * .9 ? 'var(--neon-500)' : 'var(--magenta-500)',
+          hasBadge: !!badge, badgeTone: badge ? badge[0] : 'brand', badgeLabel: badge ? badge[1] : '' };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif&amp;display=swap">
+  <script src="eventos.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #F2EBEE; }
+    *, *::before, *::after { box-sizing: border-box; }
+    @keyframes slowScale { from { transform: scale(1); } to { transform: scale(1.07); } }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: #A83456; }
+    ::selection { background: #A83456; color: #fff; }
+    :focus-visible { outline: 3px solid #A83456; outline-offset: 3px; }
+    select, input { font: inherit; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</helmet>
+<div style="--header-h: {{ headerH }}; --g: clamp(16px, 2.4vw, 36px); background: #F2EBEE; color: #2A0F1C; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 18px; line-height: 1.55;">
+
+  <header style="position: sticky; top: 0; z-index: 40; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 var(--g); background: #F2EBEE;">
+    <a href="#top" onClick="{{ closeMenu }}" style="display: block; flex: 0 0 auto;"><img src="assets/logo-magenta.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display: flex; align-items: center; gap: clamp(20px, 2.4vw, 40px); font-weight: 600; font-size: 17px;">
+        <a href="#carta">Carta</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#reservar">Reservar</a>
+        <a href="#llegar">Cómo llegar</a>
+        <span style="color: #6B4A58;">ES / EN</span>
+        <a href="#agenda" style="background: #A83456; color: #fff; padding: 14px 24px; transition: background 140ms ease-out, transform 140ms ease-out;" style-hover="background: #8C2A47; color: #fff;" style-active="transform: translateY(1px);">Entradas</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpenStr }}" style="min-height: 44px; padding: 0 18px; background: #2A0F1C; color: #F2EBEE; border: 0; font: 600 16px/1 'Instrument Sans', sans-serif; cursor: pointer;">{{ menuLabel }}</button>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0; z-index: 39; background: #F2EBEE; padding: 24px var(--g) 40px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; font-family: 'Instrument Serif', serif; font-size: 56px; line-height: 1;">
+      <a href="#carta" onClick="{{ closeMenu }}">Carta</a>
+      <a href="#agenda" onClick="{{ closeMenu }}">Agenda</a>
+      <a href="#reservar" onClick="{{ closeMenu }}">Reservar</a>
+      <a href="#llegar" onClick="{{ closeMenu }}">Cómo llegar</a>
+      <div style="margin-top: auto; display: flex; flex-direction: column; gap: 16px; font: 600 17px/1 'Instrument Sans', sans-serif;">
+        <a href="#agenda" onClick="{{ closeMenu }}" style="background: #A83456; color: #fff; padding: 18px 24px; text-align: center;">Entradas</a>
+        <span style="text-align: center; color: #6B4A58;">ES / EN</span>
+      </div>
+    </nav>
+  </sc-if>
+
+  <section id="top" data-screen-label="Inicio" style="display: grid; grid-template-columns: {{ heroCols }}; gap: clamp(24px, 3vw, 48px) var(--g); padding: clamp(24px, 4vw, 56px) var(--g) 0; min-height: calc(100svh - var(--header-h)); align-content: space-between;">
+    <h1 data-reveal style="grid-column: 1 / -1; margin: 0; font: 400 clamp(46px, 10.4vw, 186px)/.9 'Instrument Serif', serif; letter-spacing: -.025em; text-wrap: balance;">Pijoteo y cócteles en Almussafes</h1>
+    <div data-reveal style="align-self: end; display: flex; flex-direction: column; gap: 28px; padding-bottom: clamp(24px, 4vw, 64px); max-width: 560px;">
+      <p style="margin: 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.3;">{{ heroToday }} {{ heroTonight }}</p>
+      <p style="margin: 0;">Pub con terraza en Carrer dels Llauradors, 44. Conservas, gildas y cócteles toda la semana; los viernes y sábados, DJ.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center;">
+        <a href="#reservar" style="background: #A83456; color: #fff; padding: 18px 28px; font-weight: 600; transition: background 140ms ease-out, transform 140ms ease-out;" style-hover="background: #8C2A47; color: #fff;" style-active="transform: translateY(1px);">Reservar mesa</a>
+        <a href="#carta" style="font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Ver la carta</a>
+      </div>
+    </div>
+    <div data-reveal style="align-self: end; margin-right: calc(var(--g) * -1); height: {{ heroPhotoH }}; overflow: hidden; min-width: 0;">
+      <img id="hero-img" src="assets/terraza.png" alt="La terraza de Magenta de noche, llena de gente bajo el toldo iluminado" style="width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; transform-origin: 60% 70%;">
+    </div>
+  </section>
+
+  <section id="ahora" data-screen-label="A esta hora" style="background: {{ liveBg }}; color: {{ liveInk }}; transition: background 500ms ease, color 500ms ease; padding: clamp(96px, 11vw, 180px) var(--g); display: grid; grid-template-columns: {{ liveCols }}; gap: clamp(40px, 5vw, 96px); align-items: start; scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 32px; min-width: 0;">
+      <p data-reveal style="margin: 0; font-size: clamp(20px, 1.6vw, 24px); max-width: 460px;">Mueve la hora y mira qué te encuentras en Magenta ese día.</p>
+      <div data-reveal role="group" aria-label="Día de la semana" style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <sc-for list="{{ liveDays }}" as="d" hint-placeholder-count="7">
+          <button type="button" onClick="{{ d.pick }}" aria-pressed="{{ d.pressed }}" style="min-width: 56px; min-height: 48px; padding: 0 14px; border: 0; cursor: pointer; font: 600 16px/1 'Instrument Sans', sans-serif; background: {{ d.bg }}; color: {{ d.fg }}; transition: background 160ms ease-out, transform 140ms ease-out;" style-active="transform: translateY(1px);">{{ d.label }}</button>
+        </sc-for>
+      </div>
+      <div data-reveal style="display: flex; flex-direction: column; gap: 10px;">
+        <label for="hora" style="font-weight: 600;">Hora: {{ liveHour }}</label>
+        <input id="hora" type="range" min="0" max="21" step="1" value="{{ liveIdx }}" onChange="{{ setLiveIdx }}" style="width: 100%; height: 44px; accent-color: {{ liveAccent }}; cursor: pointer;">
+        <div aria-hidden="true" style="display: flex; justify-content: space-between; font-size: 15px; font-variant-numeric: tabular-nums;">
+          <span>17:00</span><span>20:00</span><span>23:00</span><span>02:00</span><span>03:30</span>
+        </div>
+      </div>
+    </div>
+    <div aria-live="polite" style="display: flex; flex-direction: column; gap: 24px; min-width: 0;">
+      <h2 style="margin: 0; font: 400 clamp(48px, 6.6vw, 112px)/.92 'Instrument Serif', serif; letter-spacing: -.02em;">{{ liveTitle }}</h2>
+      <p style="margin: 0; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.25; font-weight: 600;">{{ liveStatus }}</p>
+      <sc-for list="{{ liveLines }}" as="l" hint-placeholder-count="1">
+        <p style="margin: 0; font-size: clamp(20px, 1.6vw, 24px); max-width: 560px;">{{ l.text }}</p>
+      </sc-for>
+      <sc-if value="{{ liveHasEvent }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <a href="{{ liveEventHref }}" style="display: inline-block; padding: 18px 28px; font-weight: 600; background: {{ liveBtnBg }}; color: {{ liveBtnFg }}; transition: transform 140ms ease-out, opacity 140ms ease-out;" style-hover="opacity: .88;" style-active="transform: translateY(1px);">{{ liveEventCta }}</a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section id="carta" data-screen-label="Pijoteo" style="padding: clamp(96px, 11vw, 180px) var(--g); display: grid; grid-template-columns: {{ menuCols }}; gap: clamp(48px, 6vw, 112px); scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 28px; min-width: 0;">
+      <h2 data-reveal style="margin: 0; font: 400 clamp(56px, 7.4vw, 128px)/.9 'Instrument Serif', serif; letter-spacing: -.02em;">El Pijoteo</h2>
+      <p data-reveal style="margin: 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.3; max-width: 460px;">Conservas de Ramón Peña, jamón Beher cortado a cuchillo y gildas hechas al momento. Para compartir sin prisa.</p>
+      <div data-reveal style="aspect-ratio: 4 / 5; width: 100%; max-width: 520px; margin-top: 12px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-pijoteo" placeholder="Foto de un plato del Pijoteo" radius="0" hint-size="100%,100%"></x-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: {{ menuListPad }};">
+      <sc-for list="{{ pijoteo }}" as="m" hint-placeholder-count="8">
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding: 20px 20px; margin: 0 -20px; transition: background 160ms ease-out;" style-hover="background: #E8DDE2;">
+          <span style="font: 400 clamp(28px, 2.4vw, 36px)/1.05 'Instrument Serif', serif;">{{ m.name }}</span>
+          <span style="font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; padding-top: 4px;">{{ m.price }}</span>
+          <sc-if value="{{ m.showDesc }}" hint-placeholder-val="{{ true }}">
+            <span style="grid-column: 1 / -1; color: #5A3A48; font-size: 17px;">{{ m.desc }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+      <p data-reveal style="margin: 24px 0 0; font-size: 16px; color: #5A3A48;">Se pide en la mesa o en la barra. Pregunta por los alérgenos.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Cócteles" style="background: #A83456; color: #FFF5F8;">
+    <div style="height: clamp(320px, 62vh, 720px); overflow: hidden;">
+      <img src="assets/vip.png" alt="La sala de Magenta: sofás blancos, bolas de espejo y luz magenta" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    </div>
+    <div style="padding: clamp(80px, 9vw, 150px) var(--g) clamp(96px, 11vw, 180px); display: flex; flex-direction: column; gap: clamp(40px, 5vw, 80px);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 64px;">
+        <h2 data-reveal style="margin: 0; font: 400 clamp(56px, 7.4vw, 128px)/.9 'Instrument Serif', serif; letter-spacing: -.02em;">Cócteles</h2>
+        <p data-reveal style="margin: 0; max-width: 440px; font-size: clamp(20px, 1.6vw, 24px);">El de la casa lleva ginebra, frambuesa y tónica de pomelo rosa. El resto, los de siempre, bien hechos.</p>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <sc-for list="{{ cocteles }}" as="m" hint-placeholder-count="6">
+          <div data-reveal style="display: grid; grid-template-columns: {{ cocktailCols }}; gap: 8px 40px; align-items: baseline; padding: 22px 0;">
+            <span style="font: 400 clamp(40px, 4.6vw, 80px)/.95 'Instrument Serif', serif; letter-spacing: -.015em;">{{ m.name }}</span>
+            <span style="font-size: 18px; grid-column: {{ m.descCol }}; grid-row: {{ m.descRow }};">{{ m.desc }}</span>
+            <span style="font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right;">{{ m.price }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div data-reveal style="display: grid; grid-template-columns: {{ duoCols }}; gap: 16px;">
+        <div style="aspect-ratio: 4 / 3; min-width: 0;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-coctel" placeholder="Foto de un cóctel" radius="0" hint-size="100%,100%"></x-import></div>
+        <div style="aspect-ratio: 4 / 3; min-width: 0;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pub-barra" placeholder="Foto de la barra" radius="0" hint-size="100%,100%"></x-import></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda" data-screen-label="Agenda" style="background: #170910; color: #F7E6EC; padding: clamp(96px, 11vw, 180px) var(--g); display: flex; flex-direction: column; gap: clamp(48px, 6vw, 96px); scroll-margin-top: var(--header-h);">
+    <div style="display: grid; grid-template-columns: {{ agendaHeadCols }}; gap: 40px var(--g); align-items: end;">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <h2 data-reveal style="margin: 0; font: 400 clamp(52px, 6.8vw, 120px)/.9 'Instrument Serif', serif; letter-spacing: -.02em; text-wrap: balance;">Viernes y sábado, DJ hasta las 03:30</h2>
+        <p data-reveal style="margin: 0; max-width: 480px; font-size: clamp(20px, 1.6vw, 24px);">Compra la entrada aquí y te llega al móvil con su código QR. En la puerta, DNI o pasaporte.</p>
+      </div>
+      <div data-reveal style="aspect-ratio: 4 / 5; overflow: hidden; min-width: 0;">
+        <img src="assets/hero-2.png" alt="Gente bailando con las manos en alto bajo luces rosas" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+        <article style="position: {{ posterPos }}; top: calc(var(--header-h) + 16px); min-height: {{ posterMinH }}; display: grid; grid-template-columns: {{ posterCols }}; gap: clamp(24px, 3vw, 48px); padding: clamp(24px, 3vw, 48px); background: {{ e.bg }}; color: {{ e.fg }};">
+          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 32px; min-width: 0;">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <p style="margin: 0; font-size: clamp(20px, 1.6vw, 24px); font-weight: 600;">{{ e.dateLong }}{{ e.flag }}</p>
+              <h3 style="margin: 0; font: 400 clamp(56px, 8.4vw, 152px)/.88 'Instrument Serif', serif; letter-spacing: -.025em;">{{ e.title }}</h3>
+              <p style="margin: 0; font-size: clamp(20px, 1.6vw, 24px);">{{ e.artists }}</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px;">
+              <sc-if value="{{ e.canBuy }}" hint-placeholder-val="{{ true }}">
+                <a href="{{ e.href }}" style="padding: 18px 28px; font-weight: 600; background: {{ e.btnBg }}; color: {{ e.btnFg }}; transition: transform 140ms ease-out, opacity 140ms ease-out;" style-hover="opacity: .88;" style-active="transform: translateY(1px);">Entradas, {{ e.price }}</a>
+              </sc-if>
+              <sc-if value="{{ e.soldOut }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 20px; font-weight: 600;">Entradas agotadas</span>
+              </sc-if>
+              <span style="font-size: 18px; font-variant-numeric: tabular-nums;">Puertas {{ e.doors }}</span>
+            </div>
+          </div>
+          <div style="aspect-ratio: 3 / 4; min-width: 0; align-self: stretch;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="poster-{{ e.id }}" placeholder="Cartel del evento" radius="0" hint-size="100%,100%"></x-import>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="reservar" data-screen-label="Reservar" style="padding: clamp(96px, 11vw, 180px) var(--g); display: flex; flex-direction: column; gap: 40px; scroll-margin-top: var(--header-h);">
+    <h2 data-reveal style="margin: 0; font: 400 clamp(56px, 7.4vw, 128px)/.9 'Instrument Serif', serif; letter-spacing: -.02em;">Reserva tu mesa</h2>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <form data-reveal onSubmit="{{ sendRes }}" style="display: flex; flex-direction: column; gap: 36px; max-width: 1100px;">
+        <p style="margin: 0; font: 400 clamp(30px, 3.4vw, 56px)/1.4 'Instrument Serif', serif;">
+          Mesa para
+          <select aria-label="Personas" value="{{ resPeople }}" onChange="{{ setResPeople }}" style="appearance: none; -webkit-appearance: none; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; cursor: pointer; font-family: 'Instrument Serif', serif;">
+            <sc-for list="{{ peopleOptions }}" as="o" hint-placeholder-count="1"><option value="{{ o }}">{{ o }}</option></sc-for>
+          </select>
+          en
+          <select aria-label="Zona" value="{{ resZone }}" onChange="{{ setResZone }}" style="appearance: none; -webkit-appearance: none; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; cursor: pointer; font-family: 'Instrument Serif', serif;">
+            <sc-for list="{{ zoneOptions }}" as="o" hint-placeholder-count="1"><option value="{{ o }}">{{ o }}</option></sc-for>
+          </select>,
+          <select aria-label="Día" value="{{ resDay }}" onChange="{{ setResDay }}" style="appearance: none; -webkit-appearance: none; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; cursor: pointer; font-family: 'Instrument Serif', serif;">
+            <sc-for list="{{ dayOptions }}" as="o" hint-placeholder-count="1"><option value="{{ o }}">{{ o }}</option></sc-for>
+          </select>,
+          a las
+          <select aria-label="Hora" value="{{ resHour }}" onChange="{{ setResHour }}" style="appearance: none; -webkit-appearance: none; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; cursor: pointer; font-family: 'Instrument Serif', serif; font-variant-numeric: tabular-nums;">
+            <sc-for list="{{ hourOptions }}" as="o" hint-placeholder-count="1"><option value="{{ o }}">{{ o }}</option></sc-for>
+          </select>.
+          A nombre de
+          <input aria-label="Nombre" placeholder="tu nombre" value="{{ resName }}" onChange="{{ setResName }}" style="width: 7.5em; max-width: 100%; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; font-family: 'Instrument Serif', serif; outline-offset: 4px;">,
+          teléfono
+          <input aria-label="Teléfono" type="tel" inputMode="tel" placeholder="600 000 000" value="{{ resPhone }}" onChange="{{ setResPhone }}" style="width: 6.6em; max-width: 100%; background: transparent; color: #A83456; border: 0; border-bottom: 2px solid #A83456; padding: 0 4px; font-family: 'Instrument Serif', serif; font-variant-numeric: tabular-nums; outline-offset: 4px;">.
+        </p>
+        <sc-if value="{{ hasResError }}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="margin: 0; font-weight: 600; color: #A83456;">{{ resError }}</p>
+        </sc-if>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px;">
+          <button type="submit" style="white-space: nowrap; padding: 18px 32px; background: #A83456; color: #fff; border: 0; font: 600 18px/1 'Instrument Sans', sans-serif; cursor: pointer; transition: background 140ms ease-out, transform 140ms ease-out;" style-hover="background: #8C2A47;" style-active="transform: translateY(1px);">Enviar solicitud</button>
+          <span style="color: #5A3A48;">Te llamamos para confirmar. Mesas de 2 a 12 personas.</span>
+        </div>
+      </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display: flex; flex-direction: column; gap: 24px; max-width: 900px;">
+        <p style="margin: 0; font: 400 clamp(30px, 3.4vw, 56px)/1.25 'Instrument Serif', serif;">{{ sentSummary }}</p>
+        <p style="margin: 0;">Hemos recibido la solicitud. Te llamamos al {{ sentPhone }} para confirmar.</p>
+        <div><button type="button" onClick="{{ resetRes }}" style="padding: 16px 26px; background: #2A0F1C; color: #F2EBEE; border: 0; font: 600 17px/1 'Instrument Sans', sans-serif; cursor: pointer;">Hacer otra reserva</button></div>
+      </div>
+    </sc-if>
+  </section>
+
+  <section id="llegar" data-screen-label="Cómo llegar" style="background: #E8DDE2; padding: clamp(96px, 11vw, 180px) var(--g); display: grid; grid-template-columns: {{ mapCols }}; gap: clamp(48px, 6vw, 96px); scroll-margin-top: var(--header-h);">
+    <div style="display: flex; flex-direction: column; gap: 32px; min-width: 0;">
+      <h2 data-reveal style="margin: 0; font: 400 clamp(56px, 7.4vw, 128px)/.9 'Instrument Serif', serif; letter-spacing: -.02em;">Cómo llegar</h2>
+      <p data-reveal style="margin: 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.3;">Carrer dels Llauradors, 44<br>46440 Almussafes, Valencia</p>
+      <div data-reveal style="display: flex; flex-direction: column; gap: 2px; max-width: 460px;">
+        <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+          <div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 14px; margin: 0 -14px; background: {{ d.bg }}; color: {{ d.fg }}; font-weight: {{ d.weight }};">
+            <span>{{ d.name }}</span>
+            <span style="font-variant-numeric: tabular-nums;">{{ d.hours }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p data-reveal style="margin: 0; max-width: 460px;">Solo mayores de 18, con DNI o pasaporte original. Derecho de admisión reservado.</p>
+    </div>
+    <div data-reveal style="min-height: 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <iframe title="Mapa: Carrer dels Llauradors 44, Almussafes" src="https://www.google.com/maps?q=Carrer%20dels%20Llauradors%2044%2C%2046440%20Almussafes&amp;output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" style="flex: 1; width: 100%; min-height: 420px; border: 0; display: block; filter: grayscale(.35);"></iframe>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Carrer%20dels%20Llauradors%2044%2C%2046440%20Almussafes" target="_blank" rel="noopener" style="align-self: flex-start; font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Abrir en Google Maps</a>
+    </div>
+  </section>
+
+  <footer style="background: #A83456; color: #FFF5F8; padding: clamp(96px, 11vw, 180px) var(--g) 32px; display: flex; flex-direction: column; gap: clamp(64px, 8vw, 120px);">
+    <div style="display: grid; grid-template-columns: {{ footCols }}; gap: 48px var(--g);">
+      <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
+        <p style="margin: 0; font: 400 clamp(32px, 3vw, 48px)/1.1 'Instrument Serif', serif; max-width: 520px;">Te escribimos cuando haya fechas nuevas. Nada más.</p>
+        <sc-if value="{{ subscribed }}" hint-placeholder-val="{{ false }}">
+          <p role="status" style="margin: 0; font-weight: 600;">Hecho. Te avisaremos de cada fecha nueva.</p>
+        </sc-if>
+        <sc-if value="{{ notSubscribed }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ subscribe }}" style="display: flex; flex-wrap: wrap; gap: 10px; max-width: 520px;">
+            <input type="email" aria-label="Tu email" placeholder="tu@email.com" value="{{ email }}" onChange="{{ setEmail }}" style="flex: 1 1 220px; min-width: 0; min-height: 52px; padding: 0 16px; background: #FFF5F8; color: #2A0F1C; border: 0;">
+            <button type="submit" style="min-height: 52px; padding: 0 24px; background: #2A0F1C; color: #FFF5F8; border: 0; font: 600 17px/1 'Instrument Sans', sans-serif; cursor: pointer; transition: transform 140ms ease-out;" style-active="transform: translateY(1px);">Suscribirme</button>
+          </form>
+          <sc-if value="{{ emailError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="margin: 0; font-weight: 600;">Revisa el email: le falta algo.</p>
+          </sc-if>
+        </sc-if>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 10px; font-weight: 600;">
+        <a href="#carta" style-hover="color: #2A0F1C;">Carta</a>
+        <a href="#agenda" style-hover="color: #2A0F1C;">Agenda</a>
+        <a href="#reservar" style-hover="color: #2A0F1C;">Reservar</a>
+        <a href="#llegar" style-hover="color: #2A0F1C;">Cómo llegar</a>
+      </nav>
+      <nav style="display: flex; flex-direction: column; gap: 10px; font-weight: 600;">
+        <a href="https://instagram.com" target="_blank" rel="noopener" style-hover="color: #2A0F1C;">Instagram</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" style-hover="color: #2A0F1C;">TikTok</a>
+        <a href="#" style-hover="color: #2A0F1C;">Preguntas frecuentes</a>
+        <a href="#" style-hover="color: #2A0F1C;">Política de acceso</a>
+      </nav>
+    </div>
+    <img src="assets/logo-white.png" alt="Magenta" style="width: 100%; max-width: 720px; height: auto; display: block; align-self: center;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 15px;">
+      <span>© 2026 Magenta · Almussafes</span>
+      <span>Cookies · Privacidad · Aviso legal</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hideSoldOut&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Agenda&quot;}}">
+const HOURS = { 0:[1020,1500], 1:[1080,1350], 2:[1080,1350], 3:[1080,1350], 4:[1080,1350], 5:[1020,1650], 6:[1020,1650] };
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const SHORT = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const fmt = m => String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+const MENU = {
+  pijoteo: [
+    { name:'Mejillón de Ría «Ramón Peña»', desc:'Lata de Ramón Peña, calibre 8/12.', price:'14,00 €' },
+    { name:'Anchoa del Cantábrico 000', desc:'Sobre tosta.', price:'4,50 €' },
+    { name:'Jamón ibérico Beher', desc:'Cortado a cuchillo, 100 g.', price:'22,00 €' },
+    { name:'Queso añejo POK y queso reserva', desc:'Oveja de alta maduración y un reserva.', price:'16,00 €' },
+    { name:'Ajoarriero Santa Henar', desc:'', price:'9,50 €' },
+    { name:'Gilda premium de triple boquerón', desc:'', price:'3,50 €' },
+    { name:'Gilda selección de anchoa', desc:'', price:'3,00 €' },
+    { name:'Gilda de cecina y queso', desc:'', price:'3,00 €' },
+  ],
+  cocteles: [
+    { name:'Magenta', desc:'Ginebra, frambuesa, lima y tónica de pomelo rosa.', price:'10,00 €' },
+    { name:'Mojito', desc:'Ron blanco, hierbabuena, lima y azúcar de caña.', price:'9,00 €' },
+    { name:'Pornstar Martini', desc:'Vodka de vainilla, maracuyá y un chupito de cava.', price:'11,00 €' },
+    { name:'Margarita', desc:'Tequila, triple seco y lima. Con sal o sin ella.', price:'9,50 €' },
+    { name:'Espresso Martini', desc:'Vodka, licor de café y espresso recién hecho.', price:'10,50 €' },
+    { name:'Aperol Spritz', desc:'Aperol, prosecco y soda con naranja.', price:'8,50 €' },
+  ],
+};
+const POSTER = [
+  { bg:'#A83456', fg:'#FFF5F8', btnBg:'#FFF5F8', btnFg:'#2A0F1C' },
+  { bg:'#F2EBEE', fg:'#2A0F1C', btnBg:'#A83456', btnFg:'#FFFFFF' },
+  { bg:'#3A1426', fg:'#F7E6EC', btnBg:'#A83456', btnFg:'#FFFFFF' },
+];
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, t) => { const A = hex(a), B = hex(b); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')'; };
+function fieldAt(t) {
+  if (t < 0.3) return '#F2EBEE';
+  if (t <= 0.62) return '#A83456';
+  return mix('#A83456', '#170910', Math.min(1, (t - 0.62) / 0.3));
+}
+
+// "night" = weekday whose evening it belongs to; m = minutes from that day's 00:00 (can exceed 1440)
+function nowNight(now) {
+  const d = now.getDay(), m = now.getHours() * 60 + now.getMinutes();
+  const prev = (d + 6) % 7;
+  if (m < 360) return { wd: prev, m: m + 1440 };
+  return { wd: d, m };
+}
+function statusOf(wd, m) {
+  const [o, c] = HOURS[wd];
+  if (m >= o && m < c) return { open:true, o, c };
+  return { open:false, before: m < o, o, c };
+}
+
+function resDays(now) {
+  const nn = nowNight(now);
+  const out = [];
+  for (let i = 0; i < 9 && out.length < 7; i++) {
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    const wd = dt.getDay(), [o, c] = HOURS[wd];
+    let slots = [];
+    for (let t = o; t <= c - 60; t += 30) slots.push(t);
+    if (i === 0) slots = slots.filter(t => t > nn.m + 30);
+    if (!slots.length) continue;
+    const n = dt.getDate();
+    const label = i === 0 ? `hoy, ${DAYS[wd].toLowerCase()} ${n}` : i === 1 ? `mañana, ${DAYS[wd].toLowerCase()} ${n}` : `el ${DAYS[wd].toLowerCase()} ${n} de ${MONTHS[dt.getMonth()]}`;
+    out.push({ label, slots: slots.map(fmt) });
+  }
+  return out;
+}
+
+class Component extends DCLogic {
+  state = (() => {
+    const now = new Date(), nn = nowNight(now);
+    let idx = Math.round((nn.m - 1020) / 30);
+    if (idx < 0 || idx > 21) idx = 8;
+    return { mobile: window.matchMedia('(max-width: 900px)').matches, menuOpen:false, now, liveWd: nn.wd, liveIdx: idx,
+      resPeople:'4 personas', resZone:'la terraza', resDay:'', resHour:'', resName:'', resPhone:'', resError:'', sent:null,
+      email:'', emailError:false, subscribed:false };
+  })();
+  componentDidMount() {
+    this.calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = e => this.setState({ mobile:e.matches, menuOpen: e.matches && this.state.menuOpen });
+    this.mq.addEventListener('change', this.onMq);
+    this.tick = setInterval(() => this.setState({ now:new Date() }), 60000);
+    if (!this.calm) {
+      const hero = document.getElementById('hero-img');
+      if (hero) hero.style.animation = 'slowScale 26s ease-out forwards';
+      this.revealT = setTimeout(() => this.setupReveal(), 300);
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this.revealT); clearInterval(this.tick); if (this.io) this.io.disconnect();
+    if (this.mq) this.mq.removeEventListener('change', this.onMq);
+  }
+  setupReveal() {
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    const groups = new Map();
+    els.forEach(el => { const g = el.closest('section, footer') || document.body; const i = groups.get(g) || 0; el.dataset.ri = i; groups.set(g, i + 1); });
+    this.io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target; this.io.unobserve(el);
+      el.style.transition = 'opacity 700ms ease-out, transform 700ms cubic-bezier(.2,.7,.2,1)';
+      el.style.transitionDelay = Math.min(+el.dataset.ri || 0, 6) * 80 + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = ''; el.style.transitionDelay = ''; }, 1600);
+    }), { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    els.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.animate([{ opacity:0, transform:'translateY(24px)' }, { opacity:1, transform:'none' }], { duration:700, delay: Math.min(+el.dataset.ri || 0, 6) * 90, easing:'cubic-bezier(.2,.7,.2,1)', fill:'backwards' });
+        return;
+      }
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; this.io.observe(el);
+    });
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile, now = s.now;
+    const all = window.MAGENTA_EVENTS || [];
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dated = all.map(e => ({ ...e, when: new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date) })).filter(e => e.when >= today0);
+    const nn = nowNight(now), st = statusOf(nn.wd, nn.m);
+    const todayWd = now.getDay(), [tO, tC] = HOURS[todayWd];
+    const tonight = dated.find(e => +e.when === +today0);
+    let heroToday;
+    if (st.open) heroToday = `Abierto ahora, hasta las ${fmt(st.c)}.`;
+    else if (nn.m < tO) heroToday = `Hoy, ${DAYS[todayWd].toLowerCase()}, abrimos de ${fmt(tO)} a ${fmt(tC)}.`;
+    else heroToday = `Hoy ya hemos cerrado. Mañana abrimos a las ${fmt(HOURS[(todayWd + 1) % 7][0])}.`;
+    const heroTonight = tonight ? (tonight.status === 'soldout' ? `Esta noche, ${tonight.title}: entradas agotadas.` : `Esta noche, ${tonight.title} con DJ desde las 23:00.`) : '';
+
+    // live explorer
+    const lwd = s.liveWd, lmin = 1020 + s.liveIdx * 30, ls = statusOf(lwd, lmin);
+    const t = s.liveIdx / 21, light = t < 0.3;
+    const nextEv = dated.find(e => e.when.getDay() === lwd);
+    const lines = [];
+    let liveStatus;
+    if (ls.open) {
+      liveStatus = 'Abierto.';
+      const djDay = lwd === 5 || lwd === 6;
+      if (lmin < 1380 || !djDay) lines.push('Pijoteo y cócteles, en la terraza o dentro.');
+      if (djDay && nextEv) {
+        if (lmin < 1380) lines.push(`A las 23:00 empieza ${nextEv.title}, con DJ en la sala.`);
+        else lines.push(nextEv.status === 'soldout' ? `${nextEv.title}: la sala está llena, entradas agotadas.` : `${nextEv.title}, con DJ en la sala: ${nextEv.artists}.`);
+      } else if (djDay && lmin >= 1380) lines.push('Copas y música en la barra.');
+      if (ls.c - lmin <= 60) lines.push(`Cerramos a las ${fmt(ls.c)}.`);
+    } else if (ls.before) {
+      liveStatus = `Todavía cerrado. Ese día abrimos a las ${fmt(ls.o)}.`;
+    } else {
+      liveStatus = `Ya hemos cerrado: ese día cerramos a las ${fmt(ls.c)}.`;
+    }
+    const showEv = ls.open && nextEv && nextEv.status !== 'soldout' && (lwd === 5 || lwd === 6);
+    const wdOrder = [1, 2, 3, 4, 5, 6, 0];
+
+    const days = resDays(now);
+    const day = days.find(d => d.label === s.resDay) || days[0] || { label:'', slots:[] };
+    const hour = day.slots.includes(s.resHour) ? s.resHour : (day.slots.includes('21:00') ? '21:00' : day.slots[0] || '');
+    const hide = this.props.hideSoldOut ?? false;
+
+    return {
+      isMobile: m, isDesktop: !m,
+      headerH: m ? '76px' : '104px', logoH: m ? '52px' : '80px',
+      menuOpen: m && s.menuOpen, menuOpenStr: String(m && s.menuOpen), menuLabel: s.menuOpen ? 'Cerrar' : 'Menú',
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      closeMenu: () => this.setState({ menuOpen:false }),
+      heroCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)',
+      heroPhotoH: m ? '58vh' : 'min(58vh, 640px)',
+      heroToday, heroTonight,
+      liveCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)',
+      liveBg: fieldAt(t), liveInk: light ? '#2A0F1C' : '#FFF5F8', liveAccent: light ? '#A83456' : '#FFF5F8',
+      liveBtnBg: light ? '#A83456' : (t > 0.62 ? '#A83456' : '#FFF5F8'), liveBtnFg: light || t > 0.62 ? '#FFFFFF' : '#2A0F1C',
+      liveDays: wdOrder.map(wd => { const on = wd === lwd; return { label: SHORT[wd], pressed: String(on), pick: () => this.setState({ liveWd: wd }),
+        bg: on ? (light ? '#2A0F1C' : '#FFF5F8') : (light ? '#E3D5DB' : 'rgba(255,245,248,.16)'), fg: on ? (light ? '#F2EBEE' : '#2A0F1C') : (light ? '#2A0F1C' : '#FFF5F8') }; }),
+      liveIdx: s.liveIdx, setLiveIdx: e => this.setState({ liveIdx: +e.target.value }),
+      liveHour: fmt(lmin),
+      liveTitle: `${DAYS[lwd]} a las ${fmt(lmin)}`,
+      liveStatus, liveLines: lines.map(text => ({ text })),
+      liveHasEvent: !!showEv, liveEventHref: showEv ? 'Entradas.dc.html?e=' + nextEv.id : '#agenda',
+      liveEventCta: showEv ? `Entradas para ${nextEv.title}, ${nextEv.price}` : '',
+      menuCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)', menuListPad: m ? '0px' : 'clamp(40px, 6vw, 120px)',
+      pijoteo: MENU.pijoteo.map(x => ({ ...x, showDesc: !!x.desc })),
+      cocteles: MENU.cocteles.map(x => ({ ...x, descCol: m ? '1 / -1' : 'auto', descRow: m ? '2' : 'auto' })), cocktailCols: m ? 'minmax(0, 1fr) 96px' : 'minmax(0, 6fr) minmax(0, 4fr) 110px',
+      duoCols: m ? 'minmax(0, 1fr)' : 'repeat(2, minmax(0, 1fr))',
+      agendaHeadCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 8fr) minmax(0, 4fr)',
+      posterPos: m ? 'relative' : 'sticky', posterMinH: m ? '0px' : 'calc(100vh - var(--header-h) - 48px)',
+      posterCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 7fr) minmax(0, 4fr)',
+      events: dated.filter(e => !hide || e.status !== 'soldout').map((e, i) => {
+        const c = POSTER[i % 3], isT = +e.when === +today0;
+        const flag = isT && e.status !== 'soldout' ? ' · Esta noche' : e.status === 'few' ? ' · Últimas entradas' : e.status === 'new' ? ' · Nuevo' : '';
+        return { ...c, id: e.id, title: e.title, artists: e.artists, doors: e.doors, price: e.price,
+          dateLong: `${DAYS[e.when.getDay()]} ${e.when.getDate()} de ${MONTHS[e.when.getMonth()]}`, flag,
+          canBuy: e.status !== 'soldout', soldOut: e.status === 'soldout', href: 'Entradas.dc.html?e=' + e.id };
+      }),
+      peopleOptions: Array.from({ length: 11 }, (_, i) => (i + 2) + ' personas'),
+      zoneOptions: ['la terraza', 'la sala'],
+      dayOptions: days.map(d => d.label), hourOptions: day.slots,
+      resPeople: s.resPeople, setResPeople: e => this.setState({ resPeople: e.target.value }),
+      resZone: s.resZone, setResZone: e => this.setState({ resZone: e.target.value }),
+      resDay: day.label, setResDay: e => this.setState({ resDay: e.target.value }),
+      resHour: hour, setResHour: e => this.setState({ resHour: e.target.value }),
+      resName: s.resName, setResName: e => this.setState({ resName: e.target.value, resError:'' }),
+      resPhone: s.resPhone, setResPhone: e => this.setState({ resPhone: e.target.value, resError:'' }),
+      hasResError: !!s.resError, resError: s.resError,
+      sendRes: e => {
+        e.preventDefault();
+        if (s.resName.trim().length < 2) return this.setState({ resError:'Falta el nombre para la reserva.' });
+        if (s.resPhone.replace(/\D/g, '').length < 9) return this.setState({ resError:'El teléfono necesita 9 cifras.' });
+        this.setState({ sent: { summary: `Mesa para ${s.resPeople} en ${s.resZone}, ${day.label}, a las ${hour}.`, phone: s.resPhone }, resError:'' });
+      },
+      notSent: !s.sent, sent: !!s.sent, sentSummary: s.sent ? s.sent.summary : '', sentPhone: s.sent ? s.sent.phone : '',
+      resetRes: () => this.setState({ sent:null, resName:'', resPhone:'' }),
+      mapCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 5fr) minmax(0, 7fr)',
+      week: wdOrder.map(wd => { const [o, c] = HOURS[wd], on = wd === todayWd;
+        return { name: DAYS[wd] + (on ? ' (hoy)' : ''), hours: fmt(o) + ' – ' + fmt(c), bg: on ? '#A83456' : 'transparent', fg: on ? '#FFFFFF' : '#2A0F1C', weight: on ? 600 : 400 }; }),
+      footCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr)',
+      email: s.email, setEmail: e => this.setState({ email: e.target.value, emailError:false }),
+      emailError: s.emailError, subscribed: s.subscribed, notSubscribed: !s.subscribed,
+      subscribe: e => { e.preventDefault(); /.+@.+\..+/.test(s.email) ? this.setState({ subscribed:true }) : this.setState({ emailError:true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

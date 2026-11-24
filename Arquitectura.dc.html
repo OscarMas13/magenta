@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: #FFFFFF; }
+    a { color: var(--magenta-500); }
+    a:hover { color: var(--magenta-700); }
+  </style>
+</helmet>
+<div data-screen-label="Arquitectura" style="width: 1640px; padding: 56px 0 72px; background: #FFFFFF; color: var(--ink-950); font-family: var(--font-body);">
+
+  <div style="padding: 0 40px 32px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font: 700 13px/1 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--magenta-500);">Entrega 2 · Arquitectura</div>
+      <h1 style="margin: 0; font: 900 72px/.9 var(--font-display); text-transform: uppercase;">Cómo se reparte el sistema</h1>
+    </div>
+    <div style="font: 500 16px/1.5 var(--font-mono); text-align: right; color: var(--ink-800);">Laravel 11 · MySQL 8 · Hetzner CX23<br>Cliente, API, servidor y base de datos</div>
+  </div>
+
+  <div style="position: relative; width: 1640px; height: 1000px; border-top: 1px solid var(--ink-200); border-bottom: 1px solid var(--ink-200);">
+
+    <div style="position: absolute; left: 420px; top: 60px; width: 820px; height: 760px; box-sizing: border-box; border: 2px dashed var(--ink-700);"></div>
+    <div style="position: absolute; left: 444px; top: 76px; font: 700 14px/1 var(--font-mono); letter-spacing: .04em;">SERVIDOR · HETZNER CX23 · UBUNTU 24.04 · 2 vCPU · 4 GB</div>
+
+    <svg width="1640" height="1000" style="position: absolute; inset: 0; overflow: visible;">
+      <path d="M340,330 H395 V152 H450" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M680,184 V220" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M910,300 H980" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M910,460 H980" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M980,610 H910" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M1210,440 H1300" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M1210,135 H1300" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M1210,170 H1250 V265 H1300" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M1210,600 H1300" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M400,915 H640" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M1000,915 H1240" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M820,860 V780" style="fill: none; stroke: var(--ink-800); stroke-width: 1.8px;"></path>
+      <path d="M441,147 L450,152 L441,157 Z M349,325 L340,330 L349,335 Z M675,211 L680,220 L685,211 Z M971,295 L980,300 L971,305 Z M919,295 L910,300 L919,305 Z M971,455 L980,460 L971,465 Z M919,605 L910,610 L919,615 Z M1291,435 L1300,440 L1291,445 Z M1291,130 L1300,135 L1291,140 Z M1219,130 L1210,135 L1219,140 Z M1291,260 L1300,265 L1291,270 Z M1219,165 L1210,170 L1219,175 Z M1291,595 L1300,600 L1291,605 Z M631,910 L640,915 L631,920 Z M409,910 L400,915 L409,920 Z M1231,910 L1240,915 L1231,920 Z M1009,910 L1000,915 L1009,920 Z M815,789 L820,780 L825,789 Z" style="fill: var(--ink-800); stroke: none;"></path>
+    </svg>
+
+    <div style="position: absolute; left: 40px; top: 200px; width: 300px; height: 440px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 44px; display: flex; align-items: center; padding: 0 14px; background: var(--magenta-500); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">CLIENTE · NAVEGADOR</div>
+      <div style="padding: 14px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="padding: 12px 14px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 4px;">
+          <strong style="font-size: 16px;">Web pública</strong>
+          <span style="font-size: 14px; color: var(--ink-800);">Agenda, carta, compra de entradas y reserva de mesa</span>
+        </div>
+        <div style="padding: 12px 14px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 4px;">
+          <strong style="font-size: 16px;">Zona portero</strong>
+          <span style="font-size: 14px; color: var(--ink-800);">Lector de QR con la cámara (html5-qrcode) y reservas del día</span>
+        </div>
+        <div style="padding: 12px 14px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 4px;">
+          <strong style="font-size: 16px;">Panel admin</strong>
+          <span style="font-size: 14px; color: var(--ink-800);">Eventos, carta, reservas, imágenes y estadísticas (Chart.js)</span>
+        </div>
+        <div style="font: 500 13px/1.45 var(--font-mono); color: var(--ink-800); padding-top: 2px;">HTML + CSS + JavaScript sin framework. Pide datos con fetch.</div>
+      </div>
+    </div>
+
+    <div style="position: absolute; left: 450px; top: 120px; width: 760px; height: 64px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; gap: 16px;">
+      <strong style="font: 700 16px/1 var(--font-mono);">NGINX</strong>
+      <span style="font-size: 14px; color: var(--ink-800);">HTTPS · sirve /public y pasa el resto a PHP-FPM · recibe el webhook de Stripe</span>
+    </div>
+
+    <div style="position: absolute; left: 450px; top: 220px; width: 460px; height: 460px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-900); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">PHP 8.3 · LARAVEL 11</div>
+      <div style="padding: 10px 18px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="padding: 10px 12px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 3px; height: 72px; box-sizing: border-box;">
+          <strong style="font-size: 15px;">Rutas web → Blade</strong>
+          <span style="font-size: 13px; color: var(--ink-800);">Pinta las páginas</span>
+        </div>
+        <div style="padding: 10px 12px; border: 1.5px solid var(--magenta-500); display: flex; flex-direction: column; gap: 3px; height: 72px; box-sizing: border-box;">
+          <strong style="font-size: 15px;">API /api/v1</strong>
+          <span style="font-size: 13px; color: var(--ink-800);">Devuelve JSON</span>
+        </div>
+      </div>
+      <div style="padding: 12px 18px 0; display: flex; flex-direction: column; gap: 12px;">
+        <div style="padding: 10px 12px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 3px;">
+          <strong style="font-size: 15px;">Middleware</strong>
+          <span style="font-size: 13px; color: var(--ink-800);">Sesión (Sanctum) · rol portero/admin · políticas · CSRF · límite de intentos</span>
+        </div>
+        <div style="padding: 10px 12px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 3px;">
+          <strong style="font-size: 15px;">Servicios (lógica de negocio)</strong>
+          <span style="font: 400 12.5px/1.5 var(--font-mono); color: var(--ink-800);">CompraService · ReservaService · AccesoService · EstadisticasService · ImagenService · EntradaPdfService</span>
+        </div>
+        <div style="padding: 10px 12px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 3px;">
+          <strong style="font-size: 15px;">Modelos Eloquent</strong>
+          <span style="font-size: 13px; color: var(--ink-800);">Migraciones y seeders con datos ficticios</span>
+        </div>
+        <div style="padding: 10px 12px; border: 1px solid var(--ink-300); display: flex; flex-direction: column; gap: 3px;">
+          <strong style="font-size: 15px;">storage/ · imágenes</strong>
+          <span style="font-size: 13px; color: var(--ink-800);">Intervention Image: 3 tamaños en WebP, sin EXIF</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: absolute; left: 980px; top: 220px; width: 230px; height: 160px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-900); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">MYSQL 8</div>
+      <div style="padding: 12px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">13 tablas del modelo + jobs y failed_jobs de Laravel. Transacciones para el aforo.</div>
+    </div>
+    <div style="position: absolute; left: 980px; top: 400px; width: 230px; height: 120px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-900); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">COLA</div>
+      <div style="padding: 12px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">queue:work vigilado por Supervisor. 3 reintentos por correo.</div>
+    </div>
+    <div style="position: absolute; left: 980px; top: 540px; width: 230px; height: 140px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-900); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">CRON</div>
+      <div style="padding: 12px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">schedule:run cada minuto: recordatorios 24 h, compras caducadas y copia diaria.</div>
+    </div>
+
+    <div style="position: absolute; left: 450px; top: 710px; width: 760px; height: 70px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; gap: 16px;">
+      <strong style="font: 700 16px/1 var(--font-mono);">DEPLOY.SH</strong>
+      <span style="font: 400 13px/1.4 var(--font-mono); color: var(--ink-800);">git pull → composer install → migrate → cachés → reinicia la cola</span>
+    </div>
+
+    <div style="position: absolute; left: 1300px; top: 60px; width: 300px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--magenta-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">LET'S ENCRYPT</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Certificado HTTPS gratuito con renovación automática (Certbot).</div>
+    </div>
+    <div style="position: absolute; left: 1300px; top: 200px; width: 300px; height: 130px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--magenta-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">STRIPE · MODO PRUEBAS</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Checkout: el comprador paga en la página de Stripe. Stripe avisa al servidor con un webhook.</div>
+    </div>
+    <div style="position: absolute; left: 1300px; top: 380px; width: 300px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--magenta-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">PROVEEDOR SMTP</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Entrega los correos: entradas en PDF, reservas y newsletter.</div>
+    </div>
+    <div style="position: absolute; left: 1300px; top: 530px; width: 300px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--magenta-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">COPIAS FUERA</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Volcado diario de la base de datos fuera del servidor. Se guardan 7 días.</div>
+    </div>
+
+    <div style="position: absolute; left: 40px; top: 860px; width: 360px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">CASA · WINDOWS</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">WSL2 + Docker Desktop + Laravel Sail</div>
+    </div>
+    <div style="position: absolute; left: 640px; top: 860px; width: 360px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">GITHUB</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Repositorio: main (producción), develop y una rama por funcionalidad.</div>
+    </div>
+    <div style="position: absolute; left: 1240px; top: 860px; width: 360px; height: 110px; box-sizing: border-box; border: 1.5px solid var(--ink-900); background: #FFFFFF;">
+      <div style="height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ink-700); color: #FFFFFF; font: 700 15px/1 var(--font-mono);">CLASE · LINUX</div>
+      <div style="padding: 10px 14px; font-size: 14px; line-height: 1.45; color: var(--ink-800);">Docker + Laravel Sail</div>
+    </div>
+
+    <span style="position: absolute; left: 395px; top: 245px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">HTTPS</span>
+    <span style="position: absolute; left: 680px; top: 202px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">PHP-FPM</span>
+    <span style="position: absolute; left: 945px; top: 300px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">SQL</span>
+    <span style="position: absolute; left: 945px; top: 460px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">jobs</span>
+    <span style="position: absolute; left: 945px; top: 610px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">artisan</span>
+    <span style="position: absolute; left: 1255px; top: 440px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">SMTP</span>
+    <span style="position: absolute; left: 1255px; top: 135px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">cert.</span>
+    <span style="position: absolute; left: 1250px; top: 218px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">pago</span>
+    <span style="position: absolute; left: 1255px; top: 600px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">dump</span>
+    <span style="position: absolute; left: 520px; top: 915px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">push / pull</span>
+    <span style="position: absolute; left: 1120px; top: 915px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">push / pull</span>
+    <span style="position: absolute; left: 820px; top: 840px; transform: translate(-50%, -50%); background: #FFFFFF; padding: 3px 6px; font: 600 12px/1 var(--font-mono); white-space: nowrap;">git pull</span>
+  </div>
+
+  <div style="padding: 48px 40px 0; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr) minmax(0, 4fr); gap: 56px;">
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Tecnología por capa y por qué</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li><strong>Cliente: Blade + JavaScript sin framework.</strong> Laravel pinta las páginas, que cargan rápido y Google las indexa. JavaScript añade lo interactivo (filtros, compra, validaciones, lector de QR) pidiendo los datos a la API. Se descarta React: la web tiene pocas pantallas y añadiría compilación y peso.</li>
+        <li><strong>API: rutas /api/v1 en Laravel.</strong> JSON con códigos HTTP coherentes. La usan la web pública, el portero y el panel.</li>
+        <li><strong>Servidor: PHP 8.3 + Laravel 11.</strong> Trae autenticación, validación, colas, correo, tareas programadas y migraciones. Es lo que se trabaja en el ciclo.</li>
+        <li><strong>Base de datos: MySQL 8.</strong> Datos relacionales y transacciones para no vender por encima del aforo.</li>
+        <li><strong>Pago: Stripe Checkout.</strong> La tarjeta nunca pasa por el servidor del pub. Se descarta Stripe Elements por complejidad.</li>
+        <li><strong>Panel admin propio con Blade.</strong> Se descarta Filament para que el trabajo sea propio y demostrable.</li>
+        <li><strong>Cola en la base de datos.</strong> Se descarta Redis: un servicio más que el volumen del pub no necesita.</li>
+        <li><strong>PDF: laravel-dompdf.</strong> Un PDF por compra con un QR por entrada, adjunto al correo, y la lista de la puerta para el plan B.</li>
+        <li><strong>QR: html5-qrcode para leer, simple-qrcode para generar.</strong> Funciona en Android e iPhone. La API nativa del navegador no está en todos los móviles.</li>
+        <li><strong>Despliegue: Hetzner CX23.</strong> Unos 6 € al mes, pago por horas sin permanencia, centro de datos en la UE (RGPD) y control total del servidor.</li>
+      </ul>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Flujo de una compra</h2>
+      <ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li>El comprador elige las entradas y deja nombre, email y teléfono.</li>
+        <li><code style="font-family: var(--font-mono);">POST /api/v1/compras</code>: CompraService crea la compra <em>pendiente</em> y reserva el stock 10 minutos en una transacción.</li>
+        <li>Laravel pide a Stripe una sesión de pago y el navegador va a la página de Stripe.</li>
+        <li>Stripe avisa con un webhook: la compra pasa a <em>pagada</em> y se crean las entradas con su código QR.</li>
+        <li>Se genera el PDF con un QR por entrada (laravel-dompdf) y se pone en cola el correo con el PDF adjunto. Supervisor lo envía y queda registrado en notificaciones.</li>
+        <li>En la puerta, el portero escanea el QR: <code style="font-family: var(--font-mono);">POST /api/v1/acceso/validar</code> la marca como usada.</li>
+        <li>Si no se paga en 10 minutos, el cron cancela la compra y libera el stock.</li>
+      </ol>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Entornos</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li><strong>Desarrollo:</strong> Docker con Laravel Sail en casa (Windows con WSL2) y en clase (Linux). Mismas versiones que en producción.</li>
+        <li><strong>Código:</strong> se sincroniza con GitHub. Pull al empezar, commit y push al terminar.</li>
+        <li><strong>Datos:</strong> no se copian entre ordenadores. Se crean con migraciones y seeders con datos ficticios.</li>
+        <li><strong>Secretos:</strong> el archivo .env no se sube a Git. Cada entorno tiene el suyo a partir de .env.example.</li>
+        <li><strong>Producción:</strong> Hetzner CX23 con Nginx, PHP-FPM, MySQL, Supervisor y cron en la misma máquina.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

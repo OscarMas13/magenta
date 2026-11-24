@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: #FFFFFF; }
+    a { color: var(--magenta-500); }
+    a:hover { color: var(--magenta-700); }
+  </style>
+</helmet>
+<div data-screen-label="API" style="width: 1400px; padding: 56px 40px 72px; box-sizing: border-box; background: #FFFFFF; color: var(--ink-950); font-family: var(--font-body);">
+
+  <div style="padding-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; border-bottom: 1px solid var(--ink-200);">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font: 700 13px/1 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--magenta-500);">Entrega 2 · La API</div>
+      <h1 style="margin: 0; font: 900 72px/.9 var(--font-display); text-transform: uppercase;">Servicios previstos</h1>
+    </div>
+    <div style="font: 500 16px/1.5 var(--font-mono); text-align: right; color: var(--ink-800);">Prefijo /api/v1 · JSON<br>{{ total }} rutas · documentada con Scribe</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 120px 360px minmax(0, 1fr) 150px 190px; margin-top: 32px;">
+    <div style="padding: 14px 0; border-bottom: 2px solid var(--ink-950); font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Método</div>
+    <div style="padding: 14px 0; border-bottom: 2px solid var(--ink-950); font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Ruta</div>
+    <div style="padding: 14px 0; border-bottom: 2px solid var(--ink-950); font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Qué hace</div>
+    <div style="padding: 14px 0; border-bottom: 2px solid var(--ink-950); font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Rol</div>
+    <div style="padding: 14px 0; border-bottom: 2px solid var(--ink-950); font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;">Respuestas</div>
+    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="20">
+      <sc-if value="{{ r.isGroup }}" hint-placeholder-val="{{ false }}">
+        <div style="grid-column: 1 / -1; padding: 26px 0 10px; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-500); border-bottom: 1px solid var(--ink-200);">{{ r.label }}</div>
+      </sc-if>
+      <sc-if value="{{ r.isRow }}" hint-placeholder-val="{{ true }}">
+        <div style="padding: 11px 12px 11px 0; border-bottom: 1px solid var(--ink-200); display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start;">
+          <sc-for list="{{ r.methods }}" as="m" hint-placeholder-count="1">
+            <span style="padding: 4px 7px; font: 700 11.5px/1 var(--font-mono); color: #FFFFFF; background: {{ m.bg }};">{{ m.name }}</span>
+          </sc-for>
+        </div>
+        <div style="padding: 11px 16px 11px 0; border-bottom: 1px solid var(--ink-200); font: 500 14px/1.45 var(--font-mono); word-break: break-word;">{{ r.path }}</div>
+        <div style="padding: 11px 16px 11px 0; border-bottom: 1px solid var(--ink-200); font-size: 15.5px; line-height: 1.45;">{{ r.what }}</div>
+        <div style="padding: 11px 12px 11px 0; border-bottom: 1px solid var(--ink-200); font-size: 15px; line-height: 1.45; font-weight: 600;">{{ r.role }}</div>
+        <div style="padding: 11px 0; border-bottom: 1px solid var(--ink-200); font: 500 13.5px/1.45 var(--font-mono); color: var(--ink-800);">{{ r.codes }}</div>
+      </sc-if>
+    </sc-for>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; margin-top: 56px;">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Códigos de respuesta</h2>
+      <div style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px 16px; font-size: 15.5px; line-height: 1.4;">
+        <sc-for list="{{ codes }}" as="c" hint-placeholder-count="11">
+          <span style="font: 700 15px/1.4 var(--font-mono);">{{ c.code }}</span>
+          <span>{{ c.text }}</span>
+        </sc-for>
+      </div>
+      <p style="margin: 4px 0 0; font-size: 15px; color: var(--ink-800);">Cualquier ruta de portero o admin responde 401 sin sesión y 403 con un rol sin permiso. No se repite en la tabla.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <h2 style="margin: 0; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Decisiones</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5;">
+        <li><strong>Sesión con Sanctum (cookie).</strong> La web y la API están en el mismo dominio, así que no hacen falta tokens. Las peticiones llevan protección CSRF.</li>
+        <li><strong>Las horas de reserva las calcula el servidor</strong> a partir del horario fijo. La regla está en un solo sitio y no se puede saltar desde el navegador.</li>
+        <li><strong>Sin borrados en lo importante.</strong> Eventos, compras, entradas y reservas solo cambian de estado. Se borran tipos de entrada sin ventas, productos de la carta e imágenes sin usar.</li>
+        <li><strong>Lista del plan B en PDF.</strong> Se genera con laravel-dompdf, la misma librería que las entradas, y se descarga antes de abrir.</li>
+        <li><strong>Límite de peticiones</strong> (10 por minuto) en compras, reservas, newsletter, inicio de sesión y validación de QR.</li>
+        <li><strong>Formato de Laravel.</strong> Los datos van en <code style="font-family: var(--font-mono);">data</code>, los listados del panel se paginan de 20 en 20 y los errores 422 detallan cada campo.</li>
+        <li><strong>Webhook de Stripe</strong> fuera de la sesión y de CSRF, pero solo se acepta si la firma de Stripe es correcta.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MB = { GET:'var(--ink-800)', POST:'var(--magenta-500)', PUT:'var(--magenta-700)', PATCH:'var(--magenta-700)', DELETE:'var(--ink-950)' };
+const G = label => ({ isGroup:true, isRow:false, label });
+const R = (m, path, what, role, codes) => ({ isGroup:false, isRow:true, methods: m.split(' ').map(name => ({ name, bg: MB[name] })), path, what, role, codes });
+const ROWS = [
+  G('Pública'),
+  R('GET', '/eventos?genero=', 'Próximos eventos publicados, filtrables por género', 'Visitante', '200'),
+  R('GET', '/eventos/{slug}', 'Detalle del evento con sus tipos de entrada y cuántas quedan', 'Visitante', '200 · 404'),
+  R('GET', '/generos', 'Géneros para los filtros de la agenda', 'Visitante', '200'),
+  R('GET', '/carta', 'Categorías con sus productos visibles', 'Visitante', '200'),
+  R('POST', '/compras', 'Crea la compra pendiente, bloquea el stock 10 minutos y devuelve la dirección de pago de Stripe', 'Visitante', '201 · 409 · 422 · 429'),
+  R('GET', '/compras/estado?sesion=', 'Estado de la compra al volver de Stripe (pagada, pendiente o cancelada). No devuelve los QR', 'Visitante', '200 · 404'),
+  R('GET', '/reservas/horas?fecha=', 'Horas disponibles para reservar ese día, según el horario', 'Visitante', '200 · 422'),
+  R('POST', '/reservas', 'Solicitud de mesa: zona, día, hora, personas, nombre, teléfono y email', 'Visitante', '201 · 422 · 429'),
+  R('POST', '/suscriptores', 'Alta en la newsletter con consentimiento', 'Visitante', '201 · 422 · 429'),
+  R('DELETE', '/suscriptores/{token}', 'Baja de la newsletter desde el enlace del correo', 'Visitante con token', '204 · 404'),
+  R('POST', '/stripe/webhook', 'Stripe confirma el pago: la compra pasa a pagada, se crean las entradas y se encola el correo con el PDF', 'Stripe (firma)', '200 · 400'),
+  G('Sesión del personal'),
+  R('POST', '/login', 'Inicio de sesión con email y contraseña', 'Personal', '204 · 422 · 429'),
+  R('POST', '/logout', 'Cierre de sesión', 'Portero · Admin', '204'),
+  R('GET', '/yo', 'Usuario que ha iniciado sesión y su rol', 'Portero · Admin', '200'),
+  G('Puerta'),
+  R('POST', '/acceso/validar', 'Valida el código del QR (o escrito a mano) y marca la entrada como usada. 409 si ya está usada o es de otra noche', 'Portero · Admin', '200 · 404 · 409 · 429'),
+  R('GET', '/reservas/hoy', 'Reservas aceptadas del día (solo lectura)', 'Portero · Admin', '200'),
+  R('GET', '/eventos/{id}/lista', 'PDF con las entradas de la noche y su código, para validar a mano (plan B)', 'Portero · Admin', '200 · 404'),
+  G('Gestión'),
+  R('GET POST', '/admin/eventos', 'Listar (paginado) y crear eventos', 'Admin', '200 · 201 · 422'),
+  R('PUT', '/admin/eventos/{id}', 'Editar un evento', 'Admin', '200 · 404 · 422'),
+  R('PATCH', '/admin/eventos/{id}/estado', 'Publicar o cancelar un evento', 'Admin', '200 · 422'),
+  R('POST', '/admin/eventos/{id}/aviso', 'Avisar a los suscriptores; una sola vez y solo si está publicado', 'Admin', '202 · 409'),
+  R('POST', '/admin/eventos/{id}/tipos-entrada', 'Añadir un tipo de entrada al evento', 'Admin', '201 · 422'),
+  R('PUT DELETE', '/admin/tipos-entrada/{id}', 'Editar o borrar un tipo; borrar solo si no tiene ventas', 'Admin', '200 · 204 · 409 · 422'),
+  R('POST PUT DELETE', '/admin/carta/categorias/{id?}', 'Crear, editar y borrar categorías de la carta', 'Admin', '201 · 200 · 204 · 422'),
+  R('POST PUT DELETE', '/admin/carta/productos/{id?}', 'Crear, editar, ordenar, ocultar y borrar productos', 'Admin', '201 · 200 · 204 · 422'),
+  R('GET', '/admin/reservas?estado=&fecha=', 'Listar reservas; primero las pendientes', 'Admin', '200'),
+  R('PATCH', '/admin/reservas/{id}', 'Aceptar o rechazar; se encola el correo al cliente', 'Admin', '200 · 422'),
+  R('GET POST', '/admin/imagenes', 'Listar y subir imágenes (se generan 3 tamaños en WebP)', 'Admin', '200 · 201 · 422'),
+  R('DELETE', '/admin/imagenes/{id}', 'Borrar una imagen que no se usa', 'Admin', '204 · 409'),
+  R('GET', '/admin/estadisticas?desde=&hasta=', 'Datos para las gráficas: ventas, ingresos, ocupación y reservas', 'Admin', '200 · 422'),
+  R('GET', '/admin/estadisticas/exportar', 'Las mismas estadísticas en CSV', 'Admin', '200'),
+  R('GET POST', '/admin/usuarios', 'Listar y dar de alta personal', 'Admin', '200 · 201 · 422'),
+  R('PUT', '/admin/usuarios/{id}', 'Editar nombre, email o rol', 'Admin', '200 · 422'),
+  R('PATCH', '/admin/usuarios/{id}/activo', 'Activar o desactivar; no puede desactivarse a sí mismo', 'Admin', '200 · 409'),
+];
+const CODES = [
+  ['200','Correcto'], ['201','Creado'], ['202','Aceptado: se procesa en la cola'], ['204','Correcto, sin contenido'],
+  ['400','Petición no válida (firma de Stripe incorrecta)'], ['401','Sin sesión'], ['403','Rol sin permiso'], ['404','No existe'],
+  ['409','Conflicto: sin stock, entrada ya usada, evento ya avisado, imagen en uso o desactivarse a uno mismo'],
+  ['422','Datos no válidos, con el error de cada campo'], ['429','Demasiadas peticiones'],
+];
+class Component extends DCLogic {
+  renderVals() {
+    return { rows: ROWS, total: ROWS.filter(r => r.isRow).length, codes: CODES.map(([code, text]) => ({ code, text })) };
+  }
+}
+</script>
+</body>
+</html>

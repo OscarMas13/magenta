@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/plus.svg"] { -webkit-mask-image: url(assets/icons/plus.svg) !important; mask-image: url(assets/icons/plus.svg) !important; }
+    span[style*="icons/chevron-up.svg"] { -webkit-mask-image: url(assets/icons/chevron-up.svg) !important; mask-image: url(assets/icons/chevron-up.svg) !important; }
+    span[style*="icons/chevron-down.svg"] { -webkit-mask-image: url(assets/icons/chevron-down.svg) !important; mask-image: url(assets/icons/chevron-down.svg) !important; }
+    span[style*="icons/pencil.svg"] { -webkit-mask-image: url(assets/icons/pencil.svg) !important; mask-image: url(assets/icons/pencil.svg) !important; }
+    span[style*="icons/trash-2.svg"] { -webkit-mask-image: url(assets/icons/trash-2.svg) !important; mask-image: url(assets/icons/trash-2.svg) !important; }
+    span[style*="icons/arrow-up-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-up-right.svg) !important; mask-image: url(assets/icons/arrow-up-right.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: sticky; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main data-screen-label="Admin · Carta" style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 80px; display: flex; flex-direction: column; gap: 28px; max-width: 1080px; box-sizing: border-box; width: 100%;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Carta</h1>
+        <p style="margin: 0; font-size: 15px; color: var(--fg-2);">Los cambios se ven al momento en la web. El orden de aquí es el orden de la carta.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" icon-right="arrow-up-right" on-click="{{ viewWeb }}" hint-size="170px,52px">Ver en la web</x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="plus" on-click="{{ addItem }}" hint-size="190px,52px">{{ addLabel }}</x-import>
+      </div>
+    </div>
+
+    <div role="tablist" aria-label="Secciones de la carta" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{ t.selected }}" onClick="{{ t.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ t.border }}; border-radius: 999px; background: {{ t.bg }}; color: {{ t.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+        <div style="background: {{ it.bg }}; outline: {{ it.outline }}; outline-offset: -1px;">
+          <sc-if value="{{ it.view }}" hint-placeholder-val="{{ true }}">
+            <div style="display: grid; grid-template-columns: {{ rowCols }}; align-items: center; gap: 10px 20px; padding: 14px 16px 14px 10px; opacity: {{ it.opacity }};">
+              <div style="display: flex; flex-direction: {{ moveDir }}; gap: 2px;">
+                <button type="button" onClick="{{ it.up }}" disabled="{{ it.isFirst }}" aria-label="{{ it.upLabel }}" style="width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: var(--fg-1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: {{ it.upOpacity }};">
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="chevron-up" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+                </button>
+                <button type="button" onClick="{{ it.down }}" disabled="{{ it.isLast }}" aria-label="{{ it.downLabel }}" style="width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: var(--fg-1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: {{ it.downOpacity }};">
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="chevron-down" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+                </button>
+              </div>
+              <div style="min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+                <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;">
+                  <span style="font: 800 22px/1.1 var(--font-display); text-transform: uppercase;">{{ it.name }}</span>
+                  <sc-if value="{{ it.hidden }}" hint-placeholder-val="{{ false }}">
+                    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="paper" hint-size="80px,22px">Oculto</x-import>
+                  </sc-if>
+                </span>
+                <span style="font-size: 15px; color: var(--fg-2);">{{ it.desc }}</span>
+              </div>
+              <span style="font: 600 17px/1 var(--font-mono); white-space: nowrap; font-variant-numeric: tabular-nums;">{{ it.priceLabel }}</span>
+              <div style="display: flex; align-items: center; gap: 12px; justify-content: flex-end;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Switch" checked="{{ it.visible }}" on-change="{{ it.toggle }}" label="{{ it.visLabel }}" hint-size="110px,24px"></x-import>
+                <button type="button" onClick="{{ it.edit }}" aria-label="{{ it.editLabel }}" style="width: 44px; height: 44px; border: 1px solid var(--border-default); border-radius: 50%; background: transparent; color: var(--fg-1); display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none;">
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="pencil" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+                </button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ it.editing }}" hint-placeholder-val="{{ false }}">
+            <form onSubmit="{{ it.save }}" novalidate="" style="display: flex; flex-direction: column; gap: 18px; padding: 22px;">
+              <div style="display: grid; grid-template-columns: {{ editCols }}; gap: 16px 20px;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Nombre" placeholder="{{ namePh }}" value="{{ draft.name }}" on-change="{{ setName }}" error="{{ errName }}" hint-size="100%,84px"></x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Precio €" placeholder="9,50" value="{{ draft.price }}" on-change="{{ setPrice }}" error="{{ errPrice }}" hint-size="100%,84px"></x-import>
+              </div>
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Descripción" placeholder="{{ descPh }}" value="{{ draft.desc }}" on-change="{{ setDesc }}" hint="Opcional. Una línea basta." hint-size="100%,84px"></x-import>
+              <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" on-click="{{ it.save }}" hint-size="120px,44px">Guardar</x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="ghost" on-click="{{ cancel }}" hint-size="120px,44px">Cancelar</x-import>
+                <sc-if value="{{ it.canDelete }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ it.askDelete }}" style="margin-left: auto; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--fg-1); font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">
+                    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="trash-2" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+                    <span>Eliminar</span>
+                  </button>
+                </sc-if>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin: 0; font-size: 14px; color: var(--fg-2);">Oculta un plato cuando se acabe esa noche: deja de salir en la web sin perderlo.</p>
+  </main>
+
+  <div style="--radius-sm: 20px;"><x-import component-from-global-scope="MagentaDesignSystem_d2684b.Dialog" open="{{ confirmOpen }}" on-close="{{ closeConfirm }}" title="{{ confirmTitle }}" hint-size="0px,0px">
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <p style="margin: 0; color: var(--fg-2);">Desaparece de la carta de la web. Si solo se ha acabado, mejor ocúltalo.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" on-click="{{ doDelete }}" hint-size="140px,44px">Eliminar</x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" on-click="{{ closeConfirm }}" hint-size="120px,44px">Cancelar</x-import>
+      </div>
+    </div>
+  </x-import></div>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 24px; z-index: 50; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const P = (name, desc, price) => ({ name, desc, price, visible: true });
+const SEED = {
+  pijoteo: [
+    P('Mejillon de Ria “Ramón Peña”', 'Mejillon de Ria Ramón Peña 8/12', 14), P('Anchoa del Cantábrico 000', 'Tosta con anchoa del Cantábrico 000', 4.5),
+    P('Jamón Ibérico Beher', 'Jamón Ibérico corte a cuchillo 100 g', 22), P('Queso añejo POK y Queso reserva', 'Queso de oveja añejo alta maduración y Queso reserva', 16),
+    P('Ajoarriero Santa Henar', 'Ajoarriero Santa Henar', 9.5), P('Gilda premium triple boquerón', 'Gilda triple boquerón', 3.5),
+    P('Gilda selección anchoa', 'Gilda seleccion anchoa', 3), P('Gilda de cecina y queso', 'Gilda cecina y queso', 3),
+  ],
+  cocteles: [
+    P('Magenta', 'Ginebra, frambuesa, lima y tónica de pomelo rosa. El de la casa.', 10), P('Mojito', 'Ron blanco, hierbabuena, lima y azúcar de caña.', 9),
+    P('Pornstar Martini', 'Vodka de vainilla, maracuyá y un chupito de cava.', 11), P('Margarita', 'Tequila, triple seco y lima. Con sal o sin ella.', 9.5),
+    P('Espresso Martini', 'Vodka, licor de café y espresso recién hecho.', 10.5), P('Aperol Spritz', 'Aperol, prosecco y soda con naranja.', 8.5),
+  ],
+};
+let uid = 1;
+const withIds = l => l.map(x => ({ ...x, id: uid++ }));
+const eur = n => n.toFixed(2).replace('.', ',') + ' €';
+const parsePrice = s => { const n = Number(String(s).replace(',', '.').replace(/[^\d.]/g, '')); return String(s).trim() && isFinite(n) && n >= 0 && n < 1000 ? Math.round(n * 100) / 100 : null; };
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 960px)').matches, tab: 'pijoteo', lists: { pijoteo: withIds(SEED.pijoteo), cocteles: withIds(SEED.cocteles) }, editId: null, draft: null, tried: false, confirmId: null, toast: null };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  toast(title, msg) { clearTimeout(this.toastT); this.setState({ toast: { title, msg } }); this.toastT = setTimeout(() => this.setState({ toast: null }), 3000); }
+  setList(fn) { this.setState(s => ({ lists: { ...s.lists, [s.tab]: fn(s.lists[s.tab]) } })); }
+  move(i, d) { this.setList(l => { const c = l.slice(); [c[i], c[i + d]] = [c[i + d], c[i]]; return c; }); }
+  cancelEdit() { this.setState(s => ({ editId: null, draft: null, tried: false, lists: s.draft && s.draft.isNew ? { ...s.lists, [s.tab]: s.lists[s.tab].filter(x => x.id !== s.editId) } : s.lists })); }
+  renderVals() {
+    const s = this.state, m = s.mobile, list = s.lists[s.tab];
+    const isP = s.tab === 'pijoteo';
+    const d = s.draft;
+    const errName = s.tried && d && !d.name.trim() ? 'Ponle un nombre.' : '';
+    const errPrice = s.tried && d && parsePrice(d.price) === null ? 'Escribe un precio, por ejemplo 9,50.' : '';
+    const navItems = [
+      ['Inicio', 'layout-dashboard', 'Admin - Inicio.dc.html'], ['Eventos', 'calendar', 'Admin - Eventos.dc.html'], ['Carta', 'utensils', '#', true],
+      ['Reservas', 'calendar-clock', 'Admin - Reservas.dc.html', false, 3], ['Imágenes', 'image', 'Admin - Imagenes.dc.html'], ['Personal', 'users', 'Admin - Personal.dc.html'],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    const confirmItem = Object.values(s.lists).flat().find(x => x.id === s.confirmId);
+    return {
+      isDesktop: !m, shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px', asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, count]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!count, count: count || 0, bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      viewWeb: () => { location.href = 'Magenta Web v2.dc.html#carta'; },
+      addLabel: isP ? 'Añadir plato' : 'Añadir cóctel',
+      addItem: () => {
+        if (s.editId) this.cancelEdit();
+        const id = uid++;
+        this.setState(st => ({ lists: { ...st.lists, [st.tab]: [...st.lists[st.tab].filter(x => !(st.draft && st.draft.isNew && x.id === st.editId)), { id, name: '', desc: '', price: 0, visible: true }] }, editId: id, draft: { name: '', desc: '', price: '', isNew: true }, tried: false }));
+      },
+      tabs: [['pijoteo', 'Pijoteo'], ['cocteles', 'Cócteles']].map(([k, l]) => { const on = s.tab === k; return { label: `${l} · ${s.lists[k].length}`, selected: on ? 'true' : 'false',
+        pick: () => { if (s.editId) this.cancelEdit(); this.setState({ tab: k }); }, bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' }; }),
+      rowCols: m ? '36px minmax(0, 1fr) auto auto' : '80px minmax(0, 1fr) auto auto', moveDir: m ? 'column' : 'row',
+      editCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 3fr) minmax(0, 1fr)',
+      items: list.map((x, i) => {
+        const editing = x.id === s.editId;
+        return { ...x, view: !editing, editing, priceLabel: eur(x.price), hidden: !x.visible, opacity: x.visible ? 1 : .6,
+          bg: editing ? 'var(--ink-850)' : 'var(--ink-900)', outline: editing ? '1px solid var(--magenta-500)' : 'none',
+          isFirst: i === 0, isLast: i === list.length - 1, upOpacity: i === 0 ? .3 : 1, downOpacity: i === list.length - 1 ? .3 : 1,
+          upLabel: 'Subir ' + x.name, downLabel: 'Bajar ' + x.name, editLabel: 'Editar ' + x.name,
+          visLabel: m ? '' : (x.visible ? 'Visible' : 'Oculto'),
+          up: () => this.move(i, -1), down: () => this.move(i, 1),
+          toggle: v => { this.setList(l => l.map(y => y.id === x.id ? { ...y, visible: !!v } : y)); this.toast(x.name, v ? 'Vuelve a salir en la carta.' : 'Oculto en la web.'); },
+          edit: () => { if (s.editId) this.cancelEdit(); this.setState({ editId: x.id, draft: { name: x.name, desc: x.desc, price: eur(x.price).replace(' €', ''), isNew: false }, tried: false }); },
+          canDelete: !(d && d.isNew),
+          askDelete: () => this.setState({ confirmId: x.id }),
+          save: e => {
+            if (e && e.preventDefault) e.preventDefault();
+            const price = parsePrice(d.price);
+            if (!d.name.trim() || price === null) return this.setState({ tried: true });
+            this.setList(l => l.map(y => y.id === x.id ? { ...y, name: d.name.trim(), desc: d.desc.trim(), price } : y));
+            this.setState({ editId: null, draft: null, tried: false });
+            this.toast(d.isNew ? 'Añadido a la carta' : 'Cambios guardados', d.name.trim() + ' · ' + eur(price));
+          } };
+      }),
+      draft: d || { name: '', desc: '', price: '' },
+      setName: v => this.setState(st => ({ draft: { ...st.draft, name: v } })), setPrice: v => this.setState(st => ({ draft: { ...st.draft, price: v } })), setDesc: v => this.setState(st => ({ draft: { ...st.draft, desc: v } })),
+      errName, errPrice, namePh: isP ? 'Croquetas de jamón' : 'Negroni', descPh: isP ? '6 unidades, caseras' : 'Ginebra, vermut rojo y Campari',
+      cancel: () => this.cancelEdit(),
+      confirmOpen: !!confirmItem, confirmTitle: confirmItem ? `¿Eliminar «${confirmItem.name}»?` : '',
+      closeConfirm: () => this.setState({ confirmId: null }),
+      doDelete: () => { const n = confirmItem ? confirmItem.name : ''; this.setState(st => ({ confirmId: null, editId: null, draft: null, lists: Object.fromEntries(Object.entries(st.lists).map(([k, l]) => [k, l.filter(y => y.id !== st.confirmId)])) })); this.toast('Eliminado', n); },
+      hasToast: !!s.toast, toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '', closeToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

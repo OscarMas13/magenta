@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 17px; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column;">
+
+  <header style="position: sticky; top: 0; z-index: 40; height: {{ headerH }}; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gutter); background: var(--ink-950); border-bottom: 1px solid var(--border-subtle);">
+    <a href="Magenta Web v2.dc.html" style="display: flex; align-items: center; gap: 10px; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 20 }}" hint-size="20px,20px"></x-import>
+      <span>{{ backLabel }}</span>
+    </a>
+    <a href="Magenta Web v2.dc.html" style="display: block;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <span style="justify-self: end; font: 700 {{ navSize }}/1 var(--font-body); letter-spacing: .04em; color: var(--fg-2);">ES / EN</span>
+  </header>
+
+  <div data-screen-label="Textos legales" style="flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: clamp(40px, 6vw, 96px) var(--gutter) clamp(64px, 8vw, 128px); display: grid; grid-template-columns: {{ cols }}; gap: clamp(32px, 5vw, 96px); align-items: start;">
+
+    <nav aria-label="Textos legales" style="position: {{ navPos }}; top: {{ navTop }}; display: flex; flex-direction: {{ navDir }}; flex-wrap: wrap; gap: 8px; min-width: 0;">
+      <sc-for list="{{ docs }}" as="d" hint-placeholder-count="4">
+        <button type="button" onClick="{{ d.pick }}" aria-current="{{ d.current }}" style="text-align: left; min-height: 48px; padding: 12px 20px; border: 1px solid {{ d.border }}; border-radius: 999px; background: {{ d.bg }}; color: {{ d.fg }}; font: 700 15px/1.2 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer; transition: background 140ms ease-out, color 140ms ease-out;">{{ d.label }}</button>
+      </sc-for>
+      <span style="padding: 12px 4px 0; font: 500 14px/1.4 var(--font-mono); color: var(--fg-3);">Actualizado el 30 oct 2026</span>
+    </nav>
+
+    <article style="min-width: 0; max-width: 760px; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; gap: 18px;">
+        <h1 style="margin: 0; font: 900 clamp(48px, 7vw, 104px)/.88 var(--font-display); text-transform: uppercase; letter-spacing: -.01em;">{{ doc.title }}</h1>
+        <p style="margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5;">{{ doc.lead }}</p>
+      </div>
+      <sc-for list="{{ doc.sections }}" as="sec" hint-placeholder-count="5">
+        <section style="display: flex; flex-direction: column; gap: 12px; padding-top: 28px; border-top: 1px solid var(--border-subtle);">
+          <h2 style="margin: 0; font: 900 clamp(26px, 2.4vw, 34px)/1 var(--font-display); text-transform: uppercase;">{{ sec.h }}</h2>
+          <sc-for list="{{ sec.ps }}" as="p" hint-placeholder-count="1">
+            <p style="margin: 0; color: var(--fg-2); text-wrap: pretty;">{{ p.t }}</p>
+          </sc-for>
+          <sc-if value="{{ sec.hasRows }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; border-top: 1px solid var(--border-subtle);">
+              <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="3">
+                <div style="display: grid; grid-template-columns: {{ rowCols }}; gap: 4px 20px; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+                  <span style="font: 600 15px/1.45 var(--font-mono); color: var(--fg-1);">{{ r.a }}</span>
+                  <span style="font-size: 16px; color: var(--fg-2);">{{ r.b }}</span>
+                  <span style="font: 500 14px/1.45 var(--font-mono); color: var(--fg-3);">{{ r.c }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </section>
+      </sc-for>
+      <p style="margin: 0; padding: 18px 22px; background: var(--ink-900); font-size: 15px; color: var(--fg-2);">Los datos entre corchetes los tiene que completar el pub. Antes de publicar, conviene que un profesional revise estos textos.</p>
+    </article>
+  </div>
+
+  <footer style="padding: 28px var(--gutter); border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 15px; color: var(--fg-2);">
+    <span>© 2026 Magenta · Almussafes · +18</span>
+    <span>Cookies · Privacidad · Aviso legal</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;documento&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;privacidad&quot;,&quot;aviso&quot;,&quot;cookies&quot;,&quot;compra&quot;],&quot;default&quot;:&quot;privacidad&quot;,&quot;tsType&quot;:&quot;'privacidad'|'aviso'|'cookies'|'compra'&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const P = (...ts) => ts.map(t => ({ t }));
+const S = (h, ps, rows) => ({ h, ps: P(...ps), rows: rows ? rows.map(([a, b, c]) => ({ a, b, c: c || '' })) : [], hasRows: !!rows });
+const DOCS = {
+  privacidad: { label:'Privacidad', title:'Política de privacidad', lead:'Qué datos guardamos, para qué, cuánto tiempo y cómo puedes ejercer tus derechos.', sections:[
+    S('Quién es el responsable', ['[Razón social], con NIF [NIF] y domicilio en Carrer dels Llauradors, 44, 46440 Almussafes (Valencia). Contacto para temas de datos: [email de contacto].']),
+    S('Qué datos tratamos', ['Solo pedimos lo necesario. No pedimos DNI, fecha de nacimiento ni dirección: la edad se comprueba en la puerta.'], [
+      ['Compra de entradas', 'Nombre, email y teléfono de quien compra.', 'Contrato'],
+      ['Reserva de mesa', 'Nombre, teléfono y email.', 'Contrato'],
+      ['Newsletter', 'Email.', 'Consentimiento'],
+      ['Personal del pub', 'Nombre, email y registro de las entradas validadas.', 'Relación laboral'],
+    ]),
+    S('Para qué los usamos', ['Para enviarte las entradas en PDF, confirmar o rechazar tu reserva, recordártela el día antes y, si te has suscrito, avisarte de nuevas fechas. No vendemos tus datos ni los usamos para publicidad de terceros.']),
+    S('Cuánto tiempo los guardamos', [], [
+      ['Compras', 'Los datos personales se borran 12 meses después del evento. El importe se conserva sin nombre por obligación contable.', '12 meses'],
+      ['Reservas', 'Se borran 12 meses después de la fecha reservada.', '12 meses'],
+      ['Newsletter', 'Hasta que te des de baja.', 'Hasta la baja'],
+    ]),
+    S('Con quién los compartimos', ['Solo con los proveedores que necesitamos para dar el servicio, todos con contrato de encargado del tratamiento:'], [
+      ['Stripe', 'Gestiona el pago. Los datos de la tarjeta no pasan por Magenta.', 'Pago'],
+      ['[Proveedor de correo]', 'Envía los correos de entradas, reservas y newsletter.', 'Correo'],
+      ['Hetzner', 'Aloja la web y la base de datos en la Unión Europea.', 'Alojamiento'],
+    ]),
+    S('Tus derechos', ['Puedes pedir acceso, rectificación, supresión, oposición, limitación y portabilidad de tus datos escribiendo a [email de contacto]. Para darte de baja de la newsletter basta con el enlace de cualquier correo.', 'Si crees que no hemos tratado bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).']),
+    S('Seguridad', ['La web funciona solo con HTTPS, las contraseñas del personal se guardan cifradas, cada perfil solo accede a lo que necesita y hacemos copias de seguridad diarias.']),
+  ]},
+  aviso: { label:'Aviso legal', title:'Aviso legal', lead:'Datos del titular de la web y condiciones para usarla.', sections:[
+    S('Titular', ['[Razón social] · NIF [NIF] · Carrer dels Llauradors, 44, 46440 Almussafes (Valencia) · [email de contacto] · [teléfono]. [Datos de inscripción en el Registro Mercantil, si los hay].']),
+    S('Para qué es esta web', ['Informar de la agenda, la carta y el horario de Magenta, vender entradas para sus eventos y recibir solicitudes de reserva de mesa.']),
+    S('Uso de la web', ['Te comprometes a usarla de forma lícita y a dar datos verdaderos al comprar o reservar. La venta de entradas y el acceso al local son solo para mayores de 18 años.']),
+    S('Propiedad intelectual', ['El logo, los textos, las fotos y el diseño son de Magenta o de sus autores. No se pueden copiar ni usar sin permiso. Los carteles de los eventos pueden pertenecer a los artistas.']),
+    S('Responsabilidad', ['Intentamos que la información esté al día, pero la agenda, los precios y el horario pueden cambiar. Si hay diferencias, vale lo que se indique en el local.']),
+    S('Ley aplicable', ['Esta web se rige por la ley española. Para cualquier conflicto, serán competentes los juzgados que correspondan según la normativa de consumidores.']),
+  ]},
+  cookies: { label:'Cookies', title:'Política de cookies', lead:'Esta web solo usa cookies técnicas, las imprescindibles para que funcione. No usamos cookies de análisis ni de publicidad, así que no te pedimos permiso con un aviso.', sections:[
+    S('Qué cookies usamos', [], [
+      ['magenta_session', 'Mantiene la sesión del personal (porteros y administradores).', 'Hasta cerrar sesión'],
+      ['XSRF-TOKEN', 'Protege los formularios frente a envíos falsos.', '2 horas'],
+      ['Cookies de Stripe', 'Las pone Stripe en su página de pago para evitar fraudes. Se rigen por la política de Stripe.', 'Según Stripe'],
+    ]),
+    S('Cómo quitarlas', ['Puedes borrarlas o bloquearlas desde la configuración de tu navegador. Si bloqueas las técnicas, puede que no funcionen la compra de entradas o el acceso del personal.']),
+    S('Si esto cambia', ['Si algún día añadimos cookies de análisis o publicidad, te pediremos permiso antes de usarlas y actualizaremos esta página.']),
+  ]},
+  compra: { label:'Condiciones de compra', title:'Condiciones de compra', lead:'Lo que aceptas al comprar entradas en esta web.', sections:[
+    S('Entradas', ['Puedes comprar hasta 10 entradas por compra. Cada entrada sirve para una persona y lleva su propio código QR. Las entradas no son nominativas.']),
+    S('Precio y pago', ['El precio de cada entrada incluye IVA. A cada entrada se suman 1 € de gastos de gestión. El pago se hace con Stripe y tienes 10 minutos para completarlo; si no, las entradas se liberan.']),
+    S('Envío', ['Recibirás las entradas en un PDF en el email que indiques al comprar. Revisa que esté bien escrito.']),
+    S('Acceso', ['Enseña el QR en la puerta desde el móvil o impreso. Cada QR se valida una sola vez. Es obligatorio presentar DNI o pasaporte original y ser mayor de 18 años. Magenta se reserva el derecho de admisión.']),
+    S('Devoluciones', ['Las entradas no se devuelven ni se cambian de fecha. Si Magenta cancela un evento, te devolveremos el importe en el mismo medio de pago y te avisaremos por email.']),
+  ]},
+};
+const ORDER = ['privacidad', 'aviso', 'cookies', 'compra'];
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search).get('doc');
+    return { mobile: window.matchMedia('(max-width: 900px)').matches, doc: ORDER.includes(q) ? q : null };
+  })();
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); }
+  renderVals() {
+    const s = this.state, m = s.mobile;
+    const key = s.doc || this.props.documento || 'privacidad';
+    return {
+      headerH: m ? '80px' : '120px', logoH: m ? '56px' : '100px', navSize: m ? '13px' : '16px', backLabel: m ? 'Web' : 'Volver a la web',
+      cols: m ? 'minmax(0, 1fr)' : '280px minmax(0, 1fr)',
+      navPos: m ? 'relative' : 'sticky', navTop: m ? 'auto' : '152px', navDir: m ? 'row' : 'column',
+      rowCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 1fr) minmax(0, 2fr) minmax(0, .9fr)',
+      docs: ORDER.map(k => { const on = k === key; return { label: DOCS[k].label, current: on ? 'page' : 'false',
+        bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)',
+        pick: () => { this.setState({ doc: k }); window.scrollTo({ top: 0, behavior: 'smooth' }); } }; }),
+      doc: DOCS[key],
+    };
+  }
+}
+</script>
+</body>
+</html>

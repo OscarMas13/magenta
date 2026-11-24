@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/check.svg"] { -webkit-mask-image: url(assets/icons/check.svg) !important; mask-image: url(assets/icons/check.svg) !important; }
+    span[style*="icons/x.svg"] { -webkit-mask-image: url(assets/icons/x.svg) !important; mask-image: url(assets/icons/x.svg) !important; }
+    span[style*="icons/phone.svg"] { -webkit-mask-image: url(assets/icons/phone.svg) !important; mask-image: url(assets/icons/phone.svg) !important; }
+    span[style*="icons/mail.svg"] { -webkit-mask-image: url(assets/icons/mail.svg) !important; mask-image: url(assets/icons/mail.svg) !important; }
+    span[style*="icons/rotate-ccw.svg"] { -webkit-mask-image: url(assets/icons/rotate-ccw.svg) !important; mask-image: url(assets/icons/rotate-ccw.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: sticky; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main data-screen-label="Admin · Reservas" style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 80px; display: flex; flex-direction: column; gap: 28px; max-width: 1080px; box-sizing: border-box; width: 100%;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Reservas</h1>
+      <p style="margin: 0; font-size: 15px; color: var(--fg-2);">Al aceptar o rechazar, la persona recibe un correo al momento. La terraza admite 60 personas por noche.</p>
+    </div>
+
+    <div role="tablist" aria-label="Estado de la reserva" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+        <button type="button" role="tab" aria-selected="{{ t.selected }}" onClick="{{ t.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ t.border }}; border-radius: 999px; background: {{ t.bg }}; color: {{ t.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 40px 28px; background: var(--ink-900); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font: 900 32px/1 var(--font-display); text-transform: uppercase;">{{ emptyTitle }}</span>
+        <span style="color: var(--fg-2);">{{ emptyText }}</span>
+      </div>
+    </sc-if>
+
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+      <section style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; padding-bottom: 6px;">
+          <h2 style="margin: 0; font: 900 28px/1 var(--font-display); text-transform: uppercase;">{{ g.dayLabel }}</h2>
+          <div style="display: flex; align-items: center; gap: 12px; flex: 0 1 280px; min-width: 200px;">
+            <div role="meter" aria-label="{{ g.meterLabel }}" aria-valuemin="0" aria-valuemax="60" aria-valuenow="{{ g.accepted }}" style="flex: 1; height: 8px; border-radius: 999px; background: var(--ink-800); overflow: hidden;">
+              <div style="height: 100%; width: {{ g.pct }}; background: {{ g.barColor }}; transition: width 300ms ease-out;"></div>
+            </div>
+            <span style="font: 600 14px/1 var(--font-mono); white-space: nowrap;">{{ g.accepted }} / 60 terraza</span>
+          </div>
+        </div>
+        <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+          <article style="display: grid; grid-template-columns: {{ rowCols }}; align-items: center; gap: 14px 24px; padding: 18px 22px; background: var(--ink-900);">
+            <div style="display: flex; flex-direction: {{ timeDir }}; gap: 4px 12px; align-items: {{ timeAlign }};">
+              <span style="font: 600 22px/1 var(--font-mono); font-variant-numeric: tabular-nums;">{{ r.time }}</span>
+              <span style="font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--magenta-300);">{{ r.zoneLabel }}</span>
+            </div>
+            <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+              <span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;">
+                <span style="font: 800 22px/1.1 var(--font-display); text-transform: uppercase;">{{ r.name }}</span>
+                <span style="font-weight: 600;">{{ r.peopleLabel }}</span>
+              </span>
+              <span style="display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; color: var(--fg-2);">
+                <a href="{{ r.tel }}" style="display: inline-flex; align-items: center; gap: 6px; color: var(--fg-2);">
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="phone" size="{{ 15 }}" hint-size="15px,15px"></x-import>
+                  <span>{{ r.phone }}</span>
+                </a>
+                <a href="{{ r.mailto }}" style="display: inline-flex; align-items: center; gap: 6px; color: var(--fg-2); overflow-wrap: anywhere;">
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="mail" size="{{ 15 }}" hint-size="15px,15px"></x-import>
+                  <span>{{ r.email }}</span>
+                </a>
+              </span>
+              <sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 15px;">«{{ r.note }}»</span>
+              </sc-if>
+              <sc-if value="{{ r.hasReason }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 14px; color: var(--fg-2);">Motivo enviado: {{ r.reason }}</span>
+              </sc-if>
+              <sc-if value="{{ r.overCap }}" hint-placeholder-val="{{ false }}">
+                <span role="note" style="font-size: 14px; font-weight: 600; color: var(--neon-400);">{{ r.overLabel }}</span>
+              </sc-if>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: {{ actJustify }};">
+              <sc-if value="{{ r.pending }}" hint-placeholder-val="{{ true }}">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" icon="x" on-click="{{ r.askReject }}" hint-size="130px,44px">Rechazar</x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" icon="check" on-click="{{ r.accept }}" hint-size="130px,44px">Aceptar</x-import>
+              </sc-if>
+              <sc-if value="{{ r.done }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ r.badgeTone }}" hint-size="100px,24px">{{ r.badgeLabel }}</x-import>
+              </sc-if>
+            </div>
+          </article>
+        </sc-for>
+      </section>
+    </sc-for>
+  </main>
+
+  <div style="--radius-sm: 20px;"><x-import component-from-global-scope="MagentaDesignSystem_d2684b.Dialog" open="{{ rejectOpen }}" on-close="{{ closeReject }}" title="{{ rejectTitle }}" hint-size="0px,0px">
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Motivo" value="{{ reason }}" on-change="{{ setReason }}" options="{{ reasons }}" hint-size="100%,84px"></x-import>
+      <p style="margin: 0; font-size: 15px; color: var(--fg-2);">Se envía en el correo. Le proponemos que pruebe otra noche.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" on-click="{{ doReject }}" hint-size="160px,44px">Rechazar y avisar</x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" on-click="{{ closeReject }}" hint-size="120px,44px">Cancelar</x-import>
+      </div>
+    </div>
+  </x-import></div>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 24px; z-index: 50; display: flex; justify-content: center; gap: 12px; align-items: center; flex-wrap: wrap;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="{{ toastTone }}" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="secondary" icon="rotate-ccw" on-click="{{ undo }}" hint-size="120px,44px">Deshacer</x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const CAP = 60;
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const REASONS = ['Terraza completa esa noche', 'Grupo demasiado grande', 'Ese día hay evento privado', 'Datos de contacto incorrectos'];
+const R = (id, d, time, zone, name, people, phone, email, st, note, reason) => ({ id, d, time, zone, name, people, phone, email, st, note: note || '', reason: reason || '' });
+const SEED = [
+  R(1, 0, '19:00', 'terraza', 'Lucía Ferrer', 4, '612 345 118', 'lucia.f@gmail.com', 'aceptada'),
+  R(2, 0, '20:30', 'terraza', 'Nerea Martí', 8, '622 409 761', 'nereamarti@hotmail.com', 'aceptada', 'Es un cumpleaños, si puede ser cerca de la barra.'),
+  R(3, 0, '21:00', 'interior', 'Javier Ortega', 2, '677 503 219', 'jortega@gmail.com', 'pendiente'),
+  R(4, 0, '21:30', 'terraza', 'Carla Vidal', 5, '611 762 045', 'carla.vidal@gmail.com', 'pendiente'),
+  R(5, 1, '19:30', 'terraza', 'Marcos Ibáñez', 2, '655 221 904', 'marcos.iba@gmail.com', 'pendiente'),
+  R(6, 1, '20:00', 'terraza', 'Andrea Soler', 6, '699 870 327', 'andrea.soler@gmail.com', 'aceptada'),
+  R(7, 1, '22:00', 'terraza', 'Grupo Pau Climent', 14, '634 118 552', 'pau.climent@gmail.com', 'pendiente', 'Despedida de soltero.'),
+  R(8, 1, '20:00', 'terraza', 'Sara Llopis', 4, '645 330 198', 'sllopis@gmail.com', 'rechazada', '', 'Terraza completa esa noche'),
+  R(9, 2, '23:00', 'interior', 'Iván Roig', 3, '688 014 772', 'ivanroig@gmail.com', 'pendiente'),
+];
+const day0 = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 960px)').matches, tab: 'pendiente', list: SEED, rejectId: null, reason: REASONS[0], toast: null, prev: null };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  change(id, patch, toast) {
+    clearTimeout(this.toastT);
+    this.setState(s => ({ prev: s.list, list: s.list.map(r => r.id === id ? { ...r, ...patch } : r), toast, rejectId: null }));
+    this.toastT = setTimeout(() => this.setState({ toast: null, prev: null }), 5000);
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile;
+    const accOf = d => s.list.filter(r => r.d === d && r.zone === 'terraza' && r.st === 'aceptada').reduce((a, r) => a + r.people, 0);
+    const pend = s.list.filter(r => r.st === 'pendiente').length;
+    const rows = s.list.filter(r => r.st === s.tab).sort((a, b) => a.d - b.d || a.time.localeCompare(b.time));
+    const days = [...new Set(rows.map(r => r.d))];
+    const dayLabel = d => { if (d === 0) return 'Hoy'; if (d === 1) return 'Mañana'; const w = new Date(+day0() + d * 864e5); return `${DAYS[w.getDay()]} ${w.getDate()} ${MONTHS[w.getMonth()]}`; };
+    const navItems = [
+      ['Inicio', 'layout-dashboard', 'Admin - Inicio.dc.html'], ['Eventos', 'calendar', 'Admin - Eventos.dc.html'], ['Carta', 'utensils', 'Admin - Carta.dc.html'],
+      ['Reservas', 'calendar-clock', '#', true, pend], ['Imágenes', 'image', 'Admin - Imagenes.dc.html'], ['Personal', 'users', 'Admin - Personal.dc.html'],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    const rej = s.list.find(r => r.id === s.rejectId);
+    const count = st => s.list.filter(r => r.st === st).length;
+    return {
+      isDesktop: !m, shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px', asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, c]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!c, count: c || 0, bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      tabs: [['pendiente', 'Pendientes'], ['aceptada', 'Aceptadas'], ['rechazada', 'Rechazadas']].map(([k, l]) => { const on = s.tab === k; return { label: `${l} · ${count(k)}`, selected: on ? 'true' : 'false',
+        pick: () => this.setState({ tab: k }), bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' }; }),
+      isEmpty: rows.length === 0,
+      emptyTitle: s.tab === 'pendiente' ? 'Todo al día' : 'Nada por aquí',
+      emptyText: s.tab === 'pendiente' ? 'No hay solicitudes por revisar. Las nuevas aparecen aquí y en el menú.' : 'Cuando aceptes o rechaces una reserva, aparecerá en esta lista.',
+      rowCols: m ? 'minmax(0, 1fr)' : '110px minmax(0, 1fr) auto', timeDir: m ? 'row' : 'column', timeAlign: m ? 'baseline' : 'flex-start', actJustify: m ? 'flex-start' : 'flex-end',
+      groups: days.map(d => {
+        const acc = accOf(d);
+        return { dayLabel: dayLabel(d), accepted: acc, pct: Math.min(100, acc / CAP * 100) + '%', barColor: acc >= CAP ? 'var(--neon-500)' : 'var(--magenta-500)', meterLabel: `Personas aceptadas en terraza, ${dayLabel(d)}`,
+          rows: rows.filter(r => r.d === d).map(r => {
+            const over = r.st === 'pendiente' && r.zone === 'terraza' && acc + r.people > CAP;
+            return { ...r, zoneLabel: r.zone === 'terraza' ? 'Terraza' : 'Interior', peopleLabel: r.people === 1 ? '1 persona' : r.people + ' personas',
+              tel: 'tel:' + r.phone.replace(/\s/g, ''), mailto: 'mailto:' + r.email, hasNote: !!r.note, hasReason: r.st === 'rechazada' && !!r.reason,
+              overCap: over, overLabel: `Si la aceptas, la terraza pasa a ${acc + r.people} de ${CAP} personas.`,
+              pending: r.st === 'pendiente', done: r.st !== 'pendiente',
+              badgeTone: r.st === 'aceptada' ? 'brand' : 'paper', badgeLabel: r.st === 'aceptada' ? 'Aceptada' : 'Rechazada',
+              accept: () => this.change(r.id, { st: 'aceptada' }, { tone: 'success', title: 'Reserva aceptada', msg: `Correo de confirmación enviado a ${r.name}.` }),
+              askReject: () => this.setState({ rejectId: r.id, reason: over ? REASONS[0] : (r.people > 10 ? REASONS[1] : REASONS[0]) }) };
+          }) };
+      }),
+      rejectOpen: !!rej, rejectTitle: rej ? `Rechazar la reserva de ${rej.name}` : '',
+      reason: s.reason, reasons: REASONS.map(x => ({ value: x, label: x })), setReason: v => this.setState({ reason: v && v.target ? v.target.value : v }),
+      closeReject: () => this.setState({ rejectId: null }),
+      doReject: () => rej && this.change(rej.id, { st: 'rechazada', reason: s.reason }, { tone: 'info', title: 'Reserva rechazada', msg: `Le hemos enviado el motivo a ${rej.name}.` }),
+      hasToast: !!s.toast, toastTone: s.toast ? s.toast.tone : 'success', toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '',
+      closeToast: () => this.setState({ toast: null, prev: null }),
+      undo: () => { clearTimeout(this.toastT); this.setState(st => ({ list: st.prev || st.list, prev: null, toast: null })); },
+    };
+  }
+}
+</script>
+</body>
+</html>

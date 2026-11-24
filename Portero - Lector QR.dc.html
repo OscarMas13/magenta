@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/scan-line.svg"] { -webkit-mask-image: url(assets/icons/scan-line.svg) !important; mask-image: url(assets/icons/scan-line.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/file-down.svg"] { -webkit-mask-image: url(assets/icons/file-down.svg) !important; mask-image: url(assets/icons/file-down.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/keyboard.svg"] { -webkit-mask-image: url(assets/icons/keyboard.svg) !important; mask-image: url(assets/icons/keyboard.svg) !important; }
+    span[style*="icons/circle-check.svg"] { -webkit-mask-image: url(assets/icons/circle-check.svg) !important; mask-image: url(assets/icons/circle-check.svg) !important; }
+    span[style*="icons/circle-x.svg"] { -webkit-mask-image: url(assets/icons/circle-x.svg) !important; mask-image: url(assets/icons/circle-x.svg) !important; }
+    span[style*="icons/circle-alert.svg"] { -webkit-mask-image: url(assets/icons/circle-alert.svg) !important; mask-image: url(assets/icons/circle-alert.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 17px; line-height: 1.5; min-height: 100vh; padding-bottom: {{ padBottom }};">
+
+  <header style="position: sticky; top: 0; z-index: 30; background: var(--ink-950); border-bottom: 1px solid var(--border-subtle);">
+    <div style="height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 var(--gutter);">
+      <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+        <img src="assets/logo-white.png" alt="Magenta" style="height: 48px; display: block; flex: none;">
+        <div style="display: flex; flex-direction: column; min-width: 0;">
+          <span style="font: 900 22px/1 var(--font-display); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ evTitle }}</span>
+          <span style="font: 500 13px/1.4 var(--font-mono); color: var(--fg-2);">{{ evLine }}</span>
+        </div>
+      </div>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="Zona portero" style="display: flex; gap: 6px;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+            <a href="{{ t.href }}" onClick="{{ t.click }}" aria-current="{{ t.current }}" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 999px; background: {{ t.bg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ t.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+              <span>{{ t.label }}</span>
+            </a>
+          </sc-for>
+        </nav>
+      </sc-if>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px; padding: 0 var(--gutter) 14px;">
+      <div role="meter" aria-label="Entradas validadas" aria-valuemin="0" aria-valuemax="{{ sold }}" aria-valuenow="{{ inside }}" style="flex: 1; height: 8px; border-radius: 999px; background: var(--ink-800); overflow: hidden;">
+        <div style="height: 100%; width: {{ insidePct }}; background: var(--magenta-500); transition: width 300ms ease-out;"></div>
+      </div>
+      <span style="font: 600 14px/1 var(--font-mono); white-space: nowrap;">{{ inside }} / {{ sold }} dentro</span>
+    </div>
+  </header>
+
+  <main data-screen-label="Portero · Lector QR" style="max-width: 560px; margin: 0 auto; padding: 24px var(--gutter) 40px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box;">
+
+    <button type="button" onClick="{{ simulate }}" aria-label="Lector de QR. Apunta la cámara al código de la entrada" style="position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; padding: 0; border: 0; overflow: hidden; cursor: pointer; background: radial-gradient(circle at 50% 45%, #2a1a21 0%, #120b0e 70%); color: var(--fg-1);">
+      <span aria-hidden="true" style="position: absolute; left: 14%; top: 14%; width: 22%; height: 22%; border-left: 4px solid var(--magenta-400); border-top: 4px solid var(--magenta-400);"></span>
+      <span aria-hidden="true" style="position: absolute; right: 14%; top: 14%; width: 22%; height: 22%; border-right: 4px solid var(--magenta-400); border-top: 4px solid var(--magenta-400);"></span>
+      <span aria-hidden="true" style="position: absolute; left: 14%; bottom: 14%; width: 22%; height: 22%; border-left: 4px solid var(--magenta-400); border-bottom: 4px solid var(--magenta-400);"></span>
+      <span aria-hidden="true" style="position: absolute; right: 14%; bottom: 14%; width: 22%; height: 22%; border-right: 4px solid var(--magenta-400); border-bottom: 4px solid var(--magenta-400);"></span>
+      <span id="scanline" aria-hidden="true" style="position: absolute; left: 16%; right: 16%; top: 20%; height: 2px; background: var(--neon-500); box-shadow: 0 0 16px var(--neon-500);"></span>
+      <span style="position: absolute; left: 0; right: 0; bottom: 24px; text-align: center; font: 600 16px/1.3 var(--font-body);">Apunta al QR de la entrada</span>
+      <span style="position: absolute; left: 0; right: 0; top: 18px; text-align: center; font: 500 12px/1 var(--font-mono); color: var(--fg-3);">Prototipo: toca para simular un escaneo</span>
+    </button>
+
+    <sc-if value="{{ notManual }}" hint-placeholder-val="{{ true }}">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" full="{{ true }}" icon="keyboard" on-click="{{ openManual }}" hint-size="100%,52px">Escribir el código</x-import>
+    </sc-if>
+    <sc-if value="{{ manual }}" hint-placeholder-val="{{ false }}">
+      <form onSubmit="{{ validateManual }}" novalidate="" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: var(--ink-900);">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Código de la entrada" placeholder="7K2Q-D9XA-M3PF" value="{{ code }}" on-change="{{ setCode }}" error="{{ codeError }}" hint="Está debajo del QR, en el PDF." hint-size="100%,84px"></x-import>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ validateManual }}" hint-size="150px,52px">Validar</x-import>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="ghost" on-click="{{ closeManual }}" hint-size="120px,52px">Cancelar</x-import>
+        </div>
+      </form>
+    </sc-if>
+
+    <section aria-label="Últimas validaciones" style="display: flex; flex-direction: column; gap: 10px;">
+      <h2 style="margin: 0; font: 700 13px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2);">Últimos escaneos</h2>
+      <div style="display: flex; flex-direction: column;">
+        <sc-for list="{{ history }}" as="h" hint-placeholder-count="4">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border-subtle);">
+            <span style="font: 500 14px/1 var(--font-mono); color: var(--fg-2); width: 44px; flex: none;">{{ h.time }}</span>
+            <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; flex: none; background: {{ h.dot }};"></span>
+            <span style="font-weight: 600; flex: none;">{{ h.label }}</span>
+            <span style="font-size: 15px; color: var(--fg-2); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ h.detail }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ true }}">
+    <nav aria-label="Zona portero" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--ink-900); border-top: 1px solid var(--border-default);">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <a href="{{ t.href }}" onClick="{{ t.click }}" aria-current="{{ t.current }}" style="min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font: 700 11px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: {{ t.fg }};">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ t.icon }}" size="{{ 22 }}" hint-size="22px,22px"></x-import>
+          <span>{{ t.short }}</span>
+        </a>
+      </sc-for>
+    </nav>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: {{ toastBottom }}; z-index: 40; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="Descargando la lista" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ false }}">
+    <div id="result" role="alertdialog" aria-live="assertive" aria-label="{{ r.title }}" style="position: fixed; inset: 0; z-index: 60; background: {{ r.bg }}; color: {{ r.fg }}; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: 40px var(--gutter); box-sizing: border-box;">
+      <div style="width: 100%; max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ r.icon }}" size="{{ 96 }}" color="{{ r.fg }}" hint-size="96px,96px"></x-import>
+        <span style="font: 900 clamp(72px, 20vw, 140px)/.82 var(--font-display); text-transform: uppercase;">{{ r.title }}</span>
+        <span style="font: 700 clamp(22px, 5vw, 30px)/1.2 var(--font-body);">{{ r.line1 }}</span>
+        <span style="font-size: 19px; line-height: 1.45;">{{ r.line2 }}</span>
+        <button type="button" onClick="{{ next }}" style="margin-top: 12px; min-height: 64px; border: 2px solid {{ r.fg }}; border-radius: 999px; background: transparent; color: {{ r.fg }}; font: 700 18px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ r.cta }}</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;resultado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ninguno&quot;,&quot;valida&quot;,&quot;usada&quot;,&quot;otra&quot;,&quot;noexiste&quot;],&quot;default&quot;:&quot;ninguno&quot;,&quot;tsType&quot;:&quot;'ninguno'|'valida'|'usada'|'otra'|'noexiste'&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const DAYS = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+const SEQ = ['valida', 'valida', 'usada', 'valida', 'otra', 'noexiste'];
+const TIERS = ['Anticipada', 'Anticipada + copa', 'Anticipada', 'Early bird'];
+const pad = n => String(n).padStart(2, '0');
+const hhmm = d => pad(d.getHours()) + ':' + pad(d.getMinutes());
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 900px)').matches, inside: 132, sold: 400, idx: 0, result: null, manual: false, code: '', codeTried: false, toast: false,
+    history: [
+      { kind:'valida', time:'00:41', detail:'Anticipada' },
+      { kind:'usada', time:'00:39', detail:'Entró a las 00:12' },
+      { kind:'valida', time:'00:38', detail:'Anticipada + copa' },
+      { kind:'valida', time:'00:38', detail:'Anticipada + copa' },
+    ] };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+    const line = document.getElementById('scanline');
+    if (line && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      this.scan = line.animate([{ top: '20%' }, { top: '78%' }, { top: '20%' }], { duration: 2600, iterations: Infinity, easing: 'ease-in-out' });
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); if (this.scan) this.scan.cancel(); clearTimeout(this.autoT); clearTimeout(this.toastT); }
+  show(kind, ev) {
+    const now = new Date();
+    const r = { kind, time: hhmm(now), tier: TIERS[this.state.idx % TIERS.length], prev: hhmm(new Date(now - 47 * 60000)), other: ev };
+    if (navigator.vibrate) navigator.vibrate(kind === 'valida' ? 80 : [120, 80, 120]);
+    this.setState(s => ({
+      result: r, manual: false, code: '', codeTried: false,
+      inside: kind === 'valida' ? s.inside + 1 : s.inside,
+      history: [{ kind, time: r.time, detail: kind === 'valida' ? r.tier : kind === 'usada' ? 'Entró a las ' + r.prev : kind === 'otra' ? 'Es para ' + (ev ? ev.title : 'otra noche') : 'Código desconocido' }, ...s.history].slice(0, 6),
+    }));
+    clearTimeout(this.autoT);
+    if (kind === 'valida') this.autoT = setTimeout(() => this.setState({ result: null }), 2500);
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile, now = new Date();
+    const all = window.MAGENTA_EVENTS || [];
+    const today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dateOf = e => new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date);
+    const ev = all.find(e => +dateOf(e) === +today0) || all.find(e => dateOf(e) >= today0) || { title:'Sin evento', doors:'', date:'', month:'' };
+    const other = all.find(e => e !== ev && dateOf(e) > today0);
+    const forced = this.props.resultado && this.props.resultado !== 'ninguno' ? this.props.resultado : null;
+    const res = s.result || (forced ? { kind: forced, tier: 'Anticipada + copa', prev: '00:12', other } : null);
+    const R = res && {
+      valida: { bg:'var(--success-500, #1FA35B)', fg:'#0B0709', icon:'circle-check', title:'Válida', line1: res.tier, line2: 'Puede pasar. Comprueba el DNI.', cta:'Siguiente' },
+      usada: { bg:'#B42318', fg:'#FFFFFF', icon:'circle-x', title:'Ya usada', line1: 'Entró a las ' + res.prev, line2: 'Esta entrada ya se ha validado esta noche. No puede volver a entrar con ella.', cta:'Entendido' },
+      otra: { bg:'var(--magenta-700)', fg:'#FFFFFF', icon:'circle-alert', title:'Otra noche', line1: res.other ? res.other.title + ' · ' + res.other.day + ' ' + res.other.date + ' ' + res.other.month : 'Es para otra fecha', line2: 'La entrada es válida, pero no para hoy.', cta:'Entendido' },
+      noexiste: { bg:'var(--ink-800)', fg:'#FFFFFF', icon:'circle-x', title:'No existe', line1: 'Este código no es de Magenta', line2: 'Puede ser una captura falsa o un QR de otro sitio. Prueba a escribir el código a mano.', cta:'Entendido' },
+    }[res.kind];
+    const dot = k => k === 'valida' ? 'var(--success-500, #1FA35B)' : k === 'otra' ? 'var(--magenta-400)' : 'var(--danger-500, #D93A3A)';
+    const lbl = k => ({ valida:'Válida', usada:'Ya usada', otra:'Otra noche', noexiste:'No existe' })[k];
+    const codeOk = /^[A-Z0-9]{4}-?[A-Z0-9]{4}-?[A-Z0-9]{4}$/.test(s.code.trim().toUpperCase());
+    const mk = (label, short, icon, href, current, click) => ({ label, short, icon, href, current: current ? 'page' : 'false', click: click || (() => {}),
+      bg: current ? 'var(--magenta-500)' : 'transparent', fg: current ? 'var(--magenta-300)' : 'var(--fg-1)' });
+    return {
+      isMobile: m, isDesktop: !m, padBottom: m ? '72px' : '0px',
+      evTitle: ev.title, evLine: `Hoy · Puertas ${ev.doors}`,
+      inside: s.inside, sold: s.sold, insidePct: Math.min(100, s.inside / s.sold * 100).toFixed(1) + '%',
+      tabs: [
+        mk('Lector', 'Lector', 'scan-line', '#', true),
+        mk('Reservas de hoy', 'Reservas', 'calendar-clock', 'Portero - Reservas.dc.html', false),
+        mk('Lista PDF', 'Lista PDF', 'file-down', '#', false, e => { e.preventDefault(); clearTimeout(this.toastT); this.setState({ toast: true }); this.toastT = setTimeout(() => this.setState({ toast: false }), 3500); }),
+        mk('Salir', 'Salir', 'log-out', 'Inicio de sesion.dc.html', false),
+      ],
+      simulate: () => { const k = SEQ[s.idx % SEQ.length]; this.setState({ idx: s.idx + 1 }); this.show(k, other); },
+      manual: s.manual, notManual: !s.manual,
+      openManual: () => this.setState({ manual: true }), closeManual: () => this.setState({ manual: false, code: '', codeTried: false }),
+      code: s.code, setCode: v => this.setState({ code: v.toUpperCase() }),
+      codeError: s.codeTried && !codeOk ? 'Son 12 letras o números, por ejemplo 7K2Q-D9XA-M3PF.' : '',
+      validateManual: e => { if (e && e.preventDefault) e.preventDefault(); if (!codeOk) return this.setState({ codeTried: true }); const c = s.code.toUpperCase(); this.show(c.startsWith('X') ? 'noexiste' : c.startsWith('U') ? 'usada' : 'valida', other); },
+      history: s.history.map(h => ({ ...h, dot: dot(h.kind), label: lbl(h.kind) })),
+      hasResult: !!R, r: R || { bg:'transparent', fg:'#fff', icon:'circle-check', title:'', line1:'', line2:'', cta:'' },
+      next: () => { clearTimeout(this.autoT); this.setState({ result: null }); },
+      hasToast: s.toast, toastMsg: `lista-${(ev.title || '').toLowerCase().replace(/\s+/g, '-')}.pdf · ${s.sold} entradas`, closeToast: () => this.setState({ toast: false }),
+      toastBottom: m ? '88px' : '24px',
+    };
+  }
+}
+</script>
+</body>
+</html>

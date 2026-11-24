@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/scan-line.svg"] { -webkit-mask-image: url(assets/icons/scan-line.svg) !important; mask-image: url(assets/icons/scan-line.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/file-down.svg"] { -webkit-mask-image: url(assets/icons/file-down.svg) !important; mask-image: url(assets/icons/file-down.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/check.svg"] { -webkit-mask-image: url(assets/icons/check.svg) !important; mask-image: url(assets/icons/check.svg) !important; }
+    span[style*="icons/search.svg"] { -webkit-mask-image: url(assets/icons/search.svg) !important; mask-image: url(assets/icons/search.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 17px; line-height: 1.5; min-height: 100vh; padding-bottom: {{ padBottom }};">
+
+  <header style="position: sticky; top: 0; z-index: 30; background: var(--ink-950); border-bottom: 1px solid var(--border-subtle);">
+    <div style="height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 var(--gutter);">
+      <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+        <img src="assets/logo-white.png" alt="Magenta" style="height: 48px; display: block; flex: none;">
+        <div style="display: flex; flex-direction: column; min-width: 0;">
+          <span style="font: 900 22px/1 var(--font-display); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Reservas de hoy</span>
+          <span style="font: 500 13px/1.4 var(--font-mono); color: var(--fg-2);">{{ dateLine }}</span>
+        </div>
+      </div>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="Zona portero" style="display: flex; gap: 6px;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+            <a href="{{ t.href }}" onClick="{{ t.click }}" aria-current="{{ t.current }}" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 999px; background: {{ t.bg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ t.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+              <span>{{ t.label }}</span>
+            </a>
+          </sc-for>
+        </nav>
+      </sc-if>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px; padding: 0 var(--gutter) 14px;">
+      <div role="meter" aria-label="Personas con reserva que han llegado" aria-valuemin="0" aria-valuemax="{{ totalPeople }}" aria-valuenow="{{ arrivedPeople }}" style="flex: 1; height: 8px; border-radius: 999px; background: var(--ink-800); overflow: hidden;">
+        <div style="height: 100%; width: {{ arrivedPct }}; background: var(--magenta-500); transition: width 300ms ease-out;"></div>
+      </div>
+      <span style="font: 600 14px/1 var(--font-mono); white-space: nowrap;">{{ arrivedPeople }} / {{ totalPeople }} personas</span>
+    </div>
+  </header>
+
+  <main data-screen-label="Portero · Reservas de hoy" style="max-width: 720px; margin: 0 auto; padding: 24px var(--gutter) 40px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
+
+    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Buscar" placeholder="Nombre o últimos 3 del teléfono" value="{{ q }}" on-change="{{ setQ }}" icon="search" hint-size="100%,84px"></x-import>
+
+    <div role="tablist" aria-label="Filtrar reservas" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+        <button type="button" role="tab" aria-selected="{{ f.selected }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ f.border }}; border-radius: 999px; background: {{ f.bg }}; color: {{ f.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ f.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+        <div style="display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 16px 18px; background: {{ r.bg }}; transition: background 200ms ease-out;">
+          <span style="font: 600 18px/1 var(--font-mono); color: {{ r.timeColor }};">{{ r.time }}</span>
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <span style="font: 900 24px/1 var(--font-display); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: {{ r.strike }};">{{ r.name }}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 15px; color: var(--fg-2);">
+              <span>{{ r.peopleLabel }}</span>
+              <span style="font-family: var(--font-mono);">··· {{ r.phone3 }}</span>
+              <sc-if value="{{ r.isLate }}" hint-placeholder-val="{{ false }}">
+                <span style="color: var(--magenta-300); font-weight: 700;">{{ r.lateLabel }}</span>
+              </sc-if>
+            </span>
+          </div>
+          <sc-if value="{{ r.pending }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" icon="check" on-click="{{ r.arrive }}" hint-size="130px,48px">Llegó</x-import>
+          </sc-if>
+          <sc-if value="{{ r.arrived }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ r.undo }}" aria-label="{{ r.undoLabel }}" style="min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--fg-2); font: 600 14px/1.2 var(--font-body); cursor: pointer; text-align: right;">{{ r.arrivedLabel }}<br><span style="text-decoration: underline;">Deshacer</span></button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <p style="margin: 0; padding: 28px 20px; background: var(--ink-900); color: var(--fg-2); text-align: center;">{{ emptyText }}</p>
+    </sc-if>
+
+    <p style="margin: 0; font-size: 15px; color: var(--fg-2);">Solo salen las reservas aceptadas para hoy. Las que no llegan se marcan solas como «No vino» al cierre.</p>
+  </main>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ true }}">
+    <nav aria-label="Zona portero" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--ink-900); border-top: 1px solid var(--border-default);">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <a href="{{ t.href }}" onClick="{{ t.click }}" aria-current="{{ t.current }}" style="min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font: 700 11px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: {{ t.fg }};">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ t.icon }}" size="{{ 22 }}" hint-size="22px,22px"></x-import>
+          <span>{{ t.short }}</span>
+        </a>
+      </sc-for>
+    </nav>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: {{ toastBottom }}; z-index: 40; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;horaSimulada&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;19:00&quot;,&quot;20:45&quot;,&quot;22:00&quot;],&quot;default&quot;:&quot;20:45&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const MONTHS = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const SEED = [
+  { id:1, time:'19:00', name:'Lucía Ferrer', people:4, phone:'612 345 118', st:'llego', at:'19:04' },
+  { id:2, time:'19:30', name:'Marcos Ibáñez', people:2, phone:'655 221 904', st:'pend' },
+  { id:3, time:'20:00', name:'Andrea Soler', people:6, phone:'699 870 327', st:'pend' },
+  { id:4, time:'20:00', name:'Pau Climent', people:3, phone:'634 118 552', st:'llego', at:'19:58' },
+  { id:5, time:'20:30', name:'Nerea Martí', people:8, phone:'622 409 761', st:'pend' },
+  { id:6, time:'21:00', name:'Javier Ortega', people:2, phone:'677 503 219', st:'pend' },
+  { id:7, time:'21:30', name:'Carla Vidal', people:5, phone:'611 762 045', st:'pend' },
+];
+const pad = n => String(n).padStart(2, '0');
+const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 900px)').matches, rows: SEED, q: '', filter: 'pend', toast: null };
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  toast(title, msg) { clearTimeout(this.toastT); this.setState({ toast: { title, msg } }); this.toastT = setTimeout(() => this.setState({ toast: null }), 3000); }
+  setSt(id, st) {
+    const now = new Date(), at = pad(now.getHours()) + ':' + pad(now.getMinutes());
+    this.setState(s => ({ rows: s.rows.map(r => r.id === id ? { ...r, st, at: st === 'llego' ? at : undefined } : r) }));
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile, now = new Date();
+    const nowMin = this.props.horaSimulada ? toMin(this.props.horaSimulada) : 20 * 60 + 45;
+    const q = s.q.trim().toLowerCase();
+    const match = r => !q || r.name.toLowerCase().includes(q) || r.phone.replace(/\D/g, '').endsWith(q.replace(/\D/g, '') || '§');
+    const counts = { pend: s.rows.filter(r => r.st === 'pend').length, llego: s.rows.filter(r => r.st === 'llego').length, all: s.rows.length };
+    const list = s.rows.filter(match).filter(r => s.filter === 'all' || r.st === s.filter);
+    const totalPeople = s.rows.reduce((a, r) => a + r.people, 0);
+    const arrivedPeople = s.rows.filter(r => r.st === 'llego').reduce((a, r) => a + r.people, 0);
+    const mk = (label, short, icon, href, current, click) => ({ label, short, icon, href, current: current ? 'page' : 'false', click: click || (() => {}),
+      bg: current ? 'var(--magenta-500)' : 'transparent', fg: current ? 'var(--magenta-300)' : 'var(--fg-1)' });
+    return {
+      isMobile: m, isDesktop: !m, padBottom: m ? '72px' : '0px',
+      dateLine: `${DAYS[now.getDay()]} ${now.getDate()} ${MONTHS[now.getMonth()]} · Terraza`,
+      totalPeople, arrivedPeople, arrivedPct: (totalPeople ? arrivedPeople / totalPeople * 100 : 0).toFixed(1) + '%',
+      tabs: [
+        mk('Lector', 'Lector', 'scan-line', 'Portero - Lector QR.dc.html', false),
+        mk('Reservas de hoy', 'Reservas', 'calendar-clock', '#', true),
+        mk('Lista PDF', 'Lista PDF', 'file-down', '#', false, e => { e.preventDefault(); this.toast('Descargando la lista', 'Entradas y reservas de esta noche en PDF.'); }),
+        mk('Salir', 'Salir', 'log-out', 'Inicio de sesion.dc.html', false),
+      ],
+      q: s.q, setQ: v => this.setState({ q: v }),
+      filters: [['pend', 'Por llegar'], ['llego', 'Han llegado'], ['all', 'Todas']].map(([k, l]) => {
+        const on = s.filter === k;
+        return { label: `${l} · ${counts[k]}`, selected: on ? 'true' : 'false', pick: () => this.setState({ filter: k }),
+          bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' };
+      }),
+      rows: list.map(r => {
+        const late = r.st === 'pend' ? nowMin - toMin(r.time) : 0;
+        return { ...r, phone3: r.phone.replace(/\D/g, '').slice(-3), peopleLabel: r.people === 1 ? '1 persona' : r.people + ' personas',
+          pending: r.st === 'pend', arrived: r.st === 'llego', isLate: late >= 15, lateLabel: `Lleva ${late} min de retraso`,
+          bg: r.st === 'llego' ? 'var(--ink-900)' : late >= 15 ? 'var(--magenta-900, #3A1020)' : 'var(--ink-850)',
+          timeColor: r.st === 'llego' ? 'var(--fg-3)' : 'var(--fg-1)', strike: 'none',
+          arrivedLabel: 'Llegó ' + (r.at || ''), undoLabel: 'Deshacer llegada de ' + r.name,
+          arrive: () => { this.setSt(r.id, 'llego'); this.toast(r.name, `Marcada como llegada · ${r.people} personas`); },
+          undo: () => this.setSt(r.id, 'pend') };
+      }),
+      isEmpty: list.length === 0,
+      emptyText: q ? 'Ninguna reserva coincide con la búsqueda.' : s.filter === 'pend' ? 'Ya han llegado todas las reservas de hoy.' : 'Todavía no ha llegado nadie.',
+      hasToast: !!s.toast, toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '', closeToast: () => this.setState({ toast: null }),
+      toastBottom: m ? '88px' : '24px',
+    };
+  }
+}
+</script>
+</body>
+</html>

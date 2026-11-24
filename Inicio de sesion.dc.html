@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+  </style>
+</helmet>
+<div data-screen-label="Inicio de sesión" style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 18px; line-height: 1.55; min-height: 100vh; display: grid; grid-template-columns: {{ cols }};">
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <div style="position: relative; overflow: hidden; min-height: 100vh;">
+      <img src="assets/vip.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,7,9,.9) 0%, rgba(11,7,9,.2) 60%);"></div>
+      <div style="position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(32px, 5vw, 72px); display: flex; flex-direction: column; gap: 12px;">
+        <span style="font: 900 clamp(48px, 5.6vw, 96px)/.86 var(--font-display); text-transform: uppercase;">Zona del personal</span>
+        <span style="font-size: 18px; max-width: 420px;">Porteros y administración de Magenta.</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <main style="display: flex; flex-direction: column; min-height: 100vh; padding: 0 var(--gutter); box-sizing: border-box;">
+    <div style="height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+      <a href="Magenta Web v2.dc.html" style="display: flex; align-items: center; gap: 10px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+        <span>Web pública</span>
+      </a>
+      <span style="font: 700 14px/1 var(--font-body); letter-spacing: .04em; color: var(--fg-2);">ES</span>
+    </div>
+
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 0 64px;">
+      <form onSubmit="{{ submit }}" novalidate="" style="width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 24px;">
+        <img src="assets/logo-white.png" alt="Magenta" style="height: 108px; width: auto; align-self: flex-start;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 64px)/.9 var(--font-display); text-transform: uppercase;">Iniciar sesión</h1>
+          <p style="margin: 0; font-size: 17px; color: var(--fg-2);">Solo para el personal del pub.</p>
+        </div>
+
+        <sc-if value="{{ hasBanner }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="padding: 16px 20px; background: {{ bannerBg }}; color: #FFFFFF; font-size: 16px; line-height: 1.45; display: flex; flex-direction: column; gap: 4px;">
+            <strong>{{ bannerTitle }}</strong>
+            <span>{{ bannerText }}</span>
+          </div>
+        </sc-if>
+
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Email" type="email" placeholder="nombre@magenta.es" value="{{ email }}" on-change="{{ setEmail }}" error="{{ emailError }}" disabled="{{ locked }}" hint-size="100%,84px"></x-import>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Contraseña" type="password" placeholder="Tu contraseña" value="{{ password }}" on-change="{{ setPassword }}" error="{{ passwordError }}" disabled="{{ locked }}" hint-size="100%,84px"></x-import>
+
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" full="{{ true }}" icon-right="arrow-right" disabled="{{ locked }}" on-click="{{ submit }}" hint-size="100%,52px">{{ submitLabel }}</x-import>
+
+        <p style="margin: 0; font-size: 15px; color: var(--fg-2);">¿Has olvidado la contraseña? Pide al administrador que te ponga una nueva.</p>
+      </form>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;normal&quot;,&quot;error&quot;,&quot;bloqueado&quot;,&quot;desactivada&quot;],&quot;default&quot;:&quot;normal&quot;,&quot;tsType&quot;:&quot;'normal'|'error'|'bloqueado'|'desactivada'&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const STATES = ['normal', 'error', 'bloqueado', 'desactivada'];
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search).get('estado');
+    return { mobile: window.matchMedia('(max-width: 900px)').matches, email:'', password:'', tried:false, result: STATES.includes(q) && q !== 'normal' ? q : null, loading:false, lockLeft: 0 };
+  })();
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 900px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+    this.fails = 0;
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearInterval(this.lockT); clearTimeout(this.goT); }
+  lock() {
+    this.setState({ result: 'bloqueado', lockLeft: 60 });
+    clearInterval(this.lockT);
+    this.lockT = setInterval(() => this.setState(s => {
+      if (s.lockLeft <= 1) { clearInterval(this.lockT); this.fails = 0; return { lockLeft: 0, result: null }; }
+      return { lockLeft: s.lockLeft - 1 };
+    }), 1000);
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile;
+    const forced = this.props.estado && this.props.estado !== 'normal' ? this.props.estado : null;
+    const result = s.result || forced;
+    const emailOk = /.+@.+\..+/.test(s.email), passOk = s.password.length >= 8;
+    const locked = result === 'bloqueado';
+    const B = {
+      error: ['var(--danger-500)', 'Email o contraseña incorrectos', 'Revisa los dos campos. Tras 5 intentos fallidos se bloquea el acceso un minuto.'],
+      bloqueado: ['var(--magenta-700)', 'Demasiados intentos', s.lockLeft ? `Vuelve a probar en ${s.lockLeft} s.` : 'Vuelve a probar en un minuto.'],
+      desactivada: ['var(--ink-800)', 'Cuenta desactivada', 'Tu cuenta ya no tiene acceso. Habla con el administrador del pub.'],
+    }[result];
+    return {
+      cols: m ? 'minmax(0, 1fr)' : 'minmax(0, 7fr) minmax(0, 5fr)', isDesktop: !m,
+      email: s.email, setEmail: v => this.setState({ email: v, result: locked ? result : null }),
+      password: s.password, setPassword: v => this.setState({ password: v, result: locked ? result : null }),
+      emailError: s.tried && !emailOk ? 'Escribe un email válido.' : '',
+      passwordError: s.tried && !s.password ? 'Escribe tu contraseña.' : '',
+      locked, hasBanner: !!B, bannerBg: B ? B[0] : 'transparent', bannerTitle: B ? B[1] : '', bannerText: B ? B[2] : '',
+      submitLabel: s.loading ? 'Entrando…' : 'Entrar',
+      submit: e => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (locked || s.loading) return;
+        if (!emailOk || !s.password) return this.setState({ tried: true });
+        if (/desactiv/i.test(s.email)) return this.setState({ tried: true, result: 'desactivada' });
+        if (!passOk) { this.fails = (this.fails || 0) + 1; if (this.fails >= 5) return this.lock(); return this.setState({ tried: true, result: 'error' }); }
+        this.setState({ loading: true, result: null });
+        const dest = /admin/i.test(s.email) ? 'Admin - Inicio.dc.html' : 'Portero - Lector QR.dc.html';
+        this.goT = setTimeout(() => { location.href = dest; }, 700);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

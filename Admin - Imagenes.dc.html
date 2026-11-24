@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/upload.svg"] { -webkit-mask-image: url(assets/icons/upload.svg) !important; mask-image: url(assets/icons/upload.svg) !important; }
+    span[style*="icons/trash-2.svg"] { -webkit-mask-image: url(assets/icons/trash-2.svg) !important; mask-image: url(assets/icons/trash-2.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: sticky; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main data-screen-label="Admin · Imágenes" onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 80px; display: flex; flex-direction: column; gap: 28px; max-width: 1240px; box-sizing: border-box; width: 100%;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Imágenes</h1>
+        <p style="margin: 0; font-size: 15px; color: var(--fg-2); max-width: 560px;">JPG, PNG o WebP de hasta 5 MB y al menos 1200 px de ancho. Al subirla se guardan tres tamaños para que la web cargue rápido.</p>
+      </div>
+      <input ref="{{ fileRef }}" type="file" accept="image/jpeg,image/png,image/webp" multiple="" onChange="{{ onPick }}" aria-label="Elegir imágenes" style="display: none;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="upload" on-click="{{ openPicker }}" hint-size="190px,52px">Subir imagen</x-import>
+    </div>
+
+    <sc-if value="{{ dragging }}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 40px 24px; border: 1px dashed var(--magenta-500); background: var(--ink-900); text-align: center; font: 900 32px/1 var(--font-display); text-transform: uppercase;">Suelta aquí para subir</div>
+    </sc-if>
+
+    <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 22px; background: var(--ink-900); border: 1px solid var(--danger-500);">
+        <strong>No se ha podido subir:</strong>
+        <sc-for list="{{ errors }}" as="er" hint-placeholder-count="1">
+          <span style="font-size: 15px;">{{ er.name }} · {{ er.msg }}</span>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div role="tablist" aria-label="Filtrar imágenes" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button type="button" role="tab" aria-selected="{{ t.selected }}" onClick="{{ t.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ t.border }}; border-radius: 999px; background: {{ t.bg }}; color: {{ t.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 40px 28px; background: var(--ink-900); display: flex; flex-direction: column; gap: 6px;">
+        <span style="font: 900 32px/1 var(--font-display); text-transform: uppercase;">Nada por aquí</span>
+        <span style="color: var(--fg-2);">No hay imágenes en este filtro.</span>
+      </div>
+    </sc-if>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax({{ cardMin }}, 1fr)); gap: 28px 20px;">
+      <sc-for list="{{ items }}" as="im" hint-placeholder-count="8">
+        <button type="button" onClick="{{ im.open }}" aria-label="{{ im.openLabel }}" style="all: unset; cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+          <div style="aspect-ratio: {{ im.ratio }}; width: 100%; overflow: hidden; background: repeating-linear-gradient(135deg, var(--ink-800) 0 12px, var(--ink-850) 12px 24px); display: flex; align-items: flex-end; position: relative;">
+            <sc-if value="{{ im.hasSrc }}" hint-placeholder-val="{{ true }}">
+              <img src="{{ im.src }}" alt="" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease-out;">
+            </sc-if>
+            <sc-if value="{{ im.noSrc }}" hint-placeholder-val="{{ false }}">
+              <span style="position: relative; padding: 14px; font: 900 26px/.9 var(--font-display); text-transform: uppercase;">{{ im.title }}</span>
+            </sc-if>
+            <sc-if value="{{ im.isNew }}" hint-placeholder-val="{{ false }}">
+              <span style="position: absolute; top: 10px; left: 10px;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="live" dot="{{ true }}" hint-size="80px,22px">Nueva</x-import>
+              </span>
+            </sc-if>
+          </div>
+          <span style="font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ im.file }}</span>
+          <span style="display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 14px;">
+            <span style="color: {{ im.useColor }}; font-weight: 600;">{{ im.useLabel }}</span>
+            <span style="font-family: var(--font-mono); color: var(--fg-2);">{{ im.meta }}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+  </main>
+
+  <div style="--radius-sm: 20px;"><x-import component-from-global-scope="MagentaDesignSystem_d2684b.Dialog" open="{{ detailOpen }}" on-close="{{ closeDetail }}" title="{{ dTitle }}" hint-size="0px,0px">
+    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 560px;">
+      <div style="aspect-ratio: {{ dRatio }}; max-height: 46vh; width: 100%; overflow: hidden; background: repeating-linear-gradient(135deg, var(--ink-800) 0 12px, var(--ink-850) 12px 24px); position: relative;">
+        <sc-if value="{{ dHasSrc }}" hint-placeholder-val="{{ false }}">
+          <img src="{{ dSrc }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;">
+        </sc-if>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 15px;">
+        <span><strong>Subida</strong> {{ dUploaded }}</span>
+        <span><strong>Original</strong> <span style="font-family: var(--font-mono);">{{ dMeta }}</span></span>
+        <span><strong>Tamaños</strong> <span style="font-family: var(--font-mono);">{{ dSizes }}</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <strong style="font: 700 12px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2);">Dónde se usa</strong>
+        <sc-for list="{{ dUses }}" as="u" hint-placeholder-count="1">
+          <a href="{{ u.href }}" style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--ink-900);">
+            <span>{{ u.label }}</span>
+            <span style="color: var(--fg-2);">{{ u.kind }}</span>
+          </a>
+        </sc-for>
+        <sc-if value="{{ dUnused }}" hint-placeholder-val="{{ false }}">
+          <span style="color: var(--fg-2);">No se usa en ningún sitio.</span>
+        </sc-if>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <sc-if value="{{ dUnused }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" icon="trash-2" on-click="{{ doDelete }}" hint-size="140px,44px">Eliminar</x-import>
+        </sc-if>
+        <sc-if value="{{ dUsed }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size: 14px; color: var(--fg-2); max-width: 360px;">Para borrarla, cámbiala primero en el evento o en la carta.</span>
+        </sc-if>
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="ghost" on-click="{{ closeDetail }}" hint-size="100px,44px">Cerrar</x-import>
+      </div>
+    </div>
+  </x-import></div>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 24px; z-index: 50; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MAX_MB = 5, MIN_W = 1200;
+const I = (id, file, src, w, h, kb, kind, uses, uploaded, title) => ({ id, file, src, w, h, kb, kind, uses, uploaded, title: title || '' });
+const EV = 'Admin - Eventos.dc.html', CA = 'Admin - Carta.dc.html', WEB = 'Magenta Web v2.dc.html';
+const SEED = [
+  I(1, 'cartel-fuego-latino.jpg', '', 1600, 2000, 612, 'cartel', [{ label: 'Fuego Latino', kind: 'Cartel', href: EV }], '3 nov · Laura', 'Fuego Latino'),
+  I(2, 'cartel-noche-remember.jpg', '', 1600, 2000, 588, 'cartel', [{ label: 'Noche Remember', kind: 'Cartel', href: EV }], '3 nov · Laura', 'Noche Remember'),
+  I(3, 'cartel-halloween.jpg', '', 1600, 2000, 640, 'cartel', [], '12 oct · Laura', 'Halloween'),
+  I(4, 'terraza-noche.png', 'assets/terraza.png', 2400, 1600, 1840, 'web', [{ label: 'Inicio · La terraza', kind: 'Web', href: WEB + '#terraza' }], '28 sep · Laura'),
+  I(5, 'pista-luces-rosas.png', 'assets/hero-2.png', 2400, 1350, 2210, 'web', [{ label: 'Inicio · Portada', kind: 'Web', href: WEB }], '28 sep · Laura'),
+  I(6, 'sala-sofas.png', 'assets/vip.png', 2000, 1333, 1460, 'web', [{ label: 'Inicio · El pub', kind: 'Web', href: WEB + '#pub' }], '28 sep · Laura'),
+  I(7, 'carta-pijoteo.jpg', '', 1800, 1200, 720, 'carta', [{ label: 'Pijoteo', kind: 'Carta', href: CA }], '2 oct · Laura', 'Pijoteo'),
+  I(8, 'carta-cocteles.jpg', '', 1800, 1200, 690, 'carta', [{ label: 'Cócteles', kind: 'Carta', href: CA }], '2 oct · Laura', 'Cócteles'),
+];
+const kbLabel = kb => kb >= 1000 ? (kb / 1000).toFixed(1).replace('.', ',') + ' MB' : kb + ' KB';
+const sizes = w => [1600, 800, 400].filter(x => x <= w || x === 400).map(x => x + ' px').join(' · ');
+let uid = 100;
+
+class Component extends DCLogic {
+  state = { mobile: window.matchMedia('(max-width: 960px)').matches, tab: 'todas', list: SEED, openId: null, errors: [], dragging: false, toast: null };
+  fileRef = React.createRef();
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  toast(title, msg) { clearTimeout(this.toastT); this.setState({ toast: { title, msg } }); this.toastT = setTimeout(() => this.setState({ toast: null }), 3000); }
+  async addFiles(files) {
+    const errors = [], added = [];
+    for (const f of Array.from(files || [])) {
+      if (!/^image\/(jpeg|png|webp)$/.test(f.type)) { errors.push({ name: f.name, msg: 'Formato no admitido. Usa JPG, PNG o WebP.' }); continue; }
+      if (f.size > MAX_MB * 1048576) { errors.push({ name: f.name, msg: `Pesa ${(f.size / 1048576).toFixed(1).replace('.', ',')} MB. El máximo es ${MAX_MB} MB.` }); continue; }
+      const src = URL.createObjectURL(f);
+      const dim = await new Promise(res => { const im = new Image(); im.onload = () => res([im.naturalWidth, im.naturalHeight]); im.onerror = () => res([0, 0]); im.src = src; });
+      if (dim[0] < MIN_W) { errors.push({ name: f.name, msg: `Mide ${dim[0]} px de ancho. Necesita al menos ${MIN_W} px.` }); URL.revokeObjectURL(src); continue; }
+      added.push({ ...I(uid++, f.name, src, dim[0], dim[1], Math.round(f.size / 1024), 'web', [], 'Ahora · Laura'), isNew: true });
+    }
+    this.setState(s => ({ list: [...added, ...s.list], errors, dragging: false, tab: added.length ? 'todas' : s.tab }));
+    if (added.length) this.toast(added.length === 1 ? 'Imagen subida' : `${added.length} imágenes subidas`, 'Ya puedes usarla en un evento o en la carta.');
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile;
+    const unused = s.list.filter(x => !x.uses.length).length;
+    const match = { todas: () => true, cartel: x => x.kind === 'cartel', carta: x => x.kind === 'carta', web: x => x.kind === 'web', sin: x => !x.uses.length }[s.tab];
+    const items = s.list.filter(match);
+    const navItems = [
+      ['Inicio', 'layout-dashboard', 'Admin - Inicio.dc.html'], ['Eventos', 'calendar', EV], ['Carta', 'utensils', CA],
+      ['Reservas', 'calendar-clock', 'Admin - Reservas.dc.html', false, 3], ['Imágenes', 'image', '#', true], ['Personal', 'users', 'Admin - Personal.dc.html'],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    const d = s.list.find(x => x.id === s.openId);
+    return {
+      isDesktop: !m, shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px', asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, c]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!c, count: c || 0, bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      fileRef: this.fileRef, openPicker: () => this.fileRef.current && this.fileRef.current.click(),
+      onPick: e => { this.addFiles(e.target.files); e.target.value = ''; },
+      onDragOver: e => { e.preventDefault(); if (!s.dragging) this.setState({ dragging: true }); },
+      onDragLeave: e => { if (!e.currentTarget.contains(e.relatedTarget)) this.setState({ dragging: false }); },
+      onDrop: e => { e.preventDefault(); this.addFiles(e.dataTransfer.files); },
+      dragging: s.dragging, hasErrors: s.errors.length > 0, errors: s.errors,
+      tabs: [['todas', 'Todas', s.list.length], ['cartel', 'Carteles'], ['carta', 'Carta'], ['web', 'Web'], ['sin', 'Sin usar', unused]].map(([k, l, c]) => { const on = s.tab === k; return {
+        label: c !== undefined ? `${l} · ${c}` : l, selected: on ? 'true' : 'false', pick: () => this.setState({ tab: k }),
+        bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' }; }),
+      isEmpty: items.length === 0, cardMin: m ? '150px' : '220px',
+      items: items.map(x => ({ ...x, hasSrc: !!x.src, noSrc: !x.src, isNew: !!x.isNew, ratio: x.kind === 'cartel' ? '4 / 5' : '3 / 2',
+        meta: `${x.w}×${x.h} · ${kbLabel(x.kb)}`, useLabel: x.uses.length ? x.uses[0].kind + ' · ' + x.uses[0].label : 'Sin usar',
+        useColor: x.uses.length ? 'var(--fg-1)' : 'var(--magenta-300)', openLabel: 'Ver ' + x.file,
+        open: () => this.setState({ openId: x.id }) })),
+      detailOpen: !!d, dTitle: d ? d.file : '', dRatio: d ? `${d.w} / ${d.h}` : '3 / 2', dHasSrc: !!(d && d.src), dSrc: d ? d.src : '',
+      dUploaded: d ? d.uploaded : '', dMeta: d ? `${d.w}×${d.h} · ${kbLabel(d.kb)}` : '', dSizes: d ? sizes(d.w) : '',
+      dUses: d ? d.uses : [], dUnused: !!(d && !d.uses.length), dUsed: !!(d && d.uses.length),
+      closeDetail: () => this.setState({ openId: null }),
+      doDelete: () => { if (!d) return; if (d.src && d.src.startsWith('blob:')) URL.revokeObjectURL(d.src); this.setState(st => ({ list: st.list.filter(x => x.id !== d.id), openId: null })); this.toast('Imagen eliminada', d.file + ' y sus tres tamaños.'); },
+      hasToast: !!s.toast, toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '', closeToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

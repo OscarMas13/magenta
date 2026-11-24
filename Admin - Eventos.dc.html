@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/styles.css">
+  <script src="_ds/magenta-design-system-d2684ba1-8ebc-4423-a6fa-9dc3cf718f9d/_ds_bundle.js"></script>
+  <script src="eventos.js"></script>
+  <meta name="robots" content="noindex">
+  <style>
+    body { margin: 0; background: var(--ink-950); }
+    a { color: var(--fg-1); text-decoration: none; transition: color 140ms ease-out; }
+    a:hover { color: var(--magenta-300); }
+    textarea:focus-visible { outline: 2px solid var(--neon-500); outline-offset: 2px; }
+    span[style*="icons/layout-dashboard.svg"] { -webkit-mask-image: url(assets/icons/layout-dashboard.svg) !important; mask-image: url(assets/icons/layout-dashboard.svg) !important; }
+    span[style*="icons/calendar.svg"] { -webkit-mask-image: url(assets/icons/calendar.svg) !important; mask-image: url(assets/icons/calendar.svg) !important; }
+    span[style*="icons/utensils.svg"] { -webkit-mask-image: url(assets/icons/utensils.svg) !important; mask-image: url(assets/icons/utensils.svg) !important; }
+    span[style*="icons/calendar-clock.svg"] { -webkit-mask-image: url(assets/icons/calendar-clock.svg) !important; mask-image: url(assets/icons/calendar-clock.svg) !important; }
+    span[style*="icons/image.svg"] { -webkit-mask-image: url(assets/icons/image.svg) !important; mask-image: url(assets/icons/image.svg) !important; }
+    span[style*="icons/users.svg"] { -webkit-mask-image: url(assets/icons/users.svg) !important; mask-image: url(assets/icons/users.svg) !important; }
+    span[style*="icons/log-out.svg"] { -webkit-mask-image: url(assets/icons/log-out.svg) !important; mask-image: url(assets/icons/log-out.svg) !important; }
+    span[style*="icons/plus.svg"] { -webkit-mask-image: url(assets/icons/plus.svg) !important; mask-image: url(assets/icons/plus.svg) !important; }
+    span[style*="icons/arrow-left.svg"] { -webkit-mask-image: url(assets/icons/arrow-left.svg) !important; mask-image: url(assets/icons/arrow-left.svg) !important; }
+    span[style*="icons/arrow-right.svg"] { -webkit-mask-image: url(assets/icons/arrow-right.svg) !important; mask-image: url(assets/icons/arrow-right.svg) !important; }
+    span[style*="icons/x.svg"] { -webkit-mask-image: url(assets/icons/x.svg) !important; mask-image: url(assets/icons/x.svg) !important; }
+    span[style*="icons/chevron-down.svg"] { -webkit-mask-image: url(assets/icons/chevron-down.svg) !important; mask-image: url(assets/icons/chevron-down.svg) !important; }
+  </style>
+</helmet>
+<div style="--radius-sm: 999px; background: var(--ink-950); color: var(--fg-1); font-family: var(--font-body); font-size: 16px; line-height: 1.5; min-height: 100vh; display: grid; grid-template-columns: {{ shellCols }};">
+
+  <aside style="position: sticky; top: 0; z-index: 30; height: {{ asideH }}; display: flex; flex-direction: {{ asideDir }}; gap: {{ asideGap }}; padding: {{ asidePad }}; background: var(--ink-900); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); box-sizing: border-box; min-width: 0;">
+    <a href="Magenta Web v2.dc.html" style="display: block; flex: none;"><img src="assets/logo-white.png" alt="Magenta" style="height: {{ logoH }}; display: block;"></a>
+    <nav aria-label="Panel de administración" style="display: flex; flex-direction: {{ asideDir }}; gap: 4px; overflow-x: auto; min-width: 0; flex: 1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display: flex; align-items: center; gap: 12px; flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; background: {{ n.bg }}; color: {{ n.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="{{ n.icon }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>{{ n.label }}</span>
+          <sc-if value="{{ n.hasCount }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left: auto; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: var(--neon-500); color: #0B0709; font: 700 12px/22px var(--font-mono); text-align: center;">{{ n.count }}</span>
+          </sc-if>
+        </a>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+        <span style="font-size: 14px; color: var(--fg-2);">Sesión de <strong style="color: var(--fg-1);">Laura · Admin</strong></span>
+        <a href="Inicio de sesion.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase;">
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="log-out" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+          <span>Salir</span>
+        </a>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main style="min-width: 0; padding: clamp(28px, 4vw, 56px) var(--gutter) 120px; display: flex; flex-direction: column; gap: 32px; max-width: 1240px; box-sizing: border-box; width: 100%;">
+
+    <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Admin · Eventos" style="display: flex; flex-direction: column; gap: 28px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px;">
+          <h1 style="margin: 0; font: 900 clamp(44px, 5vw, 72px)/.9 var(--font-display); text-transform: uppercase;">Eventos</h1>
+          <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon="plus" on-click="{{ newEvent }}" hint-size="190px,52px">Nuevo evento</x-import>
+        </div>
+        <div role="tablist" aria-label="Filtrar eventos" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+            <button type="button" role="tab" aria-selected="{{ f.selected }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 18px; border: 1px solid {{ f.border }}; border-radius: 999px; background: {{ f.bg }}; color: {{ f.fg }}; font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ rows }}" as="e" hint-placeholder-count="5">
+            <button type="button" onClick="{{ e.open }}" style="display: grid; grid-template-columns: {{ rowCols }}; align-items: center; gap: 12px 24px; padding: 18px 22px; border: 0; background: var(--ink-900); color: var(--fg-1); text-align: left; cursor: pointer; font: inherit; transition: background 140ms ease-out;" style-hover="background: var(--ink-850);">
+              <span style="font: 600 15px/1.2 var(--font-mono); color: var(--fg-2);">{{ e.when }}</span>
+              <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;">
+                  <span style="font: 900 26px/1 var(--font-display); text-transform: uppercase;">{{ e.title }}</span>
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ e.badgeTone }}" hint-size="90px,22px">{{ e.badgeLabel }}</x-import>
+                </span>
+                <span style="font-size: 14px; color: var(--fg-2);">{{ e.artists }}</span>
+              </span>
+              <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: var(--ink-800); overflow: hidden; min-width: 60px;">
+                  <span style="display: block; height: 100%; width: {{ e.pct }}; background: {{ e.barColor }};"></span>
+                </span>
+                <span style="font: 600 14px/1 var(--font-mono); white-space: nowrap;">{{ e.soldLabel }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 0; padding: 28px 20px; background: var(--ink-900); color: var(--fg-2); text-align: center;">No hay eventos en esta lista.</p>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEdit }}" hint-placeholder-val="{{ false }}">
+      <form data-screen-label="Admin · Editar evento" onSubmit="{{ preventSubmit }}" novalidate="" style="display: flex; flex-direction: column; gap: 36px;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <button type="button" onClick="{{ backToList }}" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--fg-1); font: 700 14px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; cursor: pointer;">
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="arrow-left" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+            <span>Eventos</span>
+          </button>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;">
+            <h1 style="margin: 0; font: 900 clamp(40px, 4.6vw, 68px)/.9 var(--font-display); text-transform: uppercase;">{{ editTitle }}</h1>
+            <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Badge" tone="{{ editBadgeTone }}" hint-size="90px,22px">{{ editBadge }}</x-import>
+          </div>
+          <sc-if value="{{ hasSales }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 15px; color: var(--fg-2);">{{ salesNote }}</p>
+          </sc-if>
+        </div>
+
+        <div style="display: grid; grid-template-columns: {{ editCols }}; gap: clamp(28px, 4vw, 56px); align-items: start;">
+          <div style="display: flex; flex-direction: column; gap: 36px; min-width: 0;">
+            <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 20px;">
+              <legend style="padding: 0 0 18px; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Datos</legend>
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Nombre del evento" placeholder="Fuego Latino" value="{{ f.title }}" on-change="{{ set.title }}" error="{{ err.title }}" hint-size="100%,84px"></x-import>
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Artistas o subtítulo" placeholder="Reggaeton · Dembow · Salsa" value="{{ f.artists }}" on-change="{{ set.artists }}" hint-size="100%,84px"></x-import>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 20px;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Fecha" type="date" value="{{ f.date }}" on-change="{{ set.date }}" error="{{ err.date }}" hint-size="100%,84px"></x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Abre" type="time" value="{{ f.open }}" on-change="{{ set.open }}" hint-size="100%,84px"></x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Cierra" type="time" value="{{ f.close }}" on-change="{{ set.close }}" hint-size="100%,84px"></x-import>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 20px;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Select" label="Estilo" options="{{ genres }}" value="{{ f.genre }}" on-change="{{ set.genre }}" hint-size="100%,80px"></x-import>
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Aforo" type="number" value="{{ f.cap }}" on-change="{{ set.cap }}" error="{{ err.cap }}" hint="Máximo del local: 400." hint-size="100%,84px"></x-import>
+              </div>
+              <label style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font: 700 11px/1 var(--font-body); letter-spacing: var(--ls-caps-wide); text-transform: uppercase; color: var(--fg-3);">Descripción</span>
+                <textarea value="{{ f.desc }}" onChange="{{ set.descEv }}" rows="4" placeholder="Qué música suena, dress code, si hay invitado…" style="width: 100%; box-sizing: border-box; padding: 14px 18px; background: var(--bg-raised); color: var(--fg-1); border: 1px solid var(--border-default); border-radius: 20px; font: 400 16px/1.5 var(--font-body); resize: vertical;"></textarea>
+              </label>
+            </fieldset>
+
+            <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 12px;">
+              <legend style="padding: 0 0 18px; font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Tipos de entrada</legend>
+              <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="2">
+                <div style="display: grid; grid-template-columns: {{ tierCols }}; gap: 12px 16px; align-items: start; padding: 18px; background: var(--ink-900);">
+                  <div style="grid-column: {{ nameSpan }}; min-width: 0;">
+                    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Nombre" placeholder="Anticipada" value="{{ t.name }}" on-change="{{ t.setName }}" error="{{ t.errName }}" hint-size="100%,84px"></x-import>
+                  </div>
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Precio €" type="number" value="{{ t.price }}" on-change="{{ t.setPrice }}" error="{{ t.errPrice }}" hint-size="100%,84px"></x-import>
+                  <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Input" label="Cantidad" type="number" value="{{ t.qty }}" on-change="{{ t.setQty }}" hint="{{ t.soldHint }}" hint-size="100%,84px"></x-import>
+                  <button type="button" onClick="{{ t.remove }}" disabled="{{ t.locked }}" aria-label="{{ t.removeLabel }}" title="{{ t.removeTitle }}" style="align-self: center; margin-top: 18px; width: 44px; height: 44px; border: 1px solid var(--border-default); border-radius: 50%; background: transparent; color: var(--fg-1); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: {{ t.removeOpacity }};">
+                    <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Icon" name="x" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+                  </button>
+                </div>
+              </sc-for>
+              <sc-if value="{{ hasCapWarn }}" hint-placeholder-val="{{ false }}">
+                <span role="alert" style="font-size: 14px; color: var(--magenta-300);">{{ capWarn }}</span>
+              </sc-if>
+              <div style="display: flex;">
+                <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" variant="outline" icon="plus" on-click="{{ addTier }}" hint-size="190px,44px">Añadir tipo</x-import>
+              </div>
+            </fieldset>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 28px; min-width: 0; position: {{ sidePos }}; top: 32px;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <span style="font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Cartel</span>
+              <div style="aspect-ratio: 4 / 5; width: 100%;">
+                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="poster-{{ editId }}" placeholder="Arrastra el cartel (4:5, JPG o PNG)" radius="0" hint-size="100%,100%"></x-import>
+              </div>
+              <span style="font-size: 14px; color: var(--fg-2);">Sale en la agenda, en la compra y en el PDF de la entrada.</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px; background: var(--ink-900);">
+              <span style="font: 700 13px/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--magenta-300);">Publicación</span>
+              <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Switch" checked="{{ f.notify }}" on-change="{{ set.notify }}" disabled="{{ notifyLocked }}" label="{{ notifyLabel }}" hint-size="100%,24px"></x-import>
+              <span style="font-size: 14px; color: var(--fg-2);">{{ notifyNote }}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </sc-if>
+  </main>
+
+  <sc-if value="{{ isEdit }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: {{ barLeft }}; right: 0; bottom: 0; z-index: 40; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px; padding: 14px var(--gutter); background: var(--ink-900); border-top: 1px solid var(--border-default);">
+      <span style="margin-right: auto; font-size: 14px; color: var(--fg-2);">{{ barNote }}</span>
+      <sc-if value="{{ canDraft }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" variant="outline" on-click="{{ saveDraft }}" hint-size="200px,52px">Guardar borrador</x-import>
+      </sc-if>
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Button" size="lg" icon-right="arrow-right" on-click="{{ publish }}" hint-size="170px,52px">{{ publishLabel }}</x-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 96px; z-index: 50; display: flex; justify-content: center;">
+      <x-import component-from-global-scope="MagentaDesignSystem_d2684b.Toast" tone="success" title="{{ toastTitle }}" message="{{ toastMsg }}" on-close="{{ closeToast }}" hint-size="360px,72px"></x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DS = ['dom','lun','mar','mié','jue','vie','sáb'];
+const MON_UP = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const CAP = 400;
+const GENRES = ['House', 'Techno', 'Pop', 'Latin', 'Reggaeton', 'Remember', 'Otro'];
+const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 7);
+const pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const now = new Date(), today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dateOf = e => { let d = new Date(now.getFullYear(), MON_UP.indexOf(e.month), +e.date); if (d < today0 - 60 * 864e5) d = new Date(now.getFullYear() + 1, MON_UP.indexOf(e.month), +e.date); return d; };
+    const src = (window.MAGENTA_EVENTS || []).map((e, i) => {
+      const d = dateOf(e), past = d < today0;
+      const sold = past ? CAP - (hash(e.id) % 60) : e.status === 'soldout' ? CAP : e.status === 'few' ? CAP - 18 - (hash(e.id) % 20) : Math.max(24, 290 - i * 50 + (hash(e.id) % 50));
+      const [open, close] = (e.doors || '23:00 → 03:30').split('→').map(s => s.trim());
+      return { id: e.id, title: e.title, artists: e.artists, date: iso(d), open, close, genre: GENRES.includes(e.genre) ? e.genre : 'Otro', cap: CAP, desc: '',
+        st: past ? 'past' : 'pub', sold, notify: false, notified: !past,
+        tiers: [{ k: 1, name: 'Early bird', price: e.base - 5, qty: 100, sold: Math.min(100, sold) }, { k: 2, name: 'Anticipada', price: e.base, qty: 200, sold: Math.max(0, Math.min(200, sold - 100)) }, { k: 3, name: 'Anticipada + copa', price: e.base + 8, qty: 100, sold: Math.max(0, sold - 300) }] };
+    });
+    const dd = new Date(today0.getTime() + 30 * 864e5);
+    src.push({ id: 'remember', title: 'Remember 2000', artists: 'Line-up por cerrar', date: iso(dd), open: '23:00', close: '03:30', genre: 'Remember', cap: CAP, desc: '', st: 'draft', sold: 0, notify: true, notified: false,
+      tiers: [{ k: 1, name: 'Anticipada', price: 15, qty: 300, sold: 0 }] });
+    const q = new URLSearchParams(location.search);
+    const startId = q.get('e'), isNew = q.get('nuevo');
+    this.state = { mobile: window.matchMedia('(max-width: 960px)').matches, events: src, filter: 'pub', editId: null, form: null, tried: false, toast: null };
+    if (isNew) Object.assign(this.state, this.formFor(null));
+    else if (startId && src.find(e => e.id === startId)) Object.assign(this.state, this.formFor(src.find(e => e.id === startId)));
+  }
+  formFor(ev) {
+    if (!ev) return { editId: 'nuevo', tried: false, form: { id: 'nuevo', title: '', artists: '', date: '', open: '23:00', close: '03:30', genre: 'House', cap: String(CAP), desc: '', st: 'new', sold: 0, notify: true, notified: false, tiers: [{ k: 1, name: 'Anticipada', price: '', qty: '', sold: 0 }] } };
+    return { editId: ev.id, tried: false, form: { ...ev, cap: String(ev.cap), tiers: ev.tiers.map(t => ({ ...t, price: String(t.price), qty: String(t.qty) })) } };
+  }
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 960px)');
+    this.onMq = e => this.setState({ mobile: e.matches });
+    this.mq.addEventListener('change', this.onMq);
+  }
+  componentWillUnmount() { if (this.mq) this.mq.removeEventListener('change', this.onMq); clearTimeout(this.toastT); }
+  toast(title, msg) { clearTimeout(this.toastT); this.setState({ toast: { title, msg } }); this.toastT = setTimeout(() => this.setState({ toast: null }), 3500); }
+  upd(patch) { this.setState(s => ({ form: { ...s.form, ...patch } })); }
+  updTier(k, patch) { this.setState(s => ({ form: { ...s.form, tiers: s.form.tiers.map(t => t.k === k ? { ...t, ...patch } : t) } })); }
+  errors(f) {
+    const e = { title: f.title.trim() ? '' : 'Pon un nombre al evento.', date: f.date ? '' : 'Elige la fecha.', cap: +f.cap > 0 && +f.cap <= CAP ? '' : `Entre 1 y ${CAP}.` };
+    e.tiers = f.tiers.map(t => ({ name: t.name.trim() ? '' : 'Ponle nombre.', price: t.price !== '' && +t.price >= 0 ? '' : 'Precio no válido.' }));
+    e.any = !!(e.title || e.date || e.cap || e.tiers.some(t => t.name || t.price));
+    return e;
+  }
+  save(st) {
+    const f = this.state.form, e = this.errors(f);
+    if (st === 'pub' && e.any) return this.setState({ tried: true });
+    if (st === 'draft' && !f.title.trim()) return this.setState({ tried: true });
+    const id = f.id === 'nuevo' ? f.title.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'evento' : f.id;
+    const sendNow = st === 'pub' && f.notify && !f.notified;
+    const out = { ...f, id, st, cap: +f.cap, notified: f.notified || sendNow, tiers: f.tiers.map(t => ({ ...t, price: +t.price, qty: +t.qty || 0 })) };
+    this.setState(s => ({ events: s.events.some(x => x.id === f.id) ? s.events.map(x => x.id === f.id ? out : x) : [out, ...s.events], editId: null, form: null, tried: false, filter: st === 'draft' ? 'draft' : 'pub' }));
+    window.scrollTo({ top: 0 });
+    this.toast(st === 'draft' ? 'Borrador guardado' : f.st === 'pub' ? 'Cambios publicados' : 'Evento publicado', sendNow ? 'Se está enviando el aviso a los suscriptores.' : st === 'draft' ? 'No se ve en la web hasta que lo publiques.' : 'Ya se ve en la agenda de la web.');
+  }
+  renderVals() {
+    const s = this.state, m = s.mobile, now = new Date();
+    const fmt = iso => { if (!iso) return 'Sin fecha'; const [y, mo, d] = iso.split('-').map(Number); const dt = new Date(y, mo - 1, d); return `${DS[dt.getDay()]} ${d} ${MON_UP[mo - 1].toLowerCase()}`; };
+    const counts = { pub: 0, draft: 0, past: 0 };
+    s.events.forEach(e => counts[e.st]++);
+    const list = s.events.filter(e => e.st === s.filter).sort((a, b) => s.filter === 'past' ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date));
+    const BADGE = { pub: ['brand', 'Publicado'], draft: ['paper', 'Borrador'], past: ['paper', 'Pasado'], new: ['paper', 'Nuevo'] };
+    const f = s.form;
+    const er = f && s.tried ? this.errors(f) : { title: '', date: '', cap: '', tiers: [] };
+    const tierTotal = f ? f.tiers.reduce((a, t) => a + (+t.qty || 0), 0) : 0;
+    const navItems = [
+      ['Inicio', 'layout-dashboard', 'Admin - Inicio.dc.html'], ['Eventos', 'calendar', '#', true], ['Carta', 'utensils', 'Admin - Carta.dc.html'],
+      ['Reservas', 'calendar-clock', 'Admin - Reservas.dc.html', false, 3], ['Imágenes', 'image', 'Admin - Imagenes.dc.html'], ['Personal', 'users', 'Admin - Personal.dc.html'],
+    ];
+    if (m) navItems.push(['Salir', 'log-out', 'Inicio de sesion.dc.html']);
+    return {
+      isDesktop: !m, shellCols: m ? 'minmax(0, 1fr)' : '264px minmax(0, 1fr)',
+      asideH: m ? 'auto' : '100vh', asideDir: m ? 'row' : 'column', asideGap: m ? '12px' : '28px', asidePad: m ? '10px var(--gutter)' : '28px 20px', logoH: m ? '40px' : '84px',
+      nav: navItems.map(([label, icon, href, cur, count]) => ({ label, icon, href, current: cur ? 'page' : 'false', hasCount: !!count, count: count || 0, bg: cur ? 'var(--magenta-500)' : 'transparent', fg: cur ? '#FFFFFF' : 'var(--fg-1)' })),
+      isList: !f, isEdit: !!f,
+      newEvent: () => { this.setState(this.formFor(null)); window.scrollTo({ top: 0 }); },
+      filters: [['pub', 'Publicados'], ['draft', 'Borradores'], ['past', 'Pasados']].map(([k, l]) => { const on = s.filter === k; return { label: `${l} · ${counts[k]}`, selected: on ? 'true' : 'false', pick: () => this.setState({ filter: k }), bg: on ? 'var(--magenta-500)' : 'transparent', fg: on ? '#FFFFFF' : 'var(--fg-1)', border: on ? 'var(--magenta-500)' : 'var(--border-default)' }; }),
+      rowCols: m ? 'minmax(0, 1fr)' : '120px minmax(0, 1fr) minmax(180px, 260px)',
+      rows: list.map(e => ({ when: fmt(e.date), title: e.title, artists: e.artists, badgeTone: e.sold >= e.cap && e.st === 'pub' ? 'paper' : BADGE[e.st][0], badgeLabel: e.sold >= e.cap && e.st === 'pub' ? 'Agotado' : BADGE[e.st][1],
+        pct: (e.sold / e.cap * 100).toFixed(1) + '%', barColor: e.sold >= e.cap * .9 ? 'var(--neon-500)' : 'var(--magenta-500)', soldLabel: `${e.sold} / ${e.cap}`,
+        open: () => { this.setState(this.formFor(e)); window.scrollTo({ top: 0 }); } })),
+      listEmpty: list.length === 0,
+      backToList: () => this.setState({ editId: null, form: null, tried: false }),
+      preventSubmit: e => e.preventDefault(),
+      editId: f ? f.id : '', editTitle: f ? (f.id === 'nuevo' ? 'Nuevo evento' : f.title || 'Sin nombre') : '',
+      editBadge: f ? BADGE[f.st][1] : '', editBadgeTone: f ? BADGE[f.st][0] : 'paper',
+      hasSales: !!(f && f.sold > 0), salesNote: f ? `${f.sold} entradas vendidas. Los tipos con ventas no se pueden borrar y su cantidad no puede bajar de lo vendido.` : '',
+      editCols: m ? 'minmax(0, 1fr)' : 'minmax(0, 7fr) minmax(260px, 4fr)', sidePos: m ? 'relative' : 'sticky',
+      genres: GENRES,
+      f: f || { title: '', artists: '', date: '', open: '', close: '', genre: 'House', cap: '', desc: '', notify: false },
+      set: { title: v => this.upd({ title: v }), artists: v => this.upd({ artists: v }), date: v => this.upd({ date: v }), open: v => this.upd({ open: v }), close: v => this.upd({ close: v }),
+        genre: v => this.upd({ genre: v }), cap: v => this.upd({ cap: v }), descEv: e => this.upd({ desc: e.target.value }), notify: v => this.upd({ notify: !!v }) },
+      err: er,
+      nameSpan: m ? '1 / -1' : 'auto',
+      tierCols: m ? 'minmax(0, 1fr) minmax(0, 1fr) 44px' : 'minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) 44px',
+      tiers: f ? f.tiers.map((t, i) => {
+        const locked = t.sold > 0 || f.tiers.length === 1;
+        return { ...t, setName: v => this.updTier(t.k, { name: v }), setPrice: v => this.updTier(t.k, { price: v }), setQty: v => this.updTier(t.k, { qty: String(Math.max(t.sold, +v || 0)) }),
+          errName: er.tiers[i] ? er.tiers[i].name : '', errPrice: er.tiers[i] ? er.tiers[i].price : '',
+          soldHint: t.sold ? `${t.sold} vendidas` : '', locked, removeOpacity: locked ? .35 : 1,
+          removeLabel: 'Quitar ' + (t.name || 'tipo de entrada'), removeTitle: t.sold ? 'Tiene ventas: no se puede quitar' : f.tiers.length === 1 ? 'Tiene que haber al menos un tipo' : 'Quitar',
+          remove: () => { if (!locked) this.upd({ tiers: f.tiers.filter(x => x.k !== t.k) }); } };
+      }) : [],
+      hasCapWarn: !!(f && tierTotal > +f.cap), capWarn: `Las cantidades suman ${tierTotal} y el aforo es ${f ? f.cap : 0}. La venta se cortará al llegar al aforo.`,
+      addTier: () => this.upd({ tiers: [...f.tiers, { k: Date.now(), name: '', price: '', qty: '', sold: 0 }] }),
+      notifyLocked: !!(f && f.notified), notifyLabel: f && f.notified ? 'Aviso ya enviado' : 'Avisar a los suscriptores al publicar',
+      notifyNote: f && f.notified ? 'Los suscriptores ya recibieron el aviso de este evento. No se vuelve a enviar.' : 'Se manda un correo con el cartel y el enlace de compra. Solo una vez por evento.',
+      barLeft: m ? '0px' : '264px',
+      barNote: f ? (f.st === 'pub' ? 'Los cambios se ven al momento en la web.' : 'Hasta que no lo publiques, no sale en la web.') : '',
+      canDraft: !!(f && f.st !== 'pub' && f.st !== 'past'), publishLabel: f && f.st === 'pub' ? 'Guardar cambios' : 'Publicar',
+      saveDraft: () => this.save('draft'), publish: () => this.save(f && f.st === 'past' ? 'past' : 'pub'),
+      hasToast: !!s.toast, toastTitle: s.toast ? s.toast.title : '', toastMsg: s.toast ? s.toast.msg : '', closeToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>
